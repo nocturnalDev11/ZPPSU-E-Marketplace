@@ -18,7 +18,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Seed the roles table with default roles
         DB::table('roles')->insert([
             ['id' => 1, 'name' => 'admin'],
             ['id' => 2, 'name' => 'campus_user'],
