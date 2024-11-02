@@ -45,9 +45,13 @@ const showingNavigationDropdown = ref(false);
                                             d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                                     </svg>
                                 </NavLink>
+<<<<<<< Updated upstream
                                 <NavLink href="#">
                                     <!-- <NavLink :href="route('products.index')"
                                         :active="route().current('products.index')"> -->
+=======
+                                <NavLink :href="route('products.index')" :active="route().current('products.index')">
+>>>>>>> Stashed changes
                                     <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 20 20"
                                         fill="none">
                                         <g id="Delivery">
@@ -81,7 +85,11 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink href="#">
                                     <!-- <NavLink :href="route('products.index')"
                                         :active="route().current('products.index')"> -->
+<<<<<<< Updated upstream
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+=======
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 20 20"
+>>>>>>> Stashed changes
                                         fill="none">
                                         <g id="Swap">
                                             <path id="icon"
@@ -91,6 +99,16 @@ const showingNavigationDropdown = ref(false);
                                         </g>
                                     </svg>
                                 </NavLink>
+<<<<<<< Updated upstream
+=======
+                                <NavLink href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.6" stroke="#6B7280">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+                                    </svg>
+                                </NavLink>
+>>>>>>> Stashed changes
                             </div>
 
                             <div class="flex-grow justify-end sm:ms-6 sm:flex sm:items-center">
@@ -100,7 +118,11 @@ const showingNavigationDropdown = ref(false);
                                             <span class="inline-flex rounded-md">
                                                 <button type="button"
                                                     class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
+<<<<<<< Updated upstream
                                                     Get Started
+=======
+                                                    {{ $page.props.auth.user.name }}
+>>>>>>> Stashed changes
                                                     <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 20 20" fill="currentColor">
                                                         <path fill-rule="evenodd"
@@ -113,6 +135,7 @@ const showingNavigationDropdown = ref(false);
 
                                         <template #content>
                                             <!-- <DropdownLink :href="route('user.login')">Login</DropdownLink> -->
+<<<<<<< Updated upstream
                                             <span
                                                 class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
                                                 Login
@@ -133,6 +156,19 @@ const showingNavigationDropdown = ref(false);
                                             </DropdownLink>
                                             <DropdownLink href="#">
                                                 Signup non-community members
+=======
+                                            <DropdownLink href="#">
+                                                Profile
+                                            </DropdownLink>
+                                            <DropdownLink href="#">
+                                                Edit profile
+                                            </DropdownLink>
+                                            <DropdownLink href="#">
+                                                Your lists
+                                            </DropdownLink>
+                                            <DropdownLink :href="route('campus.logout')" method="post" as="button">
+                                                Logout
+>>>>>>> Stashed changes
                                             </DropdownLink>
                                         </template>
                                     </Dropdown>
@@ -187,7 +223,7 @@ const showingNavigationDropdown = ref(false);
                                     <h6 class="text-gray-800 dark:text-gray-100 text-xs font-semibold leading-4">MENU
                                     </h6>
                                 </div>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('products.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -273,7 +309,7 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <aside
-                class="hidden xl:flex xl:w-96 w-80 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-50 dark:bg-gray-900 flex-col justify-start items-start gap-5">
+                class="border-r dark:border-gray-800 hidden xl:flex xl:w-96 w-80 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-50 dark:bg-gray-900 flex-col justify-start items-start gap-5">
                 <div class="w-full p-3 mt-16">
                     <div class="w-full items-center flex">
                         <div class="w-full justify-between items-center inline-flex">
@@ -298,8 +334,7 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <ul class="flex-col gap-1 flex">
                         <li>
-                            <!-- <SidebarLink :href="route('products.index')" :active="route().current('products.index')"> -->
-                            <SidebarLink href="#">
+                            <SidebarLink :href="route('products.index')" :active="route().current('products.index')">
                                 <div class="h-5 gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -421,7 +456,7 @@ const showingNavigationDropdown = ref(false);
                                         </svg>
                                     </div>
                                     <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
-                                        Settings</h2>
+                                        Edit profile</h2>
                                 </div>
                             </SidebarLink>
                         </li>

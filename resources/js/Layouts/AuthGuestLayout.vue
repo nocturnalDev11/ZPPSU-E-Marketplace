@@ -54,7 +54,6 @@ const showingNavigationDropdown = ref(false);
                                         </template>
 
                                         <template #content>
-                                            <!-- <DropdownLink :href="route('user.login')">Login</DropdownLink> -->
                                             <span
                                                 class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
                                                 Login
@@ -62,8 +61,7 @@ const showingNavigationDropdown = ref(false);
                                             <DropdownLink :href="route('campus.login')">
                                                 ZPPSU community members
                                             </DropdownLink>
-                                            <!-- <DropdownLink :href="route('buyer.login')"> -->
-                                            <DropdownLink href="#">
+                                            <DropdownLink :href="route('external.login')">
                                                 Non-community members
                                             </DropdownLink>
                                             <hr class="mx-2 py-2 border-gray-300 dark:border-gray-600">

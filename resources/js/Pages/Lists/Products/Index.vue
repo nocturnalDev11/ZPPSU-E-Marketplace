@@ -1,0 +1,143 @@
+<script setup>
+import GuestLayout from '../../../Layouts/GuestLayout.vue';
+import AuthCampusUserLayout from '../../../Layouts/AuthCampusUserLayout.vue';
+import Create from '../Products/Partials/Create.vue';
+import { Head, Link } from '@inertiajs/vue3';
+
+const props = defineProps({
+    products: {
+        type: Array,
+        default: () => [],
+    },
+    isAuthorized: {
+        type: Boolean,
+        default: false,
+    },
+});
+</script>
+
+<template>
+
+    <Head title="All products" />
+
+    <template v-if="isAuthorized">
+        <AuthCampusUserLayout>
+            <Create />
+            <div class="container grid h-full w-full grid-cols-1 gap-4 px-2 py-4 md:h-auto xl:grid-cols-5">
+                <template v-if="products.length > 0">
+                    <div v-for="product in products" :key="product.id" class="mb-6 w-full select-none">
+                        <div class="relative pb-64">
+                            <div class="cursor-pointer">
+                                <img class="absolute h-full w-full cursor-pointer rounded-lg border-b object-cover shadow-md"
+                                    :src="product.prod_picture || 'default-image-url'" alt="product name" />
+                            </div>
+                        </div>
+
+                        <div class="relative -mt-16 px-4">
+                            <div class="rounded-lg border bg-white shadow-lg">
+                                <div class="p-5">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-xs opacity-75">
+                                            <a class="hover:underline" href="#">{{ product.prod_category }}</a>
+                                        </div>
+
+                                        <span
+                                            class="select-none rounded-full bg-teal-200 px-3 py-1 text-xs text-green-500">
+                                            {{ product.prod_status }}
+                                        </span>
+                                    </div>
+
+                                    <a class="mt-2 block truncate text-lg font-medium text-gray-800 hover:underline"
+                                        href="#">
+                                        {{ product.prod_name }}
+                                    </a>
+                                </div>
+
+                                <div class="flex items-center justify-between px-4 pb-3">
+                                    <div>
+                                        <div class="text-lg text-gray-800">
+                                            <span class="font-medium">₱{{ product.prod_price }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Link :href="route('products.show', product.id)"
+                                            class="btn-link flex items-center text-xs text-indigo-600 hover:underline"
+                                            href="#">
+                                        View Product &rarr;
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="col-span-full text-center text-gray-600">
+                        No products available.
+                    </div>
+                </template>
+            </div>
+        </AuthCampusUserLayout>
+    </template>
+
+    <template v-else>
+        <GuestLayout>
+            <div class="grid h-full w-full grid-cols-1 gap-4 px-2 md:h-auto xl:grid-cols-5 py-20">
+                <template v-if="products.length > 0">
+                    <div v-for="product in products" :key="product.id" class="mb-6 w-full select-none">
+                        <div class="relative pb-64">
+                            <div class="cursor-pointer">
+                                <img class="absolute h-full w-full cursor-pointer rounded-lg border-b object-cover shadow-md"
+                                    :src="product.prod_picture || 'default-image-url'" alt="product name" />
+                            </div>
+                        </div>
+
+                        <div class="relative -mt-16 px-4">
+                            <div class="rounded-lg border bg-white shadow-lg">
+                                <div class="p-5">
+                                    <div class="flex items-center justify-between">
+                                        <div class="text-xs opacity-75">
+                                            <a class="hover:underline" href="#">{{ product.prod_category }}</a>
+                                        </div>
+
+                                        <span
+                                            class="select-none rounded-full bg-teal-200 px-3 py-1 text-xs text-green-500">
+                                            {{ product.prod_status }}
+                                        </span>
+                                    </div>
+
+                                    <a class="mt-2 block truncate text-lg font-medium text-gray-800 hover:underline"
+                                        href="#">
+                                        {{ product.prod_name }}
+                                    </a>
+                                </div>
+
+                                <div class="flex items-center justify-between px-4 pb-3">
+                                    <div>
+                                        <div class="text-lg text-gray-800">
+                                            <span class="font-medium">₱{{ product.prod_price }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Link :href="route('products.show', product.id)"
+                                            class="btn-link flex items-center text-xs text-indigo-600 hover:underline"
+                                            href="#">
+                                        View Product &rarr;
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="col-span-full text-center text-gray-600">
+                        No products available.
+                    </div>
+                </template>
+            </div>
+        </GuestLayout>
+    </template>
+</template>
