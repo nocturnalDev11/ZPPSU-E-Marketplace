@@ -19,7 +19,6 @@ class Product extends Model
         'prod_condition',
         'prod_description',
         'prod_quantity',
-        'prod_payment_status',
         'edited_at'
     ];
 

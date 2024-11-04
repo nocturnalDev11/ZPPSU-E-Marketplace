@@ -7,11 +7,11 @@ import GuestLayout from '../Layouts/GuestLayout.vue';
 
     <Head title="LandingPage" />
     <GuestLayout>
-        <div class="container px-4 md:px-10 mx-auto w-full h-screen py-20">
+        <div class="container px-4 md:px-10 mx-auto w-full h-screen pt-48">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <!-- Card 1 -->
                 <div
-                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-700">
+                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-800">
                     <div class="flex-auto p-4 flex flex-col justify-between h-full">
                         <div>
                             <div class="flex flex-wrap">
@@ -45,7 +45,7 @@ import GuestLayout from '../Layouts/GuestLayout.vue';
 
                 <!-- Card 2 -->
                 <div
-                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-700">
+                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-800">
                     <div class="flex-auto p-4 flex flex-col justify-between h-full">
                         <div>
                             <div class="flex flex-wrap">
@@ -78,7 +78,7 @@ import GuestLayout from '../Layouts/GuestLayout.vue';
 
                 <!-- Card 3 -->
                 <div
-                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-700">
+                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-800">
                     <div class="flex-auto p-4 flex flex-col justify-between h-full">
                         <div>
                             <div class="flex flex-wrap">
@@ -112,7 +112,7 @@ import GuestLayout from '../Layouts/GuestLayout.vue';
 
                 <!-- Card 4 -->
                 <div
-                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-700">
+                    class="relative flex flex-col min-w-0 break-words bg-white rounded-xl mb-6 xl:mb-0 shadow-lg h-52 dark:bg-gray-800">
                     <div class="flex-auto p-4 flex flex-col justify-between h-full">
                         <div>
                             <div class="flex flex-wrap">

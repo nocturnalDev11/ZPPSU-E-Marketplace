@@ -19,7 +19,6 @@ const form = useForm({
     prod_condition: '',
     prod_description: '',
     prod_quantity: '',
-    prod_payment_status: '',
 });
 
 const imagePreview = ref(null);
@@ -171,14 +170,6 @@ const closeModal = () => {
                         <TextInput id="prod_quantity" v-model="form.prod_quantity" type="number"
                             class="mt-1 block w-full" placeholder="Quantity" />
                         <InputError :message="form.errors.prod_quantity" class="mt-2" />
-                    </div>
-
-                    <!-- Payment Status -->
-                    <div>
-                        <InputLabel for="prod_payment_status" value="Payment Status" />
-                        <TextInput id="prod_payment_status" v-model="form.prod_payment_status" class="mt-1 block w-full"
-                            placeholder="Payment Status" />
-                        <InputError :message="form.errors.prod_payment_status" class="mt-2" />
                     </div>
 
                     <!-- Submit and Cancel buttons -->

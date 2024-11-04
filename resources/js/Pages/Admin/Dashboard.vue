@@ -1,13 +1,13 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import AdminLayout from '../../Layouts/AdminLayout.vue';
+import AuthAdminLayout from '../../Layouts/AuthAdminLayout.vue';
 </script>
 
 <template>
-    <AdminLayout>
+    <AuthAdminLayout>
 
         <Head title="Admin Dashboard" />
         <h1>Welcome to Admin Dashboard</h1>
 
-    </AdminLayout>
-</template>
+    </AuthAdminLayout>
+</template>S

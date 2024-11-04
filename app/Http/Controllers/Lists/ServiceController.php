@@ -16,6 +16,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        $isAuthorized = Auth::check();
+
         $services = Service::all()->map(function ($service) {
             $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
             return $service;
@@ -23,6 +25,7 @@ class ServiceController extends Controller
 
         return Inertia::render('Lists/Services/Index', [
             'services' => $services,
+            'isAuthorized' => $isAuthorized,
         ]);
     }
 

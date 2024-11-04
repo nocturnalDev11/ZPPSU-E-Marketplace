@@ -92,9 +92,17 @@ const submit = () => {
 
                 <!-- Submit Button -->
                 <div class="mt-8">
-                    <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Log in
-                    </PrimaryButton>
+                    <div class="mt-4 flex items-center justify-between">
+                        <Link :href="route('verification')"
+                            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800">
+                        New ZPPSU member?
+                        </Link>
+
+                        <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing">
+                            Log in
+                        </PrimaryButton>
+                    </div>
                 </div>
             </form>
         </div>

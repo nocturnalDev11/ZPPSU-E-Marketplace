@@ -69,10 +69,10 @@ const showingNavigationDropdown = ref(false);
                                                 class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
                                                 Verify/Signup
                                             </span>
-                                            <DropdownLink href="#">
+                                            <DropdownLink :href="route('verification')">
                                                 Email verification ZPPSU community members
                                             </DropdownLink>
-                                            <DropdownLink href="#">
+                                            <DropdownLink :href="route('external.signupForm')">
                                                 Signup non-community members
                                             </DropdownLink>
                                         </template>

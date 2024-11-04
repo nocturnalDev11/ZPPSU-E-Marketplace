@@ -43,7 +43,6 @@ class ProductController extends Controller
             'prod_condition' => 'required|string',
             'prod_description' => 'required|string|max:65535',
             'prod_quantity' => 'required|integer',
-            'prod_payment_status' => 'required|string',
         ]);
 
         $validatedData['user_id'] = Auth::id();
@@ -109,7 +108,6 @@ class ProductController extends Controller
             'prod_condition' => 'required|string',
             'prod_description' => 'required|string|max:65535',
             'prod_quantity' => 'required|integer',
-            'prod_payment_status' => 'nullable|string',
         ]);
 
         if ($request->hasFile('prod_picture')) {

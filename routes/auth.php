@@ -9,9 +9,13 @@ Route::middleware('guest')->group(function () {
     Route::get('admin/login', [AuthAdminController::class, 'create'])->name('admin.login');
     Route::post('admin/login', [AuthAdminController::class, 'store']);
 
+    Route::get('/verification', [AuthCampusController::class, 'verification'])->name('verification');
+    Route::post('/send-credentials', [AuthCampusController::class, 'sendCredentials'])->name('send.credentials');
     Route::get('campus/login', [AuthCampusController::class, 'create'])->name('campus.login');
     Route::post('campus/login', [AuthCampusController::class, 'store']);
 
+    Route::get('external/signup', [AuthExternalController::class, 'signupForm'])->name('external.signupForm');
+    Route::post('external/signup', [AuthExternalController::class, 'signup'])->name('external.signup');
     Route::get('external/login', [AuthExternalController::class, 'create'])->name('external.login');
     Route::post('external/login', [AuthExternalController::class, 'store']);
 });

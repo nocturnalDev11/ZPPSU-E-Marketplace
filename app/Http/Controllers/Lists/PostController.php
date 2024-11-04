@@ -16,6 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $isAuthorized = Auth::check();
+
         $posts = Post::all()->map(function ($post) {
             $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
             return $post;
@@ -23,6 +25,7 @@ class PostController extends Controller
 
         return Inertia::render('Lists/Posts/Index', [
             'posts' => $posts,
+            'isAuthorized' => $isAuthorized,
         ]);
     }
 

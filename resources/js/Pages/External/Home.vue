@@ -1,10 +1,10 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import AuthExternalUserLayout from '../../Layouts/AuthExternalUserLayout.vue';
+import AuthUsersLayout from '../../Layouts/AuthUsersLayout.vue';
 </script>
 
 <template>
-    <AuthExternalUserLayout>
+    <AuthUsersLayout>
 
         <Head title="Home" />
         <div class="px-4 md:px-10 mx-auto w-full">
@@ -144,5 +144,5 @@ import AuthExternalUserLayout from '../../Layouts/AuthExternalUserLayout.vue';
             </div>
         </div>
 
-    </AuthExternalUserLayout>
+    </AuthUsersLayout>
 </template>

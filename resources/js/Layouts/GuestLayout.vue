@@ -15,15 +15,15 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <div class="fixed left-0 right-0 top-0">
-                <nav class="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+            <div class="fixed left-0 right-0 top-0 z-50">
+                <nav class="bg-white dark:bg-gray-800 border-b dark:border-gray-600">
                     <!-- Primary Navigation Menu -->
-                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="flex h-16 justify-between">
-                            <div class="flex">
+                            <div class="flex xl:w-1/3 w-full flex-shrink">
                                 <!-- Logo -->
                                 <div class="flex shrink-0 items-center me-2">
-                                    <Link href="/">
+                                    <Link :href="route('landing.page')">
                                     <span
                                         class="hidden md:hidden lg:block xl:block w-auto fill-current text-gray-800 dark:text-gray-200">
                                         ZPPSU E-Marketplace
@@ -32,20 +32,18 @@ const showingNavigationDropdown = ref(false);
                                         class="xl:hidden lg:hidden md:block block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                                     </Link>
                                 </div>
+                                <!-- Search Component with responsive width -->
+                                <Search />
                             </div>
 
-                            <!-- Search Component with responsive width -->
-                            <Search />
-
-                            <!-- Settings and Get Started Button -->
-                            <div class="sm:ms-6 sm:flex sm:items-center">
+                            <div class="flex-grow justify-end sm:ms-6 sm:flex sm:items-center">
                                 <div class="relative ms-3 hidden sm:flex">
-                                    <Dropdown align="right" width="56">
+                                    <Dropdown align="right" width="48">
                                         <template #trigger>
                                             <span class="inline-flex rounded-md">
                                                 <button type="button"
                                                     class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
-                                                    Get Started
+                                                    Get started
                                                     <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 20 20" fill="currentColor">
                                                         <path fill-rule="evenodd"
@@ -57,6 +55,7 @@ const showingNavigationDropdown = ref(false);
                                         </template>
 
                                         <template #content>
+                                            <!-- <DropdownLink :href="route('user.login')">Login</DropdownLink> -->
                                             <span
                                                 class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
                                                 Login
@@ -72,22 +71,22 @@ const showingNavigationDropdown = ref(false);
                                                 class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
                                                 Verify/Signup
                                             </span>
-                                            <DropdownLink href="#">
+                                            <DropdownLink :href="route('verification')">
                                                 Email verification ZPPSU community members
                                             </DropdownLink>
-                                            <DropdownLink href="#">
+                                            <DropdownLink :href="route('external.signupForm')">
                                                 Signup non-community members
                                             </DropdownLink>
                                         </template>
                                     </Dropdown>
                                 </div>
-                                <div class="hidden sm:flex">
+                                <div class="hidden xl:flex">
                                     <ThemeToggle />
                                 </div>
                             </div>
 
                             <!-- Hamburger -->
-                            <div class="-me-2 flex items-center sm:hidden ml-2">
+                            <div class="-me-2 flex xl:hidden items-center ml-2">
                                 <button @click="
                                     showingNavigationDropdown =
                                     !showingNavigationDropdown
@@ -117,7 +116,7 @@ const showingNavigationDropdown = ref(false);
                         block: showingNavigationDropdown,
                         hidden: !showingNavigationDropdown,
                     }"
-                        class="xl:hidden w-72 fixed top-0 left-0 z-[300] h-screen xl:p-4 p-2 bg-white dark:bg-gray-800 flex-col justify-start items-start gap-5 border-r border-gray-100 dark:border-gray-700">
+                        class="xl:hidden w-72 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-white dark:bg-gray-800 flex-col justify-start items-start gap-5 border-r border-gray-100 dark:border-gray-700">
                         <div class="flex items-center justify-between space-y-1 pb-3 pt-2 px-4">
                             <div class="text-base font-medium text-gray-800 dark:text-gray-200">
                                 Theme toggle
@@ -193,19 +192,33 @@ const showingNavigationDropdown = ref(false);
                                             Tradings</h2>
                                     </div>
                                 </ResponsiveNavLink>
+                                <ResponsiveNavLink :href="route('campus.logout')" method="post" as="button">
+                                    <div class="h-5 items-center gap-3 flex">
+                                        <div class="relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 20 20" fill="none">
+                                                <g id="Logout">
+                                                    <path id="icon"
+                                                        d="M9.16667 17.5L5.83333 17.5V17.5C3.98765 17.5 2.5 16.0123 2.5 14.1667V14.1667L2.5 5.83333V5.83333C2.5 3.98765 3.98765 2.5 5.83333 2.5V2.5L9.16667 2.5M8.22814 10L17.117 10M14.3393 6.66667L17.0833 9.41074C17.3611 9.68852 17.5 9.82741 17.5 10C17.5 10.1726 17.3611 10.3115 17.0833 10.5893L14.3393 13.3333"
+                                                        stroke="#6B7280" stroke-width="1.6" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
+                                            Logout</h2>
+                                    </div>
+                                </ResponsiveNavLink>
                             </div>
                         </div>
                     </div>
                 </nav>
 
-                <!-- Page Heading -->
                 <header class="hidden sm:flex border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
-                    <!-- Primary Navigation Menu -->
                     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div class="flex h-12 justify-between">
                             <div class="flex">
-                                <!-- Navigation Links -->
-                                <div class="space-x-8 sm:-my-px me-12 sm:flex">
+                                <div class="space-x-8 sm:-my-px sm:flex">
                                     <NavLink :href="route('products.index')"
                                         :active="route().current('products.index')">
                                         Products
@@ -231,7 +244,7 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <!-- Page Content -->
-            <main class="pt-24 px-5">
+            <main class="px-24">
                 <slot />
             </main>
         </div>

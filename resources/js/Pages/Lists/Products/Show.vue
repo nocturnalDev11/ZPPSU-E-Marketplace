@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import SellerLayout from '../../../Layouts/SellerLayout.vue';
+import AuthUsersLayout from '../../../Layouts/AuthUsersLayout.vue';
 import Delete from '../Products/Partials/Delete.vue';
 import Edit from '../Products/Partials/Edit.vue';
 
@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <SellerLayout>
+    <AuthUsersLayout>
         <div class="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
 
             <Head :title="product.prod_name" />
@@ -42,5 +42,5 @@ const props = defineProps({
 
             </div>
         </div>
-    </SellerLayout>
+    </AuthUsersLayout>
 </template>
