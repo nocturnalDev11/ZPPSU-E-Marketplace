@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\Auth\AuthAdminController;
 use App\Http\Controllers\Campus\Auth\AuthCampusController;
 use App\Http\Controllers\External\Auth\AuthExternalController;
-use App\Http\Controllers\Campus\ProfileController as AuthCampusProfileController;
 
 Route::middleware('guest')->group(function () {
     /*
@@ -39,7 +39,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('admin/logout', [AuthAdminController::class, 'destroy'])->name('admin.logout');
 
-    Route::put('password', [AuthCampusProfileController::class, 'updatePassword'])->name('password.update');
+    Route::put('password', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::post('campus/logout', [AuthCampusController::class, 'destroy'])->name('campus.logout');
 
 
