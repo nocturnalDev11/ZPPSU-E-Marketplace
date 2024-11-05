@@ -2,17 +2,22 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Lists\PostController;
 use App\Http\Controllers\Lists\SearchController;
 use App\Http\Controllers\Lists\ProductController;
 use App\Http\Controllers\Lists\ServiceController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Campus\HomeController as CampusUserHomeController;
-use App\Http\Controllers\External\HomeController as ExternalUserHomeController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage');
 })->name('landing.page');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +26,9 @@ Route::get('/', function () {
 */
 
 Route::middleware('campus_user')->group(function () {
-    Route::get('campus/home', [CampusUserHomeController::class, 'index'])->name('campus.home');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 /*
@@ -31,7 +38,9 @@ Route::middleware('campus_user')->group(function () {
 */
 
 Route::middleware('external_user')->group(function () {
-    Route::get('external/home', [ExternalUserHomeController::class, 'index'])->name('external.home');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 /*

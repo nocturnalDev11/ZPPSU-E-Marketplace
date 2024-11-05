@@ -59,7 +59,7 @@ class AuthExternalController extends Controller
 
         Auth::login($user);
         // Redirect to a route, or return an Inertia response
-        return redirect()->route('external.home');
+        return redirect()->route('home');
     }
 
 
@@ -76,7 +76,7 @@ class AuthExternalController extends Controller
         if (Auth::attempt($credentials) && Auth::user()->role_id == 3) {
             $request->session()->regenerate();
 
-            return redirect()->route('external.home');
+            return redirect()->route('home');
         } else {
             return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
         }

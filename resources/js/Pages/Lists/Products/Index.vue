@@ -40,8 +40,8 @@ const props = defineProps({
                                 <div class="p-5">
                                     <div class="flex items-center justify-between">
                                         <div class="text-xs opacity-75">
-                                            <a class="hover:underline dark:text-gray-200" href="#">{{
-                                                product.prod_category }}</a>
+                                            <a class="hover:underline dark:text-gray-200" href="#">
+                                                {{ product.prod_category }}</a>
                                         </div>
 
                                         <span
@@ -66,8 +66,7 @@ const props = defineProps({
 
                                     <div>
                                         <Link :href="route('products.show', product.id)"
-                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline"
-                                            href="#">
+                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
                                         View Product &rarr;
                                         </Link>
                                     </div>

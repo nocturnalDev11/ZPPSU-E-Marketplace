@@ -59,7 +59,7 @@ class AuthCampusController extends Controller
         if (Auth::attempt($credentials) && Auth::user()->role_id == 2) {
             $request->session()->regenerate();
 
-            return redirect()->route('campus.home');
+            return redirect()->route('home');
         } else {
             return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
         }
