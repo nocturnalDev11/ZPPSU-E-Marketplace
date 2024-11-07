@@ -62,10 +62,11 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('user')->find($id);
         $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
 
         return Inertia::render('Lists/Products/Show', [
+            'user' => Auth::user(),
             'product' => $product,
         ]);
     }

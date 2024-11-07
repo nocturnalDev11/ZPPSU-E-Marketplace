@@ -68,13 +68,26 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::with('user')->find($id);
         $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
 
+        $relatedServices = Service::where('services_category', $service->services_category)
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get();
+
+        $relatedServices = $relatedServices->map(function ($relatedService) {
+            $relatedService->services_picture = $relatedService->services_picture ? Storage::url($relatedService->services_picture) : null;
+            return $relatedService;
+        });
+
         return Inertia::render('Lists/Services/Show', [
+            'user' => Auth::user(),
             'service' => $service,
+            'relatedServices' => $relatedServices,
         ]);
     }
+
 
     /**
      * Update the specified service.

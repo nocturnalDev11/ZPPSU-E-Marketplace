@@ -35,9 +35,13 @@ class ProfileController extends Controller
      */
     public function show($id = null)
     {
-        $user = $id ? User::findOrFail($id) : User::findOrFail(Auth::id());
+        // Get the profile user by the given ID or default to the logged-in user
+        $profileUser = $id ? User::findOrFail($id) : User::findOrFail(Auth::id());
 
-        $posts = $user->posts->map(fn($post) => [
+        // Fetch the logged-in user
+        $authUser = Auth::user();
+
+        $posts = $profileUser->posts->map(fn($post) => [
             'title' => $post->post_title,
             'image' => $post->post_picture,
             'description' => $post->post_content,
@@ -45,7 +49,7 @@ class ProfileController extends Controller
             'type' => 'Post'
         ]);
 
-        $products = $user->products->map(fn($product) => [
+        $products = $profileUser->products->map(fn($product) => [
             'title' => $product->prod_name,
             'status' => $product->prod_status,
             'category' => $product->prod_category,
@@ -57,7 +61,7 @@ class ProfileController extends Controller
             'type' => 'Product',
         ]);
 
-        $services = $user->services->map(fn($service) => [
+        $services = $profileUser->services->map(fn($service) => [
             'title' => $service->services_title,
             'image' => $service->services_picture ? Storage::url($service->services_picture) : null,
             'description' => $service->services_description,
@@ -65,7 +69,7 @@ class ProfileController extends Controller
             'type' => 'Service'
         ]);
 
-        $trades = $user->trades->map(fn($trade) => [
+        $trades = $profileUser->trades->map(fn($trade) => [
             'title' => $trade->trade_title,
             'image' => $trade->trade_picture,
             'description' => $trade->trade_description,
@@ -82,10 +86,12 @@ class ProfileController extends Controller
             ->values()
             ->toArray();
 
+        // Pass the logged-in user as 'auth.user' and the profile user as 'profileUser'
         return Inertia::render('Profile/ViewProfile', [
             'auth' => [
-                'user' => $user,
+                'user' => $authUser,
             ],
+            'profileUser' => $profileUser,
             'activities' => $activities,
             'posts' => $posts,
             'products' => $products,
@@ -97,51 +103,6 @@ class ProfileController extends Controller
             'tradeCount' => $trades->count(),
         ]);
     }
-
-    // public function show($id = null)
-    // {
-    //     $user = $id ? User::with(['posts', 'products', 'services', 'trades'])->findOrFail($id)
-    //         : User::with(['posts', 'products', 'services', 'trades'])->findOrFail(Auth::id());
-
-    //     // Map user activities with necessary attributes
-    //     $activities = collect()
-    //         ->merge($user->posts->map(fn($post) => [
-    //             'title' => $post->post_title,
-    //             'image' => $post->post_picture,
-    //             'description' => $post->post_content,
-    //             'created_at' => $post->created_at,
-    //             'type' => 'Post'
-    //         ]))
-    //         ->merge($user->products->map(fn($product) => [
-    //             'title' => $product->prod_name,
-    //             'image' => $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null,
-    //             'description' => $product->prod_description,
-    //             'created_at' => $product->created_at,
-    //             'type' => 'Product'
-    //         ]))
-    //         ->merge($user->services->map(fn($service) => [
-    // 'title' => $service->services_title,
-    // 'image' => $service->services_picture,
-    // 'description' => $service->services_description,
-    // 'created_at' => $service->created_at,
-    // 'type' => 'Service'
-    //         ]))
-    //         ->merge($user->trades->map(fn($trade) => [
-    //             'title' => $trade->trade_title,
-    //             'image' => $trade->trade_picture,
-    //             'description' => $trade->trade_description,
-    //             'created_at' => $trade->created_at,
-    //             'type' => 'Trade'
-    //         ]))
-    //         ->sortByDesc('created_at')
-    //         ->values()
-    //         ->toArray();
-
-    //     return Inertia::render('Profile/ViewProfile', [
-    //         'auth' => ['user' => $user],
-    //         'activities' => $activities,
-    //     ]);
-    // }
 
 
     /**

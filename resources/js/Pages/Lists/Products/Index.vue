@@ -26,7 +26,7 @@ const props = defineProps({
         <AuthAdminLayout v-if="$page.props.auth.user.role_id === 1">
             <div class="grid h-full w-full grid-cols-1 gap-4 px-2 md:h-auto xl:grid-cols-5 py-20">
                 <template v-if="products.length > 0">
-                    <div v-for="product in products" :key="product.id" class="mb-6 w-full select-none">
+                    <div v-for="product in products" :key="product.id" class="mb-6 w-full select-none cursor-pointer">
                         <div class="relative pb-64">
                             <div class="cursor-pointer">
                                 <img class="absolute h-full w-full cursor-pointer rounded-lg border-b object-cover shadow-md"
@@ -64,12 +64,10 @@ const props = defineProps({
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <Link :href="route('products.show', product.id)"
-                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
-                                        View Product &rarr;
-                                        </Link>
-                                    </div>
+                                    <Link :href="route('products.show', product.id)"
+                                        class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
+                                    View Product &rarr;
+                                    </Link>
                                 </div>
                             </div>
                         </div>

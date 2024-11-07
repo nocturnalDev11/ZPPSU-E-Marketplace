@@ -18,7 +18,8 @@ function formatDate(dateString) {
     });
 }
 
-const user = computed(() => props.auth.user || null);
+const user = computed(() => props.profileUser || {});
+
 const activities = computed(() => props.activities || []);
 const products = computed(() => props.products || []);
 </script>
