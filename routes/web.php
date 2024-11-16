@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Lists\PostController;
 use App\Http\Controllers\Lists\SearchController;
@@ -17,7 +18,17 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
+
+    Route::prefix('messages')->group(function () {
+        Route::get('/', [MessagesController::class, 'index'])->name('messages.index');
+        Route::get('/{user}', [MessagesController::class, 'conversation'])->name('messages.conversation');
+        Route::post('/store', [MessagesController::class, 'store'])->name('messages.store');
+        Route::post('/product-inquiry', [MessagesController::class, 'storeListInquiry'])->name('message.storeListInquiry');
+        Route::post('/reply/{user}', [MessagesController::class, 'reply'])->name('messages.reply');
+        Route::delete('/{message}', [MessagesController::class, 'destroy'])->name('messages.destroy');
+    });
 });
+
 
 /*
 |--------------------------------------------------------------------------

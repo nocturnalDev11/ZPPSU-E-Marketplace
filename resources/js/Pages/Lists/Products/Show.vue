@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
 import AuthUsersLayout from '../../../Layouts/AuthUsersLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextArea from '@/Components/TextArea.vue';
 import PrimaryButton from '../../../Components/PrimaryButton.vue';
 import SecondaryButton from '../../../Components/SecondaryButton.vue'
 
@@ -10,7 +13,34 @@ const props = defineProps({
         type: Object,
         required: true
     },
+
+    message: {
+        type: Object,
+        required: true
+    },
 });
+
+const form = useForm({
+    content: '',
+    recipient_id: props.product.user.id,
+});
+
+const submitMessage = () => {
+    form.post(route('message.storeListInquiry'), {
+        onSuccess: () => {
+            closeModal();
+            form.reset();
+        },
+    });
+};
+
+const showModal = ref(false);
+
+const closeModal = () => {
+    showModal.value = false;
+    form.clearErrors();
+    form.reset();
+};
 
 const activeTab = ref('description');
 
@@ -35,7 +65,7 @@ function formatDate(dateString) {
         <div class="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
             <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
                 <div class="space-y-4 text-center lg:sticky top-8">
-                    <div class="bg-gray-100 p-4 flex items-center sm:h-[380px] rounded-lg">
+                    <div class="bg-gray-100 dark:bg-gray-800/70 p-4 flex items-center sm:h-[380px] rounded-lg">
                         <img :src="product.prod_picture" alt="Product"
                             class="w-full max-h-full object-contain object-top " />
                     </div>
@@ -43,8 +73,8 @@ function formatDate(dateString) {
 
                 <div class="max-w-xl">
                     <div>
-                        <h2 class="text-4xl font-bold text-gray-800">{{ product.prod_name }}</h2>
-                        <p class="text-sm text-gray-600 mt-2">{{ product.prod_category }}</p>
+                        <h2 class="text-4xl font-bold text-gray-800 dark:text-white">{{ product.prod_name }}</h2>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">{{ product.prod_category }}</p>
                     </div>
 
                     <div class="flex mt-4">
@@ -55,17 +85,21 @@ function formatDate(dateString) {
                     </div>
 
                     <div class="flex flex-wrap gap-4 mt-4">
-                        <h3 class="text-gray-800 text-4xl font-semibold">₱{{ product.prod_price }}</h3>
-                        <p class="text-gray-400 text-base"><span class="text-sm">Tax included</span></p>
+                        <h3 class="text-gray-800 dark:text-gray-200 text-4xl font-semibold">₱{{ product.prod_price }}
+                        </h3>
+                        <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Tax included</span>
+                        </p>
                     </div>
 
                     <div class="mt-8">
-                        <h3 class="text-lg font-bold text-gray-800">Quantity</h3>
-                        <p class="italic text-xs text-gray-600">Product available quantity: {{ product.prod_quantity }}
+                        <h3 class="text-lg font-bold text-gray-800 dark:text-gray-200">Quantity</h3>
+                        <p class="italic text-xs text-gray-600 dark:text-gray-300">Product available quantity: {{
+                            product.prod_quantity }}
                         </p>
-                        <div class="flex divide-x border w-max mt-4 rounded overflow-hidden">
+                        <div
+                            class="flex divide-x dark:divide-gray-700 border dark:border-gray-700 w-max mt-4 rounded overflow-hidden">
                             <button type="button"
-                                class="bg-gray-100 w-10 h-9 font-semibold flex items-center justify-center">
+                                class="bg-gray-100 dark:bg-gray-700 w-10 h-9 font-semibold flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-current inline"
                                     viewBox="0 0 124 124">
                                     <path
@@ -74,7 +108,7 @@ function formatDate(dateString) {
                                 </svg>
                             </button>
                             <button type="button"
-                                class="bg-transparent w-10 h-9 font-semibold flex items-center justify-center text-gray-800 text-lg">
+                                class="bg-transparent w-10 h-9 font-semibold flex items-center justify-center text-gray-800 dark:text-gray-100 text-lg">
                                 1
                             </button>
                             <button type="button"
@@ -90,9 +124,34 @@ function formatDate(dateString) {
                     </div>
 
                     <div class="flex flex-wrap gap-4 mt-8" v-if="!user || product.user.id !== user.id">
-                        <PrimaryButton class="flex justify-center w-full px-4 py-2.5">
-                            Avail now
-                        </PrimaryButton>
+                        <SecondaryButton @click="showModal = true" class="flex justify-center w-full px-4 py-2.5">
+                            Inquire product
+                        </SecondaryButton>
+
+                        <Modal :show="showModal" @close="closeModal">
+                            <div class="p-6">
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Inquire this
+                                    product to {{ product.user.name }}</h2>
+
+                                <form @submit.prevent="submitMessage" class="space-y-4">
+                                    <input type="hidden" name="recipient_id" :value="form.recipient_id">
+                                    <div>
+                                        <InputLabel for="content" value="Type a message" />
+                                        <TextArea id="content" v-model="form.content" class="mt-1 block w-full" rows="3"
+                                            placeholder="Aa"></textarea>
+                                        <InputError :message="form.errors.content" class="mt-2" />
+                                    </div>
+
+                                    <div class="mt-6 flex justify-end">
+                                        <PrimaryButton @click="closeModal">Cancel</PrimaryButton>
+                                        <SecondaryButton class="ms-3" :class="{ 'opacity-25': form.processing }"
+                                            :disabled="form.processing" type="submit">
+                                            Send
+                                        </SecondaryButton>
+                                    </div>
+                                </form>
+                            </div>
+                        </Modal>
                     </div>
 
                     <div class="flex flex-wrap gap-4 mt-8" v-if="user && product.user.id === user.id">
@@ -106,16 +165,16 @@ function formatDate(dateString) {
 
                     <div class="mt-8">
                         <!-- Tabs -->
-                        <ul class="flex border-b">
+                        <ul class="flex border-b dark:border-gray-600">
                             <li @click="activeTab = 'description'" :class="{
-                                'text-gray-800 font-bold text-sm bg-gray-100 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'description',
-                                'text-gray-600 font-bold text-sm hover:bg-gray-100 py-3 px-8 cursor-pointer': activeTab !== 'description'
+                                'text-gray-800 dark:text-white font-bold text-sm bg-gray-100 dark:bg-gray-700 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'description',
+                                'text-gray-600 dark:hover:text-gray-300 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-8 cursor-pointer': activeTab !== 'description'
                             }">
                                 Description
                             </li>
                             <li @click="activeTab = 'seller'" :class="{
-                                'text-gray-800 font-bold text-sm bg-gray-100 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'seller',
-                                'text-gray-600 font-bold text-sm hover:bg-gray-100 py-3 px-8 cursor-pointer': activeTab !== 'seller'
+                                'text-gray-800 dark:text-white font-bold text-sm bg-gray-100 dark:bg-gray-700 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'seller',
+                                'text-gray-600 dark:hover:text-gray-300 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-8 cursor-pointer': activeTab !== 'seller'
                             }">
                                 Seller information
                             </li>
@@ -123,20 +182,20 @@ function formatDate(dateString) {
 
                         <!-- Tab panes -->
                         <div v-if="activeTab === 'description'" class="mt-8">
-                            <h3 class="text-lg font-bold text-gray-800">Product Description</h3>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Product Description</h3>
                             <div class="flex mt-4">
                                 <div
                                     class="px-2.5 py-1.5 bg-slate-200 text-xs text-gray-800 rounded-lg flex items-center">
                                     {{ formatDate(product.created_at) }}
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-600 mt-4">{{ product.prod_description }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mt-4">{{ product.prod_description }}</p>
                         </div>
 
                         <div v-if="activeTab === 'seller'" class="mt-8">
-                            <h3 class="text-lg font-bold text-gray-800">Seller Information</h3>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Seller Information</h3>
                             <div class="flex mt-4">
-                                <p class="text-sm text-gray-600">{{ product.user.name }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">{{ product.user.name }}</p>
                             </div>
                         </div>
                     </div>

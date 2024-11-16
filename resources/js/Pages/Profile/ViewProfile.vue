@@ -22,6 +22,7 @@ const user = computed(() => props.profileUser || {});
 
 const activities = computed(() => props.activities || []);
 const products = computed(() => props.products || []);
+const loggedInUserId = computed(() => props.auth.user?.id || null);
 </script>
 
 <template>
@@ -66,11 +67,26 @@ const products = computed(() => props.products || []);
                         <div
                             class="bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 rounded-2xl p-4 mb-6 dark:bg-gray-800">
                             <div class="sm:flex xl:block sm:space-x-4 xl:space-x-0">
-                                <div
-                                    class="relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-gray-300 dark:shadow-gray-700 mb-2 overflow-hidden bg-gray-200 dark:bg-gray-600 w-20 h-20">
-                                    <span class="p-2 font-medium text-2xl text-gray-700 dark:text-gray-300">{{
-                                        user?.name?.charAt(0).toUpperCase() || '?' }}</span>
+                                <div class="flex justify-between items-center">
+                                    <div
+                                        class="relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-gray-300 dark:shadow-gray-700 mb-2 overflow-hidden bg-gray-200 dark:bg-gray-600 w-20 h-20">
+                                        <span class="p-2 font-medium text-2xl text-gray-700 dark:text-gray-300">
+                                            {{ user?.name?.charAt(0).toUpperCase() || '?' }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Conditionally render "Message" button for logged-in users viewing someone else's profile -->
+                                    <SecondaryButton v-if="loggedInUserId && loggedInUserId !== user.id">
+                                        Message
+                                    </SecondaryButton>
+
+                                    <!-- Conditionally render "Edit Profile" button for logged-in user viewing their own profile -->
+                                    <SecondaryButton v-if="loggedInUserId && loggedInUserId === user.id">
+                                        Edit profile
+                                    </SecondaryButton>
                                 </div>
+
+
                                 <div>
                                     <h2 class="text-xl font-bold dark:text-gray-200">{{ user?.name || 'Guest' }}</h2>
                                     <ul>
