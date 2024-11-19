@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from '../../../Layouts/GuestLayout.vue';
+import AuthGuestLayout from '../../../Layouts/AuthGuestLayout.vue';
 import InputLabel from '../../../Components/InputLabel.vue';
 import TextInput from '../../../Components/TextInput.vue';
 import InputError from '../../../Components/InputError.vue';
@@ -31,7 +31,7 @@ watch(() => form.name, (newValue) => {
 <template>
 
     <Head title="Signup" />
-    <GuestLayout>
+    <AuthGuestLayout>
         <div class="flex items-center justify-center min-h-screen">
             <form @submit.prevent="submit" class="max-w-md w-full bg-white p-6 rounded-lg shadow-md dark:bg-gray-800">
                 <div class="text-center mb-8 text-gray-800 dark:text-white">
@@ -112,5 +112,5 @@ watch(() => form.name, (newValue) => {
                 </div>
             </form>
         </div>
-    </GuestLayout>
+    </AuthGuestLayout>
 </template>

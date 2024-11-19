@@ -10,6 +10,7 @@ use App\Http\Controllers\Lists\SearchController;
 use App\Http\Controllers\Lists\ProductController;
 use App\Http\Controllers\Lists\ServiceController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Lists\TradeController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage');
@@ -113,6 +114,21 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
         Route::put('/{id}', [PostController::class, 'update'])->name('update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::prefix('trades')->name('trades.')->group(function () {
+    // Public routes (viewing)
+    Route::get('/', [TradeController::class, 'index'])->name('index');
+    Route::get('/{id}', [TradeController::class, 'show'])->name('show');
+
+    // Protected routes
+    Route::middleware('auth')->group(function () {
+        Route::get('/create', [TradeController::class, 'create'])->name('create');
+        Route::post('/', [TradeController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [TradeController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [TradeController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TradeController::class, 'destroy'])->name('destroy');
     });
 });
 

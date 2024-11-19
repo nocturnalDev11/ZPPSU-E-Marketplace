@@ -75,18 +75,14 @@ const showingNavigationDropdown = ref(false);
                                         </g>
                                     </svg>
                                 </NavLink>
-                                <NavLink href="#">
-                                    <!-- <NavLink :href="route('products.index')"
-                                        :active="route().current('products.index')"> -->
+                                <NavLink :href="route('posts.index')" :active="route().current('posts.index')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="none"
                                         viewBox="0 0 24 24" stroke-width="1.8" stroke="#6B7280">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
                                     </svg>
                                 </NavLink>
-                                <NavLink href="#">
-                                    <!-- <NavLink :href="route('products.index')"
-                                        :active="route().current('products.index')"> -->
+                                <NavLink :href="route('trades.index')" :active="route().current('trades.index')">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 20 20"
                                         fill="none">
                                         <g id="Swap">
@@ -228,7 +224,7 @@ const showingNavigationDropdown = ref(false);
                                             Services</h2>
                                     </div>
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('posts.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -241,7 +237,7 @@ const showingNavigationDropdown = ref(false);
                                             Posts</h2>
                                     </div>
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('trades.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -287,7 +283,7 @@ const showingNavigationDropdown = ref(false);
                     <div class="w-full items-center flex">
                         <div class="w-full justify-between items-center inline-flex">
                             <div class="items-center flex">
-                                <img class="rounded-lg" alt="Ronald image"
+                                <img class="rounded-lg" alt="image"
                                     src="https://pagedone.io/asset/uploads/1701235464.png" />
                                 <div class="flex-col inline-flex ml-2.5">
                                     <h2 class="text-gray-700 dark:text-gray-100 text-sm font-semibold leading-snug">
@@ -343,7 +339,7 @@ const showingNavigationDropdown = ref(false);
                             </SidebarLink>
                         </li>
                         <li>
-                            <SidebarLink>
+                            <SidebarLink :href="route('trades.index')" :active="route().current('trades.index')">
                                 <div class="h-5 gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -362,7 +358,7 @@ const showingNavigationDropdown = ref(false);
                             </SidebarLink>
                         </li>
                         <li>
-                            <SidebarLink>
+                            <SidebarLink :href="route('posts.index')" :active="route().current('posts.index')">
                                 <div class="h-5 gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -417,7 +413,7 @@ const showingNavigationDropdown = ref(false);
                             </SidebarLink>
                         </li>
                         <li>
-                            <SidebarLink>
+                            <SidebarLink href="#">
                                 <div class="h-5 items-center gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"

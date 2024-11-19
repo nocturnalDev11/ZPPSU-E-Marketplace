@@ -146,7 +146,7 @@ const showingNavigationDropdown = ref(false);
                                             Products</h2>
                                     </div>
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('services.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -162,7 +162,7 @@ const showingNavigationDropdown = ref(false);
                                             Services</h2>
                                     </div>
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('posts.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -175,7 +175,7 @@ const showingNavigationDropdown = ref(false);
                                             Posts</h2>
                                     </div>
                                 </ResponsiveNavLink>
-                                <ResponsiveNavLink href="#">
+                                <ResponsiveNavLink :href="route('trades.index')">
                                     <div class="h-5 gap-3 flex">
                                         <div class="relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -227,7 +227,10 @@ const showingNavigationDropdown = ref(false);
                                         :active="route().current('services.index')">
                                         Services
                                     </NavLink>
-                                    <NavLink href="#">
+                                    <NavLink :href="route('posts.index')" :active="route().current('posts.index')">
+                                        Posts
+                                    </NavLink>
+                                    <NavLink :href="route('trades.index')" :active="route().current('trades.index')">
                                         Trades
                                     </NavLink>
                                     <NavLink href="#">
