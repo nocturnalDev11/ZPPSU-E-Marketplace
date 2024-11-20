@@ -9,7 +9,7 @@ import PrimaryButton from '../../../Components/PrimaryButton.vue';
 import SecondaryButton from '../../../Components/SecondaryButton.vue';
 
 const props = defineProps({
-    user: {  // Add the user prop
+    user: {
         type: Object,
         required: true
     },
@@ -25,7 +25,7 @@ const props = defineProps({
 
 const form = useForm({
     content: '',
-    recipient_id: props.product.user.id, // Accessing product's user here
+    recipient_id: props.product.user.id,
 });
 
 const submitMessage = () => {
@@ -58,10 +58,6 @@ function formatDate(dateString) {
         second: '2-digit'
     });
 }
-
-// Log user and product details
-console.log('User:', props.user);  // Access the user prop here
-console.log('Product User ID:', props.product.user.id);
 
 </script>
 
