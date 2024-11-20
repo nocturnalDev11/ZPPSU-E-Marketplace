@@ -6,14 +6,17 @@ import AuthUsersLayout from '../../../Layouts/AuthUsersLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextArea from '@/Components/TextArea.vue';
 import PrimaryButton from '../../../Components/PrimaryButton.vue';
-import SecondaryButton from '../../../Components/SecondaryButton.vue'
+import SecondaryButton from '../../../Components/SecondaryButton.vue';
 
 const props = defineProps({
+    user: {  // Add the user prop
+        type: Object,
+        required: true
+    },
     product: {
         type: Object,
         required: true
     },
-
     message: {
         type: Object,
         required: true
@@ -22,7 +25,7 @@ const props = defineProps({
 
 const form = useForm({
     content: '',
-    recipient_id: props.product.user.id,
+    recipient_id: props.product.user.id, // Accessing product's user here
 });
 
 const submitMessage = () => {
@@ -55,6 +58,10 @@ function formatDate(dateString) {
         second: '2-digit'
     });
 }
+
+// Log user and product details
+console.log('User:', props.user);  // Access the user prop here
+console.log('Product User ID:', props.product.user.id);
 
 </script>
 
@@ -123,7 +130,7 @@ function formatDate(dateString) {
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap gap-4 mt-8" v-if="!user || product.user.id !== user.id">
+                    <div class="flex flex-wrap gap-4 mt-8" v-if="!props.user || product.user.id !== props.user.id">
                         <SecondaryButton @click="showModal = true" class="flex justify-center w-full px-4 py-2.5">
                             Inquire product
                         </SecondaryButton>
@@ -154,7 +161,7 @@ function formatDate(dateString) {
                         </Modal>
                     </div>
 
-                    <div class="flex flex-wrap gap-4 mt-8" v-if="user && product.user.id === user.id">
+                    <div class="flex flex-wrap gap-4 mt-8" v-if="props.user && product.user.id === props.user.id">
                         <PrimaryButton class="flex justify-center min-w-[200px] px-4 py-2.5">
                             Edit product
                         </PrimaryButton>
@@ -176,31 +183,38 @@ function formatDate(dateString) {
                                 'text-gray-800 dark:text-white font-bold text-sm bg-gray-100 dark:bg-gray-700 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'seller',
                                 'text-gray-600 dark:hover:text-gray-300 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-8 cursor-pointer': activeTab !== 'seller'
                             }">
-                                Seller information
+                                Seller info
                             </li>
                         </ul>
 
-                        <!-- Tab panes -->
-                        <div v-if="activeTab === 'description'" class="mt-8">
-                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Product Description</h3>
-                            <div class="flex mt-4">
-                                <div
-                                    class="px-2.5 py-1.5 bg-slate-200 text-xs text-gray-800 rounded-lg flex items-center">
-                                    {{ formatDate(product.created_at) }}
+                        <div v-show="activeTab === 'description'" class="py-6 text-gray-600 dark:text-gray-300">
+                            <div class="space-y-4">
+                                <div class="text-lg font-medium">Product Description</div>
+                                <div class="text-sm text-justify whitespace-pre-wrap">{{ product.prod_description }}
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-600 dark:text-gray-300 mt-4">{{ product.prod_description }}</p>
                         </div>
 
-                        <div v-if="activeTab === 'seller'" class="mt-8">
-                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Seller Information</h3>
-                            <div class="flex mt-4">
-                                <p class="text-sm text-gray-600 dark:text-gray-300">{{ product.user.name }}</p>
+                        <div v-show="activeTab === 'seller'" class="py-6 text-gray-600 dark:text-gray-300">
+                            <div class="space-y-4">
+                                <div class="text-lg font-medium">Seller Information</div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0">
+                                        <img class="w-12 h-12 rounded-full"
+                                            :src="product.user.profile_picture || '/img/user-placeholder.jpg'"
+                                            alt="user image" />
+                                    </div>
+                                    <div class="space-y-1">
+                                        <div class="text-sm font-medium">{{ product.user.name }}</div>
+                                        <div class="text-xs text-gray-400">{{ product.user.email }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </AuthUsersLayout>
 </template>
