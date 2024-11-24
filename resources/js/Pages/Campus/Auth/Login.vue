@@ -15,7 +15,7 @@ function togglePassword() {
 }
 
 const form = useForm({
-    email: '',
+    login_id: '',
     password: '',
     remember: false,
 });
@@ -50,10 +50,10 @@ const submit = () => {
                 <div class="space-y-4">
                     <!-- Login ID Field -->
                     <div>
-                        <InputLabel for="email" value="Email" />
+                        <InputLabel for="login_id" value="Login ID" />
                         <div class="relative flex items-center">
-                            <TextInput v-model="form.email" type="text" id="email" required autofocus
-                                class="mt-1 block w-full" autocomplete="email" />
+                            <TextInput v-model="form.login_id" type="text" id="login_id" required autofocus
+                                class="mt-1 block w-full" autocomplete="login_id" />
                             <svg class="w-4 h-4 absolute right-4 dark:text-gray-100" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24" fill="currentColor">
                                 <path
@@ -61,7 +61,7 @@ const submit = () => {
                                 </path>
                             </svg>
                         </div>
-                        <InputError class="mt-2" :message="form.errors.email" />
+                        <InputError class="mt-2" :message="form.errors.login_id" />
                     </div>
 
                     <!-- Password Field with Toggle Visibility -->

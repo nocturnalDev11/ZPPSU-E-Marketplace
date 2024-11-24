@@ -68,6 +68,8 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
+        $isAuthorized = Auth::check();
+
         $service = Service::with('user')->find($id);
         $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
 
@@ -85,6 +87,7 @@ class ServiceController extends Controller
             'user' => Auth::user(),
             'service' => $service,
             'relatedServices' => $relatedServices,
+            'isAuthorized' => $isAuthorized,
         ]);
     }
 

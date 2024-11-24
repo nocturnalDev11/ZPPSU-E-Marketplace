@@ -62,12 +62,15 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $isAuthorized = Auth::check();
+
         $product = Product::with('user')->find($id);
         $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
 
         return Inertia::render('Lists/Products/Show', [
             'user' => Auth::user(),
             'product' => $product,
+            'isAuthorized' => $isAuthorized,
         ]);
     }
 
@@ -97,27 +100,26 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if (Auth::id() !== $product->user_id) {
-            return redirect()->route('products.index')->with('error', 'You are not authorized to update this product');
+            return redirect()->route('products.index')->with('error', 'Unauthorized');
         }
 
         $validatedData = $request->validate([
             'prod_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'prod_name' => 'required|string|max:255',
-            'prod_price' => 'required|numeric',
-            'prod_status' => 'required|string',
-            'prod_category' => 'required|string',
-            'prod_condition' => 'required|string',
-            'prod_description' => 'required|string|max:65535',
-            'prod_quantity' => 'required|integer',
+            'prod_name' => 'sometimes|string|max:255',
+            'prod_price' => 'sometimes|numeric',
+            'prod_status' => 'sometimes|string',
+            'prod_category' => 'sometimes|string',
+            'prod_condition' => 'sometimes|string',
+            'prod_description' => 'sometimes|string|max:65535',
+            'prod_quantity' => 'sometimes|integer',
         ]);
 
         if ($request->hasFile('prod_picture')) {
-            if ($product->prod_picture) {
-                Storage::disk('public')->delete($product->prod_picture);
-            }
-
+            // Validate and store the file
             $path = $request->file('prod_picture')->store('product_pictures', 'public');
             $validatedData['prod_picture'] = $path;
+        } else {
+            $validatedData['prod_picture'] = $product->prod_picture;
         }
 
         $product->update($validatedData);
@@ -125,6 +127,7 @@ class ProductController extends Controller
         return redirect()->route('products.show', $product->id)
             ->with('success', 'Product updated successfully!');
     }
+
 
     /**
      * Remove the specified product from storage.

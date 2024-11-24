@@ -26,16 +26,21 @@ class AuthAdminController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials) && Auth::user()->role_id == 1) {
-            $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-            return redirect()->route('admin.dashboard');
-        } else {
-            return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
+            if ($user->role_id == 1) {
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
+            }
+
+            Auth::logout();
         }
+
+        return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
     }
 
     /**

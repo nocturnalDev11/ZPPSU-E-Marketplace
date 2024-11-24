@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MessagesController extends Controller
 {
@@ -57,7 +58,14 @@ class MessagesController extends Controller
                 ->where('recipient_id', Auth::id());
         })
             ->orderBy('created_at', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($message) {
+                // Generate full URL for content_link_image
+                if ($message->content_link_image) {
+                    $message->content_link_image_url = Storage::url($message->content_link_image);
+                }
+                return $message;
+            });
 
         // Get users who have a conversation with the authenticated user
         $users = User::where(function ($query) {
@@ -93,7 +101,7 @@ class MessagesController extends Controller
             'selectedUser' => $user,
             'messages' => $messages,
             'users' => $users,
-            'currentUserId' => Auth::id(), // Add this line if not already set
+            'currentUserId' => Auth::id(),
         ]);
     }
 
@@ -129,6 +137,9 @@ class MessagesController extends Controller
         $validated = $request->validate([
             'recipient_id' => 'required|exists:users,id',
             'content' => 'required|string|max:255',
+            'content_link' => 'nullable|url',
+            'content_link_image' => 'nullable|string',
+            'content_link_description' => 'nullable|string',
         ]);
 
         $user = Auth::user();
@@ -137,6 +148,9 @@ class MessagesController extends Controller
             'sender_id' => $user->id,
             'recipient_id' => $validated['recipient_id'],
             'content' => $validated['content'],
+            'content_link' => $validated['content_link'],
+            'content_link_image' => $validated['content_link_image'],
+            'content_link_description' => $validated['content_link_description'],
         ]);
 
         $message->save();

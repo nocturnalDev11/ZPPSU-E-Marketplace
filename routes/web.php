@@ -3,18 +3,17 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\Lists\PostController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\Lists\TradeController;
 use App\Http\Controllers\Lists\SearchController;
 use App\Http\Controllers\Lists\ProductController;
 use App\Http\Controllers\Lists\ServiceController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Lists\TradeController;
 
-Route::get('/', function () {
-    return Inertia::render('LandingPage');
-})->name('landing.page');
+Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

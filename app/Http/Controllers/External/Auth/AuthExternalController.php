@@ -70,16 +70,21 @@ class AuthExternalController extends Controller
     {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials) && Auth::user()->role_id == 3) {
-            $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-            return redirect()->route('home');
-        } else {
-            return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
+            if ($user->role_id == 3) {
+                $request->session()->regenerate();
+                return redirect()->route('home');
+            }
+
+            Auth::logout();
         }
+
+        return back()->withErrors(['error' => 'Invalid credentials or unauthorized access']);
     }
 
     /**

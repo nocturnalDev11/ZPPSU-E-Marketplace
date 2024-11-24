@@ -118,7 +118,7 @@ const props = defineProps({
 
     <template v-else>
         <GuestLayout>
-            <div class="grid h-full w-full grid-cols-1 gap-4 px-2 md:h-auto xl:grid-cols-5 py-20">
+            <div class="grid h-full w-full grid-cols-1 gap-4 px-2 md:h-auto xl:grid-cols-5 pt-44">
                 <template v-if="posts.length > 0">
                     <div v-for="post in posts" :key="post.id" class="mb-6 w-full select-none cursor-pointer">
                         <div class="relative pb-64">

@@ -6,9 +6,7 @@ import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import TextArea from '@/Components/TextArea.vue'
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-
-const showCreateModal = ref(false);
+import { ref, computed } from 'vue';
 
 const form = useForm({
     prod_picture: null,
@@ -41,6 +39,10 @@ const triggerFileInput = () => {
     document.getElementById("prod_picture").click();
 };
 
+const wordCount = computed(() => {
+    return form.prod_description.trim().split(/\s+/).length;
+});
+
 const submitProduct = () => {
     form.post(route('products.store'), {
         onSuccess: () => {
@@ -49,6 +51,8 @@ const submitProduct = () => {
         },
     });
 };
+
+const showCreateModal = ref(false);
 
 const closeModal = () => {
     showCreateModal.value = false;
@@ -60,7 +64,9 @@ const closeModal = () => {
 <template>
     <div>
         <!-- Button to open modal -->
-        <SecondaryButton @click="showCreateModal = true">Add New Product</SecondaryButton>
+        <SecondaryButton @click="showCreateModal = true">
+            <slot />
+        </SecondaryButton>
 
         <!-- Modal for creating a new product -->
         <Modal :show="showCreateModal" @close="closeModal">
@@ -162,6 +168,14 @@ const closeModal = () => {
                         <TextArea id="prod_description" v-model="form.prod_description" class="mt-1 block w-full"
                             rows="3" placeholder="Description"></textarea>
                         <InputError :message="form.errors.prod_description" class="mt-2" />
+
+                        <div :class="{
+                            'text-red-500': wordCount < 20,
+                            'text-green-500': wordCount >= 20
+                        }" class="text-sm mt-1">
+                            <span v-if="wordCount < 50">You need at least 20 words. (Current: {{ wordCount }})</span>
+                            <span v-else>Looks good! You have typed {{ wordCount }} words.</span>
+                        </div>
                     </div>
 
                     <!-- Product Quantity -->

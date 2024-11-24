@@ -22,14 +22,10 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex h-16 justify-between">
                             <div class="flex xl:w-1/3 w-full flex-shrink">
                                 <!-- Logo -->
-                                <div class="flex shrink-0 items-center me-2">
+                                <div class="flex shrink-0 items-center">
                                     <Link :href="route('landing.page')">
-                                    <span
-                                        class="hidden md:hidden lg:block xl:block w-auto fill-current text-gray-800 dark:text-gray-200">
-                                        ZPPSU E-Marketplace
-                                    </span>
                                     <ApplicationLogo
-                                        class="xl:hidden lg:hidden md:block block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                        class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                                     </Link>
                                 </div>
                                 <!-- Search Component with responsive width -->

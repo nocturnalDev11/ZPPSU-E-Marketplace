@@ -265,7 +265,7 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <aside
-                class="border-r dark:border-gray-800 hidden xl:flex xl:w-96 w-80 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-50 dark:bg-gray-900 flex-col justify-start items-start gap-5">
+                class="border-r dark:border-gray-800 hidden xl:flex xl:w-96 w-80 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-50 dark:bg-gray-950 flex-col justify-start items-start gap-5">
                 <div class="w-full p-3 mt-16">
                     <div class="w-full items-center flex">
                         <div class="w-full justify-between items-center inline-flex">
