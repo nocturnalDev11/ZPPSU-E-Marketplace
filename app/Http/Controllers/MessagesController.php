@@ -137,6 +137,7 @@ class MessagesController extends Controller
         $validated = $request->validate([
             'recipient_id' => 'required|exists:users,id',
             'content' => 'required|string|max:255',
+            'content_title' => 'nullable|string',
             'content_link' => 'nullable|url',
             'content_link_image' => 'nullable|string',
             'content_link_description' => 'nullable|string',
@@ -148,6 +149,7 @@ class MessagesController extends Controller
             'sender_id' => $user->id,
             'recipient_id' => $validated['recipient_id'],
             'content' => $validated['content'],
+            'content_title' => $validated['content_title'],
             'content_link' => $validated['content_link'],
             'content_link_image' => $validated['content_link_image'],
             'content_link_description' => $validated['content_link_description'],

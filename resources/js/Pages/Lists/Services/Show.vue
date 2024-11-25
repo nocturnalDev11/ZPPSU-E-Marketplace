@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import TextArea from '@/Components/TextArea.vue';
 import Modal from '@/Components/Modal.vue';
+import Delete from './Partials/Delete.vue';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -31,6 +32,7 @@ const props = defineProps({
 const form = useForm({
     recipient_id: props.service.user.id,
     content: 'Is this available?',
+    content_title: props.service.services_title,
     content_link: route('services.show', props.service.id),
     content_link_image: props.service.services_picture,
     content_link_description: props.service.services_description,
@@ -72,7 +74,7 @@ const closeModal = () => {
     <Head :title="service.services_title" />
 
     <AuthUsersLayout v-if="isAuthorized">
-        <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+        <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto pt-8">
             <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
                 <!-- Content -->
                 <div class="lg:col-span-2">
@@ -91,14 +93,18 @@ const closeModal = () => {
                             <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
                                 {{ service.services_title }}
                             </h2>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-neutral-200">{{
+                                formatDate(service.created_at) }}</p>
 
-                            <div class="flex items-center gap-x-5">
+                            <div class="flex items-center gap-x-2">
                                 <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-cyan-100 text-cyan-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-sky-950 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                     href="#">
                                     {{ service.services_category }}
                                 </a>
-                                <p class="text-xs sm:text-sm text-gray-500 dark:text-neutral-200">{{
-                                    formatDate(service.created_at) }}</p>
+                                <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-cyan-100 text-cyan-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-sky-950 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                    href="#">
+                                    {{ service.services_status }}
+                                </a>
                             </div>
 
                             <figure
@@ -179,6 +185,8 @@ const closeModal = () => {
 
                                                 <form @submit.prevent="submitMessage" class="space-y-4">
                                                     <input type="hidden" name="recipient_id" :value="form.recipient_id">
+                                                    <input type="hidden" name="content_title"
+                                                        :value="form.content_title">
                                                     <input type="hidden" name="content_link" :value="form.content_link">
                                                     <input type="hidden" name="content_link_image"
                                                         :value="form.content_link_image">
@@ -205,18 +213,18 @@ const closeModal = () => {
                                         </div>
                                     </Modal>
                                 </div>
-                                <div class="flex justify-end" v-if="props.user && service.user.id === props.user.id">
-                                    <SecondaryButton @click="showModal = true" class="inline-flex items-center gap-2">
-                                        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                        Edit
-                                    </SecondaryButton>
-                                    <Modal :show="showModal" @close="closeModal">
-                                        Edit
-                                    </Modal>
+                                <div class="flex justify-end gap-2"
+                                    v-if="props.user && service.user.id === props.user.id">
+                                    <Link :href="route('services.edit', service.id)"
+                                        class="gap-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                    Edit
+                                    </Link>
+                                    <Delete :serviceId="service.id" />
                                 </div>
                             </div>
                         </div>
@@ -275,14 +283,18 @@ const closeModal = () => {
                             <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
                                 {{ service.services_title }}
                             </h2>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-neutral-200">{{
+                                formatDate(service.created_at) }}</p>
 
                             <div class="flex items-center gap-x-5">
                                 <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-cyan-100 text-cyan-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-sky-950 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
                                     href="#">
                                     {{ service.services_category }}
                                 </a>
-                                <p class="text-xs sm:text-sm text-gray-500 dark:text-neutral-200">{{
-                                    formatDate(service.created_at) }}</p>
+                                <a class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-cyan-100 text-cyan-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-sky-950 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+                                    href="#">
+                                    {{ service.services_status }}
+                                </a>
                             </div>
 
                             <figure
@@ -296,7 +308,7 @@ const closeModal = () => {
 
                                 <p class="text-lg text-gray-800 dark:text-neutral-200 whitespace-pre-line">{{
                                     service.services_description
-                                }}</p>
+                                    }}</p>
                             </div>
                         </div>
                     </div>

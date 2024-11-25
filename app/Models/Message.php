@@ -12,6 +12,7 @@ class Message extends Model
         'content',
         'image',
         'video',
+        'content_title',
         'content_link',
         'content_link_image',
         'content_link_description',

@@ -1,21 +1,17 @@
 <script setup>
-import Modal from '@/Components/Modal.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
-import TextArea from '@/Components/TextArea.vue'
-import { useForm } from '@inertiajs/vue3';
-import { ref, watch } from 'vue';
+import TextArea from '@/Components/TextArea.vue';
 
 const props = defineProps({
     product: Object,
 });
 
-const showEditModal = ref(false);
-
 const form = useForm({
-    prod_picture: null,
     prod_name: props.product.prod_name || '',
     prod_price: props.product.prod_price || 0,
     prod_status: props.product.prod_status || '',
@@ -25,74 +21,26 @@ const form = useForm({
     prod_quantity: props.product.prod_quantity || 0,
 });
 
-const imagePreview = ref(
-    props.product.prod_picture ? `/storage/${props.product.prod_picture}` : null
-);
-
-const fileName = ref("No file chosen");
-
-watch(showEditModal, (newValue) => {
-    if (newValue) {
-        form.reset({
-            prod_picture: null,
-            prod_name: props.product.prod_name,
-            prod_price: props.product.prod_price,
-            prod_status: props.product.prod_status,
-            prod_category: props.product.prod_category,
-            prod_condition: props.product.prod_condition,
-            prod_description: props.product.prod_description,
-            prod_quantity: props.product.prod_quantity,
-        });
-        imagePreview.value = props.product.prod_picture;
-        fileName.value = "No file chosen";
-    }
-});
-
-const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        fileName.value = file.name;
-        form.prod_picture = file;  // Set file in form data for Inertia
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imagePreview.value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    } else {
-        fileName.value = "No file chosen";
-        imagePreview.value = null;
-        form.prod_picture = null;  // Reset form file field if no file selected
-    }
-};
-
-const triggerFileInput = () => {
-    document.getElementById("prod_picture").click();
-};
-
 const submitProduct = () => {
     form.put(route('products.update', props.product.id), {
         onSuccess: () => {
-            closeModal();
-            form.reset(); // Reset the form after a successful update
+            console.log('Product updated successfully');
+            form.reset();
         },
-        onError: () => {
-            console.error('Error updating product:', form.errors);
-        }
+        onError: (errors) => {
+            console.error('Error updating product:', errors);
+        },
     });
 };
 
-const closeModal = () => {
-    showEditModal.value = false;
-    form.clearErrors();
-};
 </script>
 
 <template>
-    <div>
-        <SecondaryButton @click="showEditModal = true">Edit Product</SecondaryButton>
+    <Head title="Edit product" />
 
-        <Modal :show="showEditModal" @close="closeModal">
-            <div class="p-6">
+    <AuthUsersLayout>
+        <div class="min-h-screen flex flex-col items-center justify-center px-4">
+            <div class="max-w-2xl w-full">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Edit Product</h2>
 
                 <form @submit.prevent="submitProduct" class="space-y-4">
@@ -101,29 +49,6 @@ const closeModal = () => {
                         <TextInput id="prod_name" v-model="form.prod_name" class="mt-1 block w-full"
                             placeholder="Product Name" />
                         <InputError :message="form.errors.prod_name" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <InputLabel value="Product Image" />
-
-                        <!-- Hidden File Input -->
-                        <input type="file" id="prod_picture" @change="handleImageUpload" class="hidden" />
-
-                        <!-- Custom Button and Filename Display -->
-                        <div class="flex items-center space-x-4 mt-1">
-                            <button type="button" @click="triggerFileInput"
-                                class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
-                                Choose File
-                            </button>
-                            <span class="text-gray-600">{{ fileName }}</span>
-                        </div>
-
-                        <InputError :message="form.errors.prod_picture" class="mt-2" />
-
-                        <!-- Image Preview -->
-                        <div v-if="imagePreview" class="mt-4">
-                            <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
-                        </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -193,7 +118,11 @@ const closeModal = () => {
                     </div>
 
                     <div class="mt-6 flex justify-end">
-                        <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
+                        <Link :href="route('products.show', product.id)"
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800"
+                            href="#">
+                        Cancel
+                        </Link>
                         <SecondaryButton class="ms-3" :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing" type="submit">
                             Update Product
@@ -201,6 +130,6 @@ const closeModal = () => {
                     </div>
                 </form>
             </div>
-        </Modal>
-    </div>
+        </div>
+    </AuthUsersLayout>
 </template>

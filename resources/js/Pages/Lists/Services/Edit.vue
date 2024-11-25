@@ -1,102 +1,53 @@
 <script setup>
-import Modal from '@/Components/Modal.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
-import TextArea from '@/Components/TextArea.vue'
-import { useForm } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import TextArea from '@/Components/TextArea.vue';
 
-const showCreateModal = ref(false);
+const props = defineProps({
+    service: Object,
+});
 
 const form = useForm({
-    services_picture: null,
-    services_title: '',
-    services_status: '',
-    services_fee: '',
-    services_category: '',
-    services_description: '',
+    services_title: props.service.services_title || '',
+    services_status: props.service.services_status || '',
+    services_fee: props.service.services_fee || 0,
+    services_category: props.service.services_category || '',
+    services_description: props.service.services_description || '',
 });
 
-const imagePreview = ref(null);
-const fileName = ref("No file chosen");
-
-const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    form.services_picture = file;
-    if (file) {
-        fileName.value = file.name;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imagePreview.value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-};
-
-const triggerFileInput = () => {
-    document.getElementById("services_picture").click();
-};
-
-const wordCount = computed(() => {
-    return form.services_description.trim().split(/\s+/).length;
-});
-
-const submitService = () => {
-    form.post(route('services.store'), {
+const updateService = () => {
+    form.put(route('services.update', props.service.id), {
         onSuccess: () => {
-            closeModal();
+            console.log('Service updated successfully');
             form.reset();
+        },
+        onError: (errors) => {
+            console.error('Error updating service:', errors);
         },
     });
 };
 
-const closeModal = () => {
-    showCreateModal.value = false;
-    form.clearErrors();
-    form.reset();
-};
 </script>
 
 <template>
-    <div>
-        <!-- Button to open modal -->
-        <SecondaryButton @click="showCreateModal = true">Add New Services</SecondaryButton>
-        <!-- Modal for creating a new product -->
-        <Modal :show="showCreateModal" @close="closeModal">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Create New Service</h2>
 
-                <form @submit.prevent="submitService" class="space-y-4">
+    <Head title="Edit service" />
+
+    <AuthUsersLayout>
+        <div class="min-h-screen flex flex-col items-center justify-center px-4">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Edit Product</h2>
+
+                <form @submit.prevent="updateService" class="space-y-4">
                     <div>
                         <InputLabel for="services_title" value="Services title" />
                         <TextInput id="services_title" v-model="form.services_title" class="mt-1 block w-full"
                             placeholder="Services title" />
                         <InputError :message="form.errors.services_title" class="mt-2" />
-                    </div>
-
-                    <div>
-                        <InputLabel value="Services Image" />
-
-                        <!-- Hidden File Input -->
-                        <input type="file" id="services_picture" @change="handleImageUpload" class="hidden" />
-
-                        <!-- Custom Button and Filename Display -->
-                        <div class="flex items-center space-x-4 mt-1">
-                            <button type="button" @click="triggerFileInput"
-                                class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
-                                Choose File
-                            </button>
-                            <span class="text-gray-600">{{ fileName }}</span>
-                        </div>
-
-                        <InputError :message="form.errors.services_picture" class="mt-2" />
-
-                        <!-- Image Preview -->
-                        <div v-if="imagePreview" class="mt-4">
-                            <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
-                        </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -144,27 +95,23 @@ const closeModal = () => {
                     <div>
                         <InputLabel for="services_description" value="Description" />
                         <TextArea id="services_description" v-model="form.services_description"
-                            class="mt-1 block w-full" rows="3" placeholder="Description"></textarea>
+                            class="mt-1 block w-full" rows="5" placeholder="Description"></textarea>
                         <InputError :message="form.errors.services_description" class="mt-2" />
-
-                        <div :class="{
-                            'text-red-500': wordCount < 15,
-                            'text-green-500': wordCount >= 15
-                        }" class="text-sm mt-1">
-                            <span v-if="wordCount < 50">You need at least 50 words. (Current: {{ wordCount }})</span>
-                            <span v-else>Looks good! You have typed {{ wordCount }} words.</span>
-                        </div>
                     </div>
 
                     <div class="mt-6 flex justify-end">
-                        <SecondaryButton @click="closeModal">Cancel</SecondaryButton>
+                        <Link :href="route('services.show', service.id)"
+                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800"
+                            href="#">
+                        Cancel
+                        </Link>
                         <SecondaryButton class="ms-3" :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing" type="submit">
-                            Create Service
+                            Update Service
                         </SecondaryButton>
                     </div>
                 </form>
             </div>
-        </Modal>
-    </div>
+        </div>
+    </AuthUsersLayout>
 </template>

@@ -63,12 +63,26 @@ class TradeController extends Controller
      */
     public function show(string $id)
     {
+        $isAuthorized = Auth::check();
+
         $trade = Trade::with('user')->find($id);
         $trade->trade_picture = $trade->trade_picture ? Storage::url($trade->trade_picture) : null;
+
+        $relatedTrades = Trade::where('trade_category', $trade->trade_category)
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get();
+
+        $relatedTrades = $relatedTrades->map(function ($relatedTrade) {
+            $relatedTrade->trade_picture = $relatedTrade->trade_picture ? Storage::url($relatedTrade->trade_picture) : null;
+            return $relatedTrade;
+        });
 
         return Inertia::render('Lists/Trades/Show', [
             'user' => Auth::user(),
             'trade' => $trade,
+            'relatedTrades' => $relatedTrades,
+            'isAuthorized' => $isAuthorized
         ]);
     }
 
@@ -112,15 +126,6 @@ class TradeController extends Controller
             'trade_conditions' => 'required|string|max:65535',
             'trade_duration' => 'required|date',
         ]);
-
-        if ($request->hasFile('trade_picture')) {
-            if ($trade->trade_picture) {
-                Storage::disk('public')->delete($trade->trade_picture);
-            }
-
-            $path = $request->file('trade_picture')->store('trade_pictures', 'public');
-            $validatedData['trade_picture'] = $path;
-        }
 
         $trade->update($validatedData);
 

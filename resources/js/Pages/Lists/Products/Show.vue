@@ -1,20 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import Edit from './Partials/Edit.vue';
 import Delete from './Partials/Delete.vue';
 import Modal from '@/Components/Modal.vue';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextArea from '@/Components/TextArea.vue';
-<<<<<<< Updated upstream
-import PrimaryButton from '../../../Components/PrimaryButton.vue';
-import SecondaryButton from '../../../Components/SecondaryButton.vue';
-=======
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
->>>>>>> Stashed changes
 
 const props = defineProps({
     user: {
@@ -25,13 +19,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
-<<<<<<< Updated upstream
-=======
     isAuthorized: {
         type: Boolean,
         default: false,
     },
->>>>>>> Stashed changes
     message: {
         type: Object,
         required: true
@@ -41,6 +32,7 @@ const props = defineProps({
 const form = useForm({
     recipient_id: props.product.user.id,
     content: 'Is this available?',
+    content_title: props.product.prod_name,
     content_link: route('products.show', props.product.id),
     content_link_image: props.product.prod_picture,
     content_link_description: props.product.prod_description,
@@ -73,7 +65,7 @@ const activeTab = ref('description');
 
     <template v-if="isAuthorized">
         <AuthUsersLayout>
-            <div class="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
+            <div class="p-8 tracking-wide max-lg:max-w-2xl mx-auto">
                 <div>
                     <Link :href="route('products.index')"
                         class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500">
@@ -93,18 +85,11 @@ const activeTab = ref('description');
                         </div>
                     </div>
 
-<<<<<<< Updated upstream
-                    <div class="flex flex-wrap gap-4 mt-8" v-if="!props.user || product.user.id !== props.user.id">
-                        <SecondaryButton @click="showModal = true" class="flex justify-center w-full px-4 py-2.5">
-                            Inquire product
-                        </SecondaryButton>
-=======
                     <div class="max-w-xl">
                         <div>
                             <h2 class="text-4xl font-bold text-gray-800 dark:text-white">{{ product.prod_name }}</h2>
                             <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">{{ product.prod_category }}</p>
                         </div>
->>>>>>> Stashed changes
 
                         <div class="flex mt-4">
                             <button type="button"
@@ -141,6 +126,7 @@ const activeTab = ref('description');
 
                                     <form @submit.prevent="submitMessage" class="space-y-4">
                                         <input type="hidden" name="recipient_id" :value="form.recipient_id">
+                                        <input type="hidden" name="content_title" :value="form.content_title">
                                         <input type="hidden" name="content_link" :value="form.content_link">
                                         <input type="hidden" name="content_link_image" :value="form.content_link_image">
                                         <input type="hidden" name="content_link_description"
@@ -165,60 +151,15 @@ const activeTab = ref('description');
                         </div>
 
                         <div class="flex flex-wrap gap-4 mt-8" v-if="props.user && product.user.id === props.user.id">
-                            <div class="flex justify-center min-w-[200px] gap-2 py-2.5">
-                                <Edit :product="product" />
+                            <div class="flex justify-start w-full gap-2 py-2.5">
+                                <Link :href="route('products.edit', product.id)"
+                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                Edit
+                                </Link>
                                 <Delete :productId="product.id" />
                             </div>
                         </div>
 
-<<<<<<< Updated upstream
-                    <div class="flex flex-wrap gap-4 mt-8" v-if="props.user && product.user.id === props.user.id">
-                        <PrimaryButton class="flex justify-center min-w-[200px] px-4 py-2.5">
-                            Edit product
-                        </PrimaryButton>
-                        <SecondaryButton class="flex justify-center min-w-[200px] px-4 py-2.5">
-                            Delete
-                        </SecondaryButton>
-                    </div>
-
-                    <div class="mt-8">
-                        <!-- Tabs -->
-                        <ul class="flex border-b dark:border-gray-600">
-                            <li @click="activeTab = 'description'" :class="{
-                                'text-gray-800 dark:text-white font-bold text-sm bg-gray-100 dark:bg-gray-700 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'description',
-                                'text-gray-600 dark:hover:text-gray-300 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-8 cursor-pointer': activeTab !== 'description'
-                            }">
-                                Description
-                            </li>
-                            <li @click="activeTab = 'seller'" :class="{
-                                'text-gray-800 dark:text-white font-bold text-sm bg-gray-100 dark:bg-gray-700 py-3 px-8 border-b-2 border-gray-700 cursor-pointer': activeTab === 'seller',
-                                'text-gray-600 dark:hover:text-gray-300 font-bold text-sm hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-8 cursor-pointer': activeTab !== 'seller'
-                            }">
-                                Seller info
-                            </li>
-                        </ul>
-
-                        <div v-show="activeTab === 'description'" class="py-6 text-gray-600 dark:text-gray-300">
-                            <div class="space-y-4">
-                                <div class="text-lg font-medium">Product Description</div>
-                                <div class="text-sm text-justify whitespace-pre-wrap">{{ product.prod_description }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div v-show="activeTab === 'seller'" class="py-6 text-gray-600 dark:text-gray-300">
-                            <div class="space-y-4">
-                                <div class="text-lg font-medium">Seller Information</div>
-                                <div class="flex gap-4">
-                                    <div class="flex-shrink-0">
-                                        <img class="w-12 h-12 rounded-full"
-                                            :src="product.user.profile_picture || '/img/user-placeholder.jpg'"
-                                            alt="user image" />
-                                    </div>
-                                    <div class="space-y-1">
-                                        <div class="text-sm font-medium">{{ product.user.name }}</div>
-                                        <div class="text-xs text-gray-400">{{ product.user.email }}</div>
-=======
                         <div class="mt-8">
                             <!-- Tabs -->
                             <ul class="flex border-b dark:border-gray-600">
@@ -249,15 +190,14 @@ const activeTab = ref('description');
                                     <div class="text-lg font-medium">Seller Information</div>
                                     <div class="flex gap-4">
                                         <div class="flex-shrink-0">
-                                            <img class="w-12 h-12 rounded-full"
+                                            <!-- <img class="w-12 h-12 rounded-full"
                                                 :src="product.user.profile_picture || '/img/user-placeholder.jpg'"
-                                                alt="user image" />
+                                                alt="user image" /> -->
                                         </div>
                                         <div class="space-y-1">
                                             <div class="text-sm font-medium">{{ product.user.name }}</div>
                                             <div class="text-xs text-gray-400">{{ product.user.email }}</div>
                                         </div>
->>>>>>> Stashed changes
                                     </div>
                                 </div>
                             </div>
@@ -265,11 +205,6 @@ const activeTab = ref('description');
                     </div>
                 </div>
             </div>
-<<<<<<< Updated upstream
-        </div>
-
-    </AuthUsersLayout>
-=======
         </AuthUsersLayout>
     </template>
 
@@ -458,6 +393,5 @@ const activeTab = ref('description');
             </div>
         </GuestLayout>
     </template>
->>>>>>> Stashed changes
 </template>
 

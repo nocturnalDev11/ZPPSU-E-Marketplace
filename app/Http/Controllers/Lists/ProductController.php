@@ -87,7 +87,7 @@ class ProductController extends Controller
 
         $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
 
-        return Inertia::render('Lists/Products/Partials/Edit', [
+        return Inertia::render('Lists/Products/Edit', [
             'product' => $product,
         ]);
     }
@@ -104,7 +104,6 @@ class ProductController extends Controller
         }
 
         $validatedData = $request->validate([
-            'prod_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'prod_name' => 'sometimes|string|max:255',
             'prod_price' => 'sometimes|numeric',
             'prod_status' => 'sometimes|string',
@@ -114,20 +113,11 @@ class ProductController extends Controller
             'prod_quantity' => 'sometimes|integer',
         ]);
 
-        if ($request->hasFile('prod_picture')) {
-            // Validate and store the file
-            $path = $request->file('prod_picture')->store('product_pictures', 'public');
-            $validatedData['prod_picture'] = $path;
-        } else {
-            $validatedData['prod_picture'] = $product->prod_picture;
-        }
-
         $product->update($validatedData);
 
         return redirect()->route('products.show', $product->id)
             ->with('success', 'Product updated successfully!');
     }
-
 
     /**
      * Remove the specified product from storage.

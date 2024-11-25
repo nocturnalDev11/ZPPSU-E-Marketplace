@@ -396,7 +396,7 @@ const showingNavigationDropdown = ref(false);
             </aside>
 
             <!-- Page Content -->
-            <main class="pt-24 sm:pt-10 px-5 xl:ml-96 ml-0">
+            <main class="pt-24 xl:pt-0 px-5 xl:ml-96 ml-0">
                 <slot />
             </main>
         </div>

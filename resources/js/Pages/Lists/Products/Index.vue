@@ -90,7 +90,7 @@ const closeModal = () => {
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
-                                <div class="hidden pl-2 space-x-1 md:flex">
+                                <!-- <div class="hidden pl-2 space-x-1 md:flex">
                                     <a href="#"
                                         class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -127,7 +127,7 @@ const closeModal = () => {
                                             </path>
                                         </svg>
                                     </a>
-                                </div>
+                                </div> -->
                                 <Create v-if="$page.props.auth.user.role_id === 1"
                                     class="inline-flex items-center text-center dark:text-white sm:ml-auto">
                                     <svg class="mr-2 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -248,7 +248,7 @@ const closeModal = () => {
                                 </div>
                             </form>
                             <div class="flex items-center w-full">
-                                <div class="hidden pl-2 space-x-1 md:flex">
+                                <!-- <div class="hidden pl-2 space-x-1 md:flex">
                                     <a href="#"
                                         class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -285,7 +285,7 @@ const closeModal = () => {
                                             </path>
                                         </svg>
                                     </a>
-                                </div>
+                                </div> -->
                                 <Create v-if="$page.props.auth.user.role_id === 2"
                                     class="inline-flex items-center text-center dark:text-white sm:ml-auto">
                                     <svg class="mr-2 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -408,7 +408,7 @@ const closeModal = () => {
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
-                                <div class="hidden pl-2 space-x-1 md:flex">
+                                <!-- <div class="hidden pl-2 space-x-1 md:flex">
                                     <a href="#"
                                         class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
                                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -445,7 +445,7 @@ const closeModal = () => {
                                             </path>
                                         </svg>
                                     </a>
-                                </div>
+                                </div> -->
                                 <SecondaryButton @click="showModal = true"
                                     class="inline-flex items-center text-center dark:text-white sm:ml-auto">
                                     <svg class="mr-2 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -462,9 +462,9 @@ const closeModal = () => {
                                             about this product.</p>
 
                                         <div class="flex gap-3 py-2">
-                                            <Link :href="route('external.login')"
+                                            <Link :href="route('verification')"
                                                 class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white dark:focus:bg-white dark:focus:ring-offset-gray-800 dark:active:bg-gray-300">
-                                            Log in as external user
+                                            Verify email as campus user
                                             </Link>
                                             <Link :href="route('campus.login')"
                                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">

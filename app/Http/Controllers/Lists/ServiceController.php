@@ -91,6 +91,23 @@ class ServiceController extends Controller
         ]);
     }
 
+    /**
+     * Show the form for editing the specified service.
+     */
+    public function edit(string $id)
+    {
+        $service = Service::find($id);
+
+        if (!$service || $service->user_id !== Auth::id()) {
+            return redirect()->route('services.index')->with('error', 'service not found or unauthorized.');
+        }
+
+        $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
+
+        return Inertia::render('Lists/Services/Edit', [
+            'service' => $service,
+        ]);
+    }
 
     /**
      * Update the specified service.
@@ -104,22 +121,12 @@ class ServiceController extends Controller
         }
 
         $validatedData = $request->validate([
-            'services_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'services_title' => 'required|string|max:255',
             'services_status' => 'required|string',
             'services_fee' => 'required|numeric',
             'services_category' => 'required|string',
             'services_description' => 'required|string|max:65535',
         ]);
-
-        if ($request->hasFile('services_picture')) {
-            if ($service->services_picture) {
-                Storage::disk('public')->delete($service->services_picture);
-            }
-
-            $path = $request->file('services_picture')->store('services_picture', 'public');
-            $validatedData['services_picture'] = $path;
-        }
 
         $service->update($validatedData);
 
