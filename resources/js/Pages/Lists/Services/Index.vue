@@ -3,6 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import AuthAdminLayout from '@/Layouts/AuthAdminLayout.vue';
 import Create from './Partials/Create.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Modal from '@/Components/Modal.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
@@ -45,7 +46,7 @@ const closeModal = () => {
         <AuthAdminLayout v-if="$page.props.auth.user.role_id === 1">
             <div class="container w-full mx-auto">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-900 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -199,9 +200,9 @@ const closeModal = () => {
 
         <!-- Auth user layout-->
         <AuthUsersLayout v-else-if="$page.props.auth.user.role_id === 2 || $page.props.auth.user.role_id === 3">
-            <div class="container w-full mx-auto">
+            <div class="container w-full mx-auto pt-4">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-900 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -357,9 +358,9 @@ const closeModal = () => {
 
     <template v-else>
         <GuestLayout>
-            <div class="container w-full mx-auto">
+            <div class="container w-full mx-auto py-36">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-900 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">

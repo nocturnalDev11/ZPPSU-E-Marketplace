@@ -43,7 +43,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'services_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'services_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'services_title' => 'required|string|max:255',
             'services_status' => 'required|string',
             'services_fee' => 'required|numeric',

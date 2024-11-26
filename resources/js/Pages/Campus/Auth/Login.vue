@@ -37,7 +37,7 @@ const submit = () => {
                 {{ status }}
             </div>
 
-            <form @submit.prevent="submit" class="max-w-md w-full bg-white p-6 rounded-lg shadow-md dark:bg-gray-800">
+            <form @submit.prevent="submit" class="max-w-md w-full bg-white p-6 rounded-lg shadow-xl dark:bg-gray-800">
                 <div class="text-center mb-8 text-gray-800 dark:text-white">
                     <h3 class="text-3xl font-extrabold">
                         Sign in

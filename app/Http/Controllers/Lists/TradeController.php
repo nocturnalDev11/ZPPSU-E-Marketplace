@@ -99,7 +99,7 @@ class TradeController extends Controller
 
         $trade->trade_picture = $trade->trade_picture ? Storage::url($trade->trade_picture) : null;
 
-        return Inertia::render('Lists/Trades/Partials/Edit', [
+        return Inertia::render('Lists/Trades/Edit', [
             'trade' => $trade,
         ]);
     }
@@ -116,7 +116,7 @@ class TradeController extends Controller
         }
 
         $validatedData = $request->validate([
-            'trade_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            // 'trade_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'trade_title' => 'required|string|max:255',
             'trade_category' => 'required|string',
             'trade_description' => 'required|string|max:65535',

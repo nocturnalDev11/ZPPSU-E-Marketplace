@@ -19,7 +19,7 @@ const showingNavigationDropdown = ref(false);
                 <nav class="xl:hidden lg:block md:hidden sm:block bg-white dark:bg-gray-800">
                     <!-- Primary Navigation Menu -->
                     <div class="mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="flex h-16 justify-between">
+                        <div class="flex h-16 items-center justify-between">
                             <div class="flex xl:w-1/3 w-full flex-shrink">
                                 <!-- Logo -->
                                 <div class="flex shrink-0 items-center">
@@ -225,8 +225,12 @@ const showingNavigationDropdown = ref(false);
                     <div class="w-full items-center flex">
                         <div class="w-full justify-between items-center inline-flex">
                             <div class="items-center flex">
-                                <img class="rounded-lg" alt="image"
-                                    src="https://pagedone.io/asset/uploads/1701235464.png" />
+                                <div
+                                    class="flex-shrink-0 relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-12 h-12">
+                                    <span class="p-2 font-medium text-2xl text-gray-300 dark:text-gray-100">
+                                        {{ $page.props.auth.user.name.charAt(0).toUpperCase() || '?' }}
+                                    </span>
+                                </div>
                                 <div class="flex-col inline-flex ml-2.5">
                                     <h2 class="text-gray-700 dark:text-gray-100 text-sm font-semibold leading-snug">
                                         {{ $page.props.auth.user.name }}
@@ -396,7 +400,7 @@ const showingNavigationDropdown = ref(false);
             </aside>
 
             <!-- Page Content -->
-            <main class="pt-24 xl:pt-0 px-5 xl:ml-96 ml-0">
+            <main class="py-24 xl:pt-0 px-5 xl:ml-96 ml-0">
                 <slot />
             </main>
         </div>

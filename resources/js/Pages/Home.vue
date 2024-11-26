@@ -36,7 +36,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
 
         <Head title="Home" />
 
-        <div class="block justify-between items-center mx-4 mb-6 p-5 sm:flex">
+        <div class="block justify-between items-center mx-4 mb-6 pt-10 px-5 sm:flex">
             <div
                 class="p-5 mb-1 w-full bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-900">
                 <div class="mb-4">

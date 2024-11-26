@@ -23,17 +23,17 @@ class HomeController extends Controller
             return $product;
         });
 
-        $services = Service::all()->map(function ($service) {
+        $services = Service::limit(10)->get()->map(function ($service) {
             $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
             return $service;
         });
 
-        $trades = Trade::all()->map(function ($trade) {
+        $trades = Trade::limit(10)->get()->map(function ($trade) {
             $trade->trade_picture = $trade->trade_picture ? Storage::url($trade->trade_picture) : null;
             return $trade;
         });
 
-        $posts = Post::all()->map(function ($post) {
+        $posts = Post::limit(10)->get()->map(function ($post) {
             $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
             return $post;
         });

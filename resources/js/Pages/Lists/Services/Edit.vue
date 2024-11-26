@@ -87,7 +87,9 @@ const updateService = () => {
                             <option value="Painting">Painting</option>
                             <option value="Catering">Catering</option>
                             <option value="Troubleshooting">Troubleshooting</option>
-                            <option value="Vehicle repair">Repair services</option>
+                            <option value="Project assistance">Project assistance</option>
+                            <option value="Repair services">Repair services</option>
+                            <option value="Others">Others</option>
                         </select>
                         <InputError :message="form.errors.services_category" class="mt-2" />
                     </div>

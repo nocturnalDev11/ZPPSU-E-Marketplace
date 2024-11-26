@@ -189,10 +189,11 @@ const activeTab = ref('description');
                                 <div class="space-y-4">
                                     <div class="text-lg font-medium">Seller Information</div>
                                     <div class="flex gap-4">
-                                        <div class="flex-shrink-0">
-                                            <!-- <img class="w-12 h-12 rounded-full"
-                                                :src="product.user.profile_picture || '/img/user-placeholder.jpg'"
-                                                alt="user image" /> -->
+                                        <div
+                                            class="flex-shrink-0 relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 mb-2 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-12 h-12">
+                                            <span class="p-2 font-medium text-2xl text-gray-300 dark:text-gray-100">
+                                                {{ product.user.name.charAt(0).toUpperCase() || '?' }}
+                                            </span>
                                         </div>
                                         <div class="space-y-1">
                                             <div class="text-sm font-medium">{{ product.user.name }}</div>
@@ -291,59 +292,20 @@ const activeTab = ref('description');
 
                             <Modal :show="showModal" @close="closeModal">
                                 <div class="p-6">
-                                    <template v-if="!props.user">
-                                        <p class="text-sm text-gray-600 dark:text-gray-300">Please log in to inquire
-                                            about this product.</p>
-                                        <div class="flex gap-3 py-2">
-                                            <Link :href="route('external.login')"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white dark:focus:bg-white dark:focus:ring-offset-gray-800 dark:active:bg-gray-300">
-                                            Log in as external user
-                                            </Link>
-                                            <Link :href="route('campus.login')"
-                                                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
-                                            Log in as campus user
-                                            </Link>
-                                        </div>
-                                    </template>
-                                    <template v-else>
-                                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Inquire
-                                            this
-                                            product to {{ product.user.name }}</h2>
-
-                                        <form @submit.prevent="submitMessage" class="space-y-4">
-                                            <input type="hidden" name="recipient_id" :value="form.recipient_id">
-                                            <input type="hidden" name="content_link" :value="form.content_link">
-                                            <input type="hidden" name="content_link_image"
-                                                :value="form.content_link_image">
-                                            <input type="hidden" name="content_link_description"
-                                                :value="form.content_link_description">
-                                            <div>
-                                                <InputLabel for="content" value="Type a message" />
-                                                <TextArea id="content" v-model="form.content" class="mt-1 block w-full"
-                                                    rows="3" placeholder="Aa"></textarea>
-                                                <InputError :message="form.errors.content" class="mt-2" />
-                                            </div>
-
-                                            <div class="mt-6 flex justify-end">
-                                                <PrimaryButton @click="closeModal">Cancel</PrimaryButton>
-                                                <SecondaryButton class="ms-3" :class="{ 'opacity-25': form.processing }"
-                                                    :disabled="form.processing" type="submit">
-                                                    Send
-                                                </SecondaryButton>
-                                            </div>
-                                        </form>
-                                    </template>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Please log in to inquire
+                                        about this product.</p>
+                                    <div class="flex gap-3 py-2">
+                                        <Link :href="route('external.login')"
+                                            class="inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-white dark:focus:bg-white dark:focus:ring-offset-gray-800 dark:active:bg-gray-300">
+                                        Log in as external user
+                                        </Link>
+                                        <Link :href="route('campus.login')"
+                                            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                        Log in as campus user
+                                        </Link>
+                                    </div>
                                 </div>
                             </Modal>
-                        </div>
-
-                        <div class="flex flex-wrap gap-4 mt-8" v-if="props.user && product.user.id === props.user.id">
-                            <PrimaryButton class="flex justify-center min-w-[200px] px-4 py-2.5">
-                                Edit product
-                            </PrimaryButton>
-                            <SecondaryButton class="flex justify-center min-w-[200px] px-4 py-2.5">
-                                Delete
-                            </SecondaryButton>
                         </div>
 
                         <div class="mt-8">
@@ -375,10 +337,11 @@ const activeTab = ref('description');
                                 <div class="space-y-4">
                                     <div class="text-lg font-medium">Seller Information</div>
                                     <div class="flex gap-4">
-                                        <div class="flex-shrink-0">
-                                            <img class="w-12 h-12 rounded-full"
-                                                :src="product.user.profile_picture || '/img/user-placeholder.jpg'"
-                                                alt="user image" />
+                                        <div
+                                            class="flex-shrink-0 relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 mb-2 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-12 h-12">
+                                            <span class="p-2 font-medium text-2xl text-gray-300 dark:text-gray-100">
+                                                {{ product.user.name.charAt(0).toUpperCase() || '?' }}
+                                            </span>
                                         </div>
                                         <div class="space-y-1">
                                             <div class="text-sm font-medium">{{ product.user.name }}</div>

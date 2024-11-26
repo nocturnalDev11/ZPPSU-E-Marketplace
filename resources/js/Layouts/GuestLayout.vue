@@ -19,7 +19,7 @@ const showingNavigationDropdown = ref(false);
                 <nav class="bg-white dark:bg-gray-800 border-b dark:border-gray-600">
                     <!-- Primary Navigation Menu -->
                     <div class="mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="flex h-16 justify-between">
+                        <div class="flex h-16 items-center justify-between">
                             <div class="flex xl:w-1/3 w-full flex-shrink">
                                 <!-- Logo -->
                                 <div class="flex shrink-0 items-center">
@@ -34,7 +34,7 @@ const showingNavigationDropdown = ref(false);
 
                             <div class="flex-grow justify-end sm:ms-6 sm:flex sm:items-center">
                                 <div class="relative ms-3 hidden sm:flex">
-                                    <Dropdown align="right" width="48">
+                                    <Dropdown align="right" width="56">
                                         <template #trigger>
                                             <span class="inline-flex rounded-md">
                                                 <button type="button"
@@ -57,10 +57,10 @@ const showingNavigationDropdown = ref(false);
                                                 Login
                                             </span>
                                             <DropdownLink :href="route('campus.login')">
-                                                ZPPSU community members
+                                                ZPPSU campus users
                                             </DropdownLink>
                                             <DropdownLink :href="route('external.login')">
-                                                Non-community members
+                                                External users
                                             </DropdownLink>
                                             <hr class="mx-2 py-2 border-gray-300 dark:border-gray-600">
                                             <span
@@ -68,10 +68,10 @@ const showingNavigationDropdown = ref(false);
                                                 Verify/Signup
                                             </span>
                                             <DropdownLink :href="route('verification')">
-                                                Email verification ZPPSU community members
+                                                Email verification for ZPPSU campus users
                                             </DropdownLink>
                                             <DropdownLink :href="route('external.signupForm')">
-                                                Signup non-community members
+                                                Signup for external users
                                             </DropdownLink>
                                         </template>
                                     </Dropdown>

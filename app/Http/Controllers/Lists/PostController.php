@@ -58,11 +58,26 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::findOrFail($id);
+        $isAuthorized = Auth::check();
+
+        $post = Post::with('user')->find($id);
         $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
 
+        $relatedPosts = Post::where('post_list_type', $post->post_list_type)
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get();
+
+        $relatedPosts = $relatedPosts->map(function ($relatedPost) {
+            $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
+            return $relatedPost;
+        });
+
         return Inertia::render('Lists/Posts/Show', [
+            'user' => Auth::user(),
             'post' => $post,
+            'relatedPosts' => $relatedPosts,
+            'isAuthorized' => $isAuthorized,
         ]);
     }
 
@@ -79,7 +94,7 @@ class PostController extends Controller
 
         $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
 
-        return Inertia::render('Lists/Posts/Partials/Edit', [
+        return Inertia::render('Lists/Posts/Edit', [
             'post' => $post,
         ]);
     }
@@ -97,19 +112,19 @@ class PostController extends Controller
 
         $validatedData = $request->validate([
             'post_title' => 'required|string|max:255',
-            'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            // 'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'post_list_type' => 'required|string',
             'post_content' => 'required|string|max:65535'
         ]);
 
-        if ($request->hasFile('post_picture')) {
-            if ($post->post_picture) {
-                Storage::disk('public')->delete($post->post_picture);
-            }
+        // if ($request->hasFile('post_picture')) {
+        //     if ($post->post_picture) {
+        //         Storage::disk('public')->delete($post->post_picture);
+        //     }
 
-            $path = $request->file('post_picture')->store('post_pictures', 'public');
-            $validatedData['post_picture'] = $path;
-        }
+        //     $path = $request->file('post_picture')->store('post_pictures', 'public');
+        //     $validatedData['post_picture'] = $path;
+        // }
 
         $post->update($validatedData);
 

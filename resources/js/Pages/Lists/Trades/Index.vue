@@ -45,7 +45,7 @@ const closeModal = () => {
         <AuthAdminLayout v-if="$page.props.auth.user.role_id === 1">
             <div class="container w-full mx-auto">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-800/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -85,7 +85,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="trades-search" v-model="searchTerm"
                                         placeholder="Search for trades"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
@@ -203,9 +203,9 @@ const closeModal = () => {
         </AuthAdminLayout>
 
         <AuthUsersLayout v-else-if="$page.props.auth.user.role_id === 2 || $page.props.auth.user.role_id === 3">
-            <div class="container w-full mx-auto">
+            <div class="container w-full mx-auto pt-4">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-800/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -367,7 +367,7 @@ const closeModal = () => {
         <GuestLayout>
             <div class="container w-full mx-auto py-36">
                 <div
-                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-800/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
+                    class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                     <div class="mb-1 w-full">
                         <div class="mb-4">
                             <nav class="flex mb-5" aria-label="Breadcrumb">

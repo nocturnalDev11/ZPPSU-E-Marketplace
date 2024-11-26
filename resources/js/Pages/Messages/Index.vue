@@ -145,13 +145,6 @@ function formatDate(dateString) {
             </div>
 
             <div class="mt-auto">
-                <div class="py-2.5 px-7">
-                    <p class="inline-flex items-center gap-x-2 text-xs text-green-600">
-                        <span class="block size-1.5 rounded-full bg-green-600"></span>
-                        Active 12,320 people
-                    </p>
-                </div>
-
                 <div class="p-4 border-t border-gray-200 dark:border-gray-700">
                     <Link v-if="$page.props.auth.user.role_id === 2"
                         class="flex w-full justify-between items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-300"

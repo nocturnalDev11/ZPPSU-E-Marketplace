@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'prod_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'prod_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'prod_name' => 'required|string|max:255',
             'prod_price' => 'required|numeric',
             'prod_status' => 'required|string',

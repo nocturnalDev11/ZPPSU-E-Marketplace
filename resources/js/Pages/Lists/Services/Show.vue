@@ -31,7 +31,7 @@ const props = defineProps({
 
 const form = useForm({
     recipient_id: props.service.user.id,
-    content: 'Is this available?',
+    content: 'I need assistance with [Service]. Can you help?',
     content_title: props.service.services_title,
     content_link: route('services.show', props.service.id),
     content_link_image: props.service.services_picture,
@@ -236,25 +236,25 @@ const closeModal = () => {
                             <Link :href="route('services.show', relatedService.id)"
                                 v-for="relatedService in relatedServices" :key="relatedService.id"
                                 class="group flex items-center gap-x-6 focus:outline-none">
-                            <div class="shrink-0 relative rounded-lg overflow-hidden size-20">
-                                <img v-if="relatedService.services_picture"
-                                    class="size-full absolute top-0 start-0 object-cover rounded-lg"
-                                    :src="relatedService.services_picture" alt="Service Image" />
-                                <img v-else src="https://via.placeholder.com/320" alt="Default Image"
-                                    class="size-full absolute top-0 start-0 object-cover rounded-lg" />
-                            </div>
+                                <div class="shrink-0 relative rounded-lg overflow-hidden size-20">
+                                    <img v-if="relatedService.services_picture"
+                                        class="size-full absolute top-0 start-0 object-cover rounded-lg"
+                                        :src="relatedService.services_picture" alt="Service Image" />
+                                    <img v-else src="https://via.placeholder.com/320" alt="Default Image"
+                                        class="size-full absolute top-0 start-0 object-cover rounded-lg" />
+                                </div>
 
-                            <div class="grow">
-                                <span
-                                    class="text-sm font-bold text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
-                                    {{ relatedService.services_title }}
-                                </span>
-                                <br />
-                                <span
-                                    class="text-xs font-medium italic text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
-                                    {{ relatedService.services_category }}
-                                </span>
-                            </div>
+                                <div class="grow">
+                                    <span
+                                        class="text-sm font-bold text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
+                                        {{ relatedService.services_title }}
+                                    </span>
+                                    <br />
+                                    <span
+                                        class="text-xs font-medium italic text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
+                                        {{ relatedService.services_category }}
+                                    </span>
+                                </div>
                             </Link>
                         </div>
                     </div>
