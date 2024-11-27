@@ -35,11 +35,11 @@ const {
         <Head title="Admin Dashboard" />
 
         <div class="dashboard p-6">
-            <h1 class="text-2xl font-bold mb-4">Admin Dashboard</h1>
+            <h1 class="text-2xl font-bold mb-4 dark:text-gray-50">Admin Dashboard</h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 <!-- Total users -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             All Users: <span :class="newUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
@@ -67,7 +67,7 @@ const {
 
                 <!-- New Users Card -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             New Users
@@ -95,12 +95,12 @@ const {
 
                 <!-- Total campus users -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             Campus user: <span
                                 :class="newCampusUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                    newCampusUsersThisWeek }}</span>
+                                newCampusUsersThisWeek }}</span>
                         </h2>
                         <div class="flex flex-wrap gap-3 py-2">
                             <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalCampusUser }}</p>
@@ -125,12 +125,12 @@ const {
 
                 <!-- External Users -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             External user: <span
                                 :class="newExternalUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                    newExternalUsersThisWeek }}</span>
+                                newExternalUsersThisWeek }}</span>
                         </h2>
                         <div class="flex flex-wrap gap-3 py-2">
                             <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalExternalUser }}</p>
@@ -155,12 +155,12 @@ const {
 
                 <!-- Total Products -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             Total Products: <span
                                 :class="newProductsThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                    newProductsThisWeek }}</span>
+                                newProductsThisWeek }}</span>
                         </h2>
                         <div class="flex flex-wrap gap-3 py-2">
                             <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalProducts }}</p>
@@ -183,12 +183,12 @@ const {
 
                 <!-- Total services -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             Total Services: <span
                                 :class="newServicesThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                    newServicesThisWeek }}</span>
+                                newServicesThisWeek }}</span>
                         </h2>
                         <div class="flex flex-wrap gap-3 py-2">
                             <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalServices }}</p>
@@ -211,7 +211,7 @@ const {
 
                 <!-- Total posts -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             Total Posts: <span :class="newPostsThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
@@ -238,7 +238,7 @@ const {
 
                 <!-- Total trades -->
                 <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-700/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
                     <div>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
                             Total Trades: <span :class="newTradesThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{

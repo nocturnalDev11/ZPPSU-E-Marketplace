@@ -85,7 +85,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="trades-search" v-model="searchTerm"
                                         placeholder="Search for trades"
-                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
@@ -245,7 +245,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="trades-search" v-model="searchTerm"
                                         placeholder="Search for trades"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
@@ -373,7 +373,7 @@ const closeModal = () => {
                             <nav class="flex mb-5" aria-label="Breadcrumb">
                                 <ol class="inline-flex items-center space-x-1 md:space-x-2">
                                     <li class="inline-flex items-center">
-                                        <Link :href="route('home')"
+                                        <Link :href="route('landing.page')"
                                             class="inline-flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100">
                                         <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -381,7 +381,7 @@ const closeModal = () => {
                                                 d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
                                             </path>
                                         </svg>
-                                        Home
+                                        Landing page
                                         </Link>
                                     </li>
                                     <li>
@@ -407,7 +407,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="trades-search" v-model="searchTerm"
                                         placeholder="Search for trades"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">

@@ -22,7 +22,6 @@ const submit = () => {
     });
 };
 
-// Watch the name field for changes and capitalize each word
 watch(() => form.name, (newValue) => {
     form.name = newValue.replace(/\b\w/g, char => char.toUpperCase());
 });

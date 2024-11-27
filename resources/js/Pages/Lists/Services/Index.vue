@@ -86,7 +86,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="services-search" v-model="searchTerm"
                                         placeholder="Search for services"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full">
@@ -242,7 +242,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="services-search" v-model="searchTerm"
                                         placeholder="Search for services"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full">
@@ -400,7 +400,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="services-search" v-model="searchTerm"
                                         placeholder="Search for services"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full">

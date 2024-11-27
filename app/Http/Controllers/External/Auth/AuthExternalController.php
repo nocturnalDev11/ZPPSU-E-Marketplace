@@ -35,7 +35,6 @@ class AuthExternalController extends Controller
      */
     public function signup(Request $request)
     {
-        // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'dob' => 'nullable|date',
@@ -47,7 +46,6 @@ class AuthExternalController extends Controller
 
         $validatedData['role_id'] = $validatedData['role_id'] ?? 3;
 
-        // Create the user
         $user = User::create([
             'name' => $validatedData['name'],
             'dob' => $validatedData['dob'],

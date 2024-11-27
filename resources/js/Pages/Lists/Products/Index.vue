@@ -86,7 +86,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="products-search" v-model="searchTerm"
                                         placeholder="Search for products"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">
@@ -128,16 +128,6 @@ const closeModal = () => {
                                         </svg>
                                     </a>
                                 </div> -->
-                                <Create v-if="$page.props.auth.user.role_id === 1"
-                                    class="inline-flex items-center text-center dark:text-white sm:ml-auto">
-                                    <svg class="mr-2 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                    Add product
-                                </Create>
                             </div>
                         </div>
                     </div>
@@ -244,7 +234,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="products-search" v-model="searchTerm"
                                         placeholder="Search for products"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full">
@@ -404,7 +394,7 @@ const closeModal = () => {
                                 <div class="relative mt-1 sm:w-64 xl:w-96">
                                     <input type="text" id="products-search" v-model="searchTerm"
                                         placeholder="Search for products"
-                                        class="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5" />
+                                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                 </div>
                             </form>
                             <div class="flex items-center w-full sm:justify-end">

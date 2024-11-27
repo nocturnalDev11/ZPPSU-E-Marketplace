@@ -248,6 +248,21 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <ul class="flex-col gap-1 flex">
                         <li>
+                            <SidebarLink :href="route('all.users')" :active="route().current('all.users')">
+                                <div class="h-5 gap-3 flex">
+                                    <div class="relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.6" stroke="#6B7280" width="20" height="20">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                                        </svg>
+                                    </div>
+                                    <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
+                                        All users</h2>
+                                </div>
+                            </SidebarLink>
+                        </li>
+                        <li>
                             <SidebarLink :href="route('products.index')" :active="route().current('products.index')">
                                 <div class="h-5 gap-3 flex">
                                     <div class="relative">
@@ -323,10 +338,10 @@ const showingNavigationDropdown = ref(false);
                     <div class="h-8 px-3 items-center inline-flex">
                         <h6 class="text-gray-800 dark:text-gray-100 text-xs font-semibold leading-4">SETTINGS</h6>
                     </div>
-                    <ul class="flex-col gap-1 flex items-end">
+                    <ul class="gap-1 flex items-center">
                         <li>
                             <SidebarLink :href="route('admin.logout')" method="post" as="button">
-                                <div class="h-5 items-center gap-3 flex">
+                                <div class="h-5 items-center justify-between gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 20 20" fill="none">
@@ -349,7 +364,7 @@ const showingNavigationDropdown = ref(false);
             </aside>
 
             <!-- Page Content -->
-            <main class="pt-24 px-5 xl:ml-96 ml-0">
+            <main class="px-5 xl:ml-96 ml-0">
                 <slot />
             </main>
         </div>

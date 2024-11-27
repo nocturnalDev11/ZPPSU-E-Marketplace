@@ -1,6 +1,5 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -12,9 +11,15 @@ use App\Http\Controllers\Lists\SearchController;
 use App\Http\Controllers\Lists\ProductController;
 use App\Http\Controllers\Lists\ServiceController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 
+/*
+|--------------------------------------------------------------------------
+| Auth routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/profile/{id?}', [ProfileController::class, 'show'])->name('profile.show');
@@ -61,8 +66,18 @@ Route::middleware('external_user')->group(function () {
 */
 
 Route::middleware('admin')->group(function () {
+    // Admin Dashboard
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // User Management Routes
+    Route::get('/admin/all-users', [UserManagementController::class, 'index'])->name('all.users');
+    Route::post('/admin/user', [UserManagementController::class, 'store'])->name('users.store');
+    Route::get('/admin/user/{id}', [UserManagementController::class, 'show'])->name('users.show');
+    Route::get('/admin/user/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/user/{id}', [UserManagementController::class, 'update'])->name('user.update');
+    Route::delete('/admin/user/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
 });
+
 
 /*
 |--------------------------------------------------------------------------
