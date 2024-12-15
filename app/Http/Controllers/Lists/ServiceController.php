@@ -121,6 +121,7 @@ class ServiceController extends Controller
         }
 
         $validatedData = $request->validate([
+            'services_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'services_title' => 'required|string|max:255',
             'services_status' => 'required|string',
             'services_fee' => 'required|numeric',
@@ -128,7 +129,16 @@ class ServiceController extends Controller
             'services_description' => 'required|string|max:65535',
         ]);
 
-        $service->update($validatedData);
+        $services_picture = $service->services_picture;
+
+        if ($request->hasFile('services_picture')) {
+            Storage::delete('public/' . $service->services_picture);
+            $services_picture = $request->file('services_picture')->store('services_pictures', 'public');
+        }
+
+        $service->update(array_merge($validatedData, [
+            'services_picture' => $services_picture,
+        ]));
 
         return redirect()->route('services.show', $service->id)
             ->with('success', 'Service updated successfully!');
