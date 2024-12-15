@@ -170,10 +170,10 @@ const closeModal = () => {
                         <InputError :message="form.errors.prod_description" class="mt-2" />
 
                         <div :class="{
-                            'text-red-500': wordCount < 15,
-                            'text-green-500': wordCount >= 15
+                            'text-red-500': wordCount < 10,
+                            'text-green-500': wordCount >= 10
                         }" class="text-sm mt-1">
-                            <span v-if="wordCount < 50">You need at least 20 words. (Current: {{ wordCount }})</span>
+                            <span v-if="wordCount < 10">You need at least 20 words. (Current: {{ wordCount }})</span>
                             <span v-else>Looks good! You have typed {{ wordCount }} words.</span>
                         </div>
                     </div>

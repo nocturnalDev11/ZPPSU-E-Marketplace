@@ -42,6 +42,7 @@ class HomeController extends Controller
             'auth' => [
                 'user' => Auth::user(),
             ],
+
             'products' => $products,
             'services' => $services,
             'trades' => $trades,

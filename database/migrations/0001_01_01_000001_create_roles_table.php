@@ -14,14 +14,13 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); // e.g., 'admin', 'campus_user', 'external_user'
+            $table->string('name')->unique(); // e.g., 'admin', 'campus_user'
             $table->timestamps();
         });
 
         DB::table('roles')->insert([
             ['id' => 1, 'name' => 'admin'],
             ['id' => 2, 'name' => 'campus_user'],
-            ['id' => 3, 'name' => 'external_user']
         ]);
     }
 

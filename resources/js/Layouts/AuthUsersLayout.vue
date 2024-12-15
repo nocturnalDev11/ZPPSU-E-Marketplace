@@ -66,12 +66,8 @@ const showingNavigationDropdown = ref(false);
                                                 Your lists
                                             </DropdownLink>
                                             <!-- Conditional Logout Links based on role_id -->
-                                            <DropdownLink v-if="$page.props.auth.user.role_id === 2"
+                                            <DropdownLink
                                                 :href="route('campus.logout')" method="post" as="button">
-                                                Logout
-                                            </DropdownLink>
-                                            <DropdownLink v-else-if="$page.props.auth.user.role_id === 3"
-                                                :href="route('external.logout')" method="post" as="button">
                                                 Logout
                                             </DropdownLink>
                                         </template>
@@ -419,27 +415,8 @@ const showingNavigationDropdown = ref(false);
                                 </div>
                             </SidebarLink>
 
-                            <SidebarLink v-else-if="$page.props.auth.user.role_id === 2" :href="route('campus.logout')"
+                            <SidebarLink v-else="$page.props.auth.user.role_id === 2" :href="route('campus.logout')"
                                 method="post" as="button">
-                                <div class="h-5 items-center gap-3 flex">
-                                    <div class="relative">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 20 20" fill="none">
-                                            <g id="Logout">
-                                                <path id="icon"
-                                                    d="M9.16667 17.5L5.83333 17.5V17.5C3.98765 17.5 2.5 16.0123 2.5 14.1667V14.1667L2.5 5.83333V5.83333C2.5 3.98765 3.98765 2.5 5.83333 2.5V2.5L9.16667 2.5M8.22814 10L17.117 10M14.3393 6.66667L17.0833 9.41074C17.3611 9.68852 17.5 9.82741 17.5 10C17.5 10.1726 17.3611 10.3115 17.0833 10.5893L14.3393 13.3333"
-                                                    stroke="#6B7280" stroke-width="1.6" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
-                                        Logout
-                                    </h2>
-                                </div>
-                            </SidebarLink>
-
-                            <SidebarLink v-else :href="route('external.logout')" method="post" as="button">
                                 <div class="h-5 items-center gap-3 flex">
                                     <div class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

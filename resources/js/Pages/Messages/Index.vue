@@ -158,18 +158,6 @@ function formatDate(dateString) {
                         <line x1="15" x2="3" y1="12" y2="12" />
                     </svg>
                     </Link>
-                    <Link v-else-if="$page.props.auth.user.role_id === 3"
-                        class="flex justify-between items-center gap-x-3 py-2 px-3 text-sm text-gray-700 rounded-lg hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:hover:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:text-gray-300"
-                        :href="route('external.logout')" method="post" as="button">
-                    Logout
-                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                        <polyline points="10 17 15 12 10 7" />
-                        <line x1="15" x2="3" y1="12" y2="12" />
-                    </svg>
-                    </Link>
                 </div>
             </div>
         </nav>
@@ -353,7 +341,7 @@ function formatDate(dateString) {
                                 </button>
 
                                 <SecondaryButton type="submit"
-                                    class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:bg-blue-500">
+                                    class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-indigo-500 dark:text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:bg-blue-500">
                                     <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="16"
                                         height="16" fill="currentColor" viewBox="0 0 16 16">
                                         <path

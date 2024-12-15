@@ -7,7 +7,6 @@ const { props } = usePage();
 const {
     totalUsers,
     totalCampusUser,
-    totalExternalUser,
     totalProducts,
     totalServices,
     totalPosts,
@@ -18,14 +17,12 @@ const {
     newTradesThisWeek,
     newProductsThisWeek,
     newCampusUsersThisWeek,
-    newExternalUsersThisWeek,
     postPercentage,
     tradePercentage,
     productPercentage,
     servicePercentage,
     percentageChange,
     percentageChangeInCampusUsers,
-    percentageChangeInExternalUsers
 } = props;
 </script>
 
@@ -123,36 +120,6 @@ const {
                     </div>
                 </div>
 
-                <!-- External Users -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            External user: <span
-                                :class="newExternalUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newExternalUsersThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalExternalUser }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total external
-                                    users</span>
-                            </p>
-                        </div>
-                        <p class="text-sm"
-                            :class="percentageChangeInExternalUsers >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ percentageChangeInExternalUsers }}% since last week
-                        </p>
-                    </div>
-                    <div
-                        class="bg-indigo-100 text-indigo-600 dark:bg-indigo-400 dark:text-indigo-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-indigo-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                        </svg>
-                    </div>
-                </div>
-
                 <!-- Total Products -->
                 <div
                     class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
@@ -228,10 +195,10 @@ const {
                     </div>
                     <div
                         class="bg-orange-100 text-cyan-600 dark:bg-cyan-600 dark:text-cyan-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-cyan-900 p-3">
-                        <svg class="size-6.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14.079 6.839a3 3 0 0 0-4.255.1M13 20h1.083A3.916 3.916 0 0 0 18 16.083V9A6 6 0 1 0 6 9v7m7 4v-1a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1Zm-7-4v-6H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h1Zm12-6h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1v-6Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
                         </svg>
                     </div>
                 </div>
@@ -255,10 +222,10 @@ const {
                     </div>
                     <div
                         class="bg-orange-100 text-cyan-600 dark:bg-cyan-600 dark:text-cyan-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-cyan-900 p-3">
-                        <svg class="size-6.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14.079 6.839a3 3 0 0 0-4.255.1M13 20h1.083A3.916 3.916 0 0 0 18 16.083V9A6 6 0 1 0 6 9v7m7 4v-1a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1Zm-7-4v-6H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h1Zm12-6h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1v-6Z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" width="24" height="24" class="size-6.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
                         </svg>
                     </div>
                 </div>

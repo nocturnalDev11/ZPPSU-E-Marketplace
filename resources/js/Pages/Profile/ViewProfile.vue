@@ -21,7 +21,9 @@ function formatDate(dateString) {
 const user = computed(() => props.profileUser || {});
 
 const activities = computed(() => props.activities || []);
+const posts = computed(() => props.posts || []);
 const products = computed(() => props.products || []);
+const services = computed(() => props.services || []);
 const loggedInUserId = computed(() => props.auth.user?.id || null);
 </script>
 
@@ -174,22 +176,22 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                                     <span v-if="activity.type === 'Post'">
                                                         Post created: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span v-else-if="activity.type === 'Product'">
                                                         Product listed: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span v-else-if="activity.type === 'Service'">
                                                         Service offered: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span v-else-if="activity.type === 'Trade'">
                                                         Trade request: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span class="text-gray-400"> - {{ formatDate(activity.created_at)
                                                         }}</span>
@@ -245,6 +247,75 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                 </div>
                             </div>
                         </div>
+
+                        <div v-for="service in services" :key="service.id"
+                            class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
+                            <img class="object-cover w-full lg:w-48 lg:h-48 rounded-lg" :src="service.image"
+                                :alt="service.title">
+                            <div class="flex flex-col w-full justify-between p-4 leading-normal">
+                                <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{ service.title }}
+                                </h5>
+                                <div class="my-2 space-x-2">
+                                    <span
+                                        class="inline-block bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold dark:bg-gray-600 dark:text-gray-300">
+                                        {{ service.category }}
+                                    </span>
+                                    <span
+                                        class="inline-block bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold dark:bg-gray-600 dark:text-gray-300">
+                                        {{ service.status }}
+                                    </span>
+                                </div>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    {{ service.description }}
+                                </p>
+                                <p class="font-normal text-xs text-gray-500 dark:text-gray-400">
+                                    Posted on: {{ formatDate(service.created_at) }}
+                                </p>
+
+                                <div class="flex items-center justify-between pb-3">
+                                    <div>
+                                        <div class="text-lg">
+                                            <span class="font-medium text-green-600 dark:text-green-300">₱{{
+                                                service.fee }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Link :href="service.route"
+                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
+                                        View Service &rarr;
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div v-for="post in posts" :key="post.id"
+                            class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
+                            <img class="object-cover w-full lg:w-48 lg:h-48 rounded-lg" :src="post.image"
+                                :alt="post.title">
+                            <div class="flex flex-col w-full justify-between p-4 leading-normal">
+                                <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{ post.title }}
+                                </h5>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    {{ post.description }}
+                                </p>
+                                <p class="font-normal text-xs text-gray-500 dark:text-gray-400">
+                                    Posted on: {{ formatDate(post.created_at) }}
+                                </p>
+
+                                <div class="flex items-center justify-end pb-3">
+                                    <div>
+                                        <Link :href="post.route"
+                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
+                                        View Post &rarr;
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

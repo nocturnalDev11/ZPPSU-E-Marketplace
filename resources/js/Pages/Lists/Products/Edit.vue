@@ -1,5 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -12,30 +13,44 @@ const props = defineProps({
 });
 
 const form = useForm({
-    prod_name: props.product.prod_name || '',
-    prod_price: props.product.prod_price || 0,
-    prod_status: props.product.prod_status || '',
-    prod_category: props.product.prod_category || '',
-    prod_condition: props.product.prod_condition || '',
-    prod_description: props.product.prod_description || '',
+    prod_picture: null,
+    prod_name: props.product.prod_name,
+    prod_price: props.product.prod_price,
+    prod_status: props.product.prod_status,
+    prod_category: props.product.prod_category,
+    prod_condition: props.product.prod_condition,
+    prod_description: props.product.prod_description,
     prod_quantity: props.product.prod_quantity || 0,
 });
 
-const submitProduct = () => {
-    form.put(route('products.update', props.product.id), {
-        onSuccess: () => {
-            console.log('Product updated successfully');
-            form.reset();
-        },
-        onError: (errors) => {
-            console.error('Error updating product:', errors);
-        },
-    });
+const imagePreview = ref(props.product.prod_picture);
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        imagePreview.value = URL.createObjectURL(file);
+        form.prod_picture = file;
+    }
+};
+
+const updateProduct = () => {
+    router.post(`/products/${props.product.id}`, {
+        _method: 'put',
+        prod_picture: form.prod_picture,
+        prod_name: form.prod_name,
+        prod_price: form.prod_price,
+        prod_status: form.prod_status,
+        prod_category: form.prod_category,
+        prod_condition: form.prod_condition,
+        prod_description: form.prod_description,
+        prod_quantity: form.prod_quantity
+    })
 };
 
 </script>
 
 <template>
+
     <Head title="Edit product" />
 
     <AuthUsersLayout>
@@ -43,7 +58,18 @@ const submitProduct = () => {
             <div class="max-w-2xl w-full">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Edit Product</h2>
 
-                <form @submit.prevent="submitProduct" class="space-y-4">
+                <form @submit.prevent="updateProduct" class="space-y-4">
+
+                    <div>
+                        <InputLabel value="Product Image" />
+                        <input type="file" id="prod_picture" @change="handleImageUpload" />
+                        <div class="mt-4">
+                            <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
+                        </div>
+                        <InputError :message="form.errors.prod_picture" class="mt-2" />
+                    </div>
+
+
                     <div>
                         <InputLabel for="prod_name" value="Product Name" />
                         <TextInput id="prod_name" v-model="form.prod_name" class="mt-1 block w-full"

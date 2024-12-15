@@ -51,27 +51,11 @@ const showingNavigationDropdown = ref(false);
                                         </template>
 
                                         <template #content>
-                                            <!-- <DropdownLink :href="route('user.login')">Login</DropdownLink> -->
-                                            <span
-                                                class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
-                                                Login
-                                            </span>
                                             <DropdownLink :href="route('campus.login')">
-                                                ZPPSU campus users
+                                                Login
                                             </DropdownLink>
-                                            <DropdownLink :href="route('external.login')">
-                                                External users
-                                            </DropdownLink>
-                                            <hr class="mx-2 py-2 border-gray-300 dark:border-gray-600">
-                                            <span
-                                                class="block w-full py-2 px-4 text-start text-md leading-5 font-semibold text-gray-800 dark:text-gray-100">
-                                                Verify/Signup
-                                            </span>
                                             <DropdownLink :href="route('verification')">
-                                                Email verification for ZPPSU campus users
-                                            </DropdownLink>
-                                            <DropdownLink :href="route('external.signupForm')">
-                                                Signup for external users
+                                                Email verification
                                             </DropdownLink>
                                         </template>
                                     </Dropdown>
@@ -229,12 +213,12 @@ const showingNavigationDropdown = ref(false);
                                     <NavLink :href="route('trades.index')" :active="route().current('trades.index')">
                                         Trades
                                     </NavLink>
-                                    <NavLink href="#">
+                                    <!-- <NavLink href="#">
                                         About us
                                     </NavLink>
                                     <NavLink href="#">
                                         Contacts us
-                                    </NavLink>
+                                    </NavLink> -->
                                 </div>
                             </div>
                         </div>

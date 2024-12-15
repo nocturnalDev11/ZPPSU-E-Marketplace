@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Lists;
 
 use Inertia\Inertia;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -104,6 +106,7 @@ class ProductController extends Controller
         }
 
         $validatedData = $request->validate([
+            'prod_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,jfif|max:2048',
             'prod_name' => 'sometimes|string|max:255',
             'prod_price' => 'sometimes|numeric',
             'prod_status' => 'sometimes|string',
@@ -113,11 +116,21 @@ class ProductController extends Controller
             'prod_quantity' => 'sometimes|integer',
         ]);
 
-        $product->update($validatedData);
+        $prod_picture = $product->prod_picture;
+
+        if ($request->hasFile('prod_picture')) {
+            Storage::delete('public/' . $product->prod_picture);
+            $prod_picture = $request->file('prod_picture')->store('products', 'public');
+        }
+
+        $product->update(array_merge($validatedData, [
+            'prod_picture' => $prod_picture,
+        ]));
 
         return redirect()->route('products.show', $product->id)
             ->with('success', 'Product updated successfully!');
     }
+
 
     /**
      * Remove the specified product from storage.

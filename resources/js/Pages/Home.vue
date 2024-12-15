@@ -258,7 +258,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Trades</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
-                        Facilitate trades of goods and services between students, staff, faculty, and external users
+                        Facilitate trades of goods and services between students, staff, and faculty users
                         effortlessly.
                     </p>
                 </div>
@@ -323,7 +323,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Posts</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
                         Explore the latest list searching and announcements from fellow students,
-                        staff, faculty and external users.
+                        staff, and faculty users.
                     </p>
                 </div>
                 <div class="grid h-full grid-cols-3 gap-4 xl:grid-cols-5">

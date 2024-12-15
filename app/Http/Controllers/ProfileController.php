@@ -46,6 +46,7 @@ class ProfileController extends Controller
             'image' => $post->post_picture,
             'description' => $post->post_content,
             'created_at' => $post->created_at,
+            'route' => route('posts.show', $post->id),
             'type' => 'Post'
         ]);
 
@@ -63,9 +64,13 @@ class ProfileController extends Controller
 
         $services = $profileUser->services->map(fn($service) => [
             'title' => $service->services_title,
+            'status' => $service->services_status,
+            'category' => $service->services_category,
             'image' => $service->services_picture ? Storage::url($service->services_picture) : null,
             'description' => $service->services_description,
+            'fee' => $service->services_fee,
             'created_at' => $service->created_at,
+            'route' => route('services.show', $service->id),
             'type' => 'Service'
         ]);
 

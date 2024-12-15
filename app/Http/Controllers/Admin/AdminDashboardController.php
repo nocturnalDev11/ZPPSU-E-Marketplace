@@ -34,13 +34,6 @@ class AdminDashboardController extends Controller
         $newCampusUsersLastWeek = $this->getNewUsersByRole('campus_user', 14, 7);
         $percentageChangeInCampusUsers = $this->calculatePercentage($newCampusUsersThisWeek, $newCampusUsersLastWeek);
 
-
-        // External Users
-        $totalExternalUser = $this->getRoleCount('external_user');
-        $newExternalUsersThisWeek = $this->getNewUsersByRole('external_user', 7);
-        $newExternalUsersLastWeek = $this->getNewUsersByRole('external_user', 14, 7);
-        $percentageChangeInExternalUsers = $this->calculatePercentage($newExternalUsersThisWeek, $newExternalUsersLastWeek);
-
         // Products
         $totalProducts = Product::count();
         $newProductsThisWeek = Product::where('created_at', '>=', Carbon::now()->subDays(7))->count();
@@ -79,7 +72,6 @@ class AdminDashboardController extends Controller
         return Inertia::render('Admin/Dashboard', [
             'totalUsers' => $totalUsers,
             'totalCampusUser' => $totalCampusUser,
-            'totalExternalUser' => $totalExternalUser,
             'totalProducts' => $totalProducts,
             'totalServices' => $totalServices,
             'totalPosts' => $totalPosts,
@@ -90,14 +82,12 @@ class AdminDashboardController extends Controller
             'newProductsThisWeek' => $newProductsThisWeek,
             'newTradesThisWeek' => $newTradesThisWeek,
             'newCampusUsersThisWeek' => $newCampusUsersThisWeek,
-            'newExternalUsersThisWeek' => $newExternalUsersThisWeek,
             'percentageChange' => $percentageChange,
             'postPercentage' => $postPercentage,
             'productPercentage' => $productPercentage,
             'servicePercentage' => $servicePercentage,
             'tradePercentage' => $tradePercentage,
             'percentageChangeInCampusUsers' => $percentageChangeInCampusUsers,
-            'percentageChangeInExternalUsers' => $percentageChangeInExternalUsers,
         ]);
     }
 
