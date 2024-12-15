@@ -111,22 +111,22 @@ class PostController extends Controller
         }
 
         $validatedData = $request->validate([
+            'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'post_title' => 'required|string|max:255',
-            // 'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'post_list_type' => 'required|string',
             'post_content' => 'required|string|max:65535'
         ]);
 
-        // if ($request->hasFile('post_picture')) {
-        //     if ($post->post_picture) {
-        //         Storage::disk('public')->delete($post->post_picture);
-        //     }
+        $post_picture = $post->post_picture;
 
-        //     $path = $request->file('post_picture')->store('post_pictures', 'public');
-        //     $validatedData['post_picture'] = $path;
-        // }
+        if ($request->hasFile('post_picture')) {
+            Storage::delete('public/' . $post->post_picture);
+            $post_picture = $request->file('post_picture')->store('post_pictures', 'public');
+        }
 
-        $post->update($validatedData);
+        $post->update(array_merge($validatedData, [
+            'post_picture' => $post_picture,
+        ]));
 
         return redirect()->route('posts.show', $post->id)
             ->with('success', 'Post updated successfully!');
