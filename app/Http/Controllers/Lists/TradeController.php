@@ -116,7 +116,7 @@ class TradeController extends Controller
         }
 
         $validatedData = $request->validate([
-            // 'trade_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'trade_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'trade_title' => 'required|string|max:255',
             'trade_category' => 'required|string',
             'trade_description' => 'required|string|max:65535',
@@ -127,7 +127,16 @@ class TradeController extends Controller
             'trade_duration' => 'required|date',
         ]);
 
-        $trade->update($validatedData);
+        $trade_picture = $trade->trade_picture;
+
+        if ($request->hasFile('trade_picture')) {
+            Storage::delete('public/' . $trade->trade_picture);
+            $trade_picture = $request->file('trade_picture')->store('trade_pictures', 'public');
+        }
+
+        $trade->update(array_merge($validatedData, [
+            'trade_picture' => $trade_picture,
+        ]));
 
         return redirect()->route('trades.show', $trade->id)
             ->with('success', 'Trade updated successfully!');
