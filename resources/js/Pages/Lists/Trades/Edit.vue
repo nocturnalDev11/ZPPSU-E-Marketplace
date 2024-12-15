@@ -1,5 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -12,26 +13,46 @@ const props = defineProps({
 });
 
 const form = useForm({
-    trade_title: props.trade.trade_title || '',
-    trade_category: props.trade.trade_category || '',
-    trade_description: props.trade.trade_description || '',
-    trade_status: props.trade.trade_status || '',
-    trade_type: props.trade.trade_type || '',
+    trade_picture: null,
+    trade_title: props.trade.trade_title,
+    trade_category: props.trade.trade_category,
+    trade_description: props.trade.trade_description,
+    trade_status: props.trade.trade_status,
+    trade_type: props.trade.trade_type,
     trade_value: props.trade.trade_value || 0,
-    trade_conditions: props.trade.trade_conditions || '',
-    trade_duration: props.trade.trade_duration || '',
+    trade_conditions: props.trade.trade_conditions,
+    trade_duration: props.trade.trade_duration,
 });
 
+const imagePreview = ref(props.trade.trade_picture);
+const fileName = ref("No file chosen");
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        fileName.value = file.name;
+        imagePreview.value = URL.createObjectURL(file);
+        form.trade_picture = file;
+    }
+};
+
+const triggerFileInput = () => {
+    document.getElementById("trade_picture").click();
+};
+
 const updateTrade = () => {
-    form.put(route('trades.update', props.trade.id), {
-        onSuccess: () => {
-            console.log('Trade updated successfully');
-            form.reset();
-        },
-        onError: (errors) => {
-            console.error('Error updating trade:', errors);
-        },
-    });
+    router.post(`/trades/${props.trade.id}`, {
+        _method: 'put',
+        trade_picture: form.trade_picture,
+        trade_title: form.trade_title,
+        trade_category: form.trade_category,
+        trade_description: form.trade_description,
+        trade_status: form.trade_status,
+        trade_type: form.trade_type,
+        trade_value: form.trade_value,
+        trade_conditions: form.trade_conditions,
+        trade_duration: form.trade_duration,
+    })
 };
 
 </script>
@@ -41,11 +62,31 @@ const updateTrade = () => {
     <Head title="Edit trade" />
 
     <AuthUsersLayout>
-        <div class="min-h-screen flex flex-col items-center justify-center px-4">
+        <div class="min-h-screen flex flex-col items-center justify-center px-4 py-7">
             <div class="max-w-2xl w-full">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Edit Product</h2>
 
                 <form @submit.prevent="updateTrade" class="space-y-4">
+                    <div>
+                        <InputLabel value="Image" />
+
+                        <input type="file" id="trade_picture" @change="handleImageUpload" class="hidden" />
+
+                        <div class="flex items-center space-x-4 mt-1">
+                            <button type="button" @click="triggerFileInput"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+                                Choose File
+                            </button>
+                            <span class="text-gray-600">{{ fileName }}</span>
+                        </div>
+
+                        <div class="mt-4">
+                            <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
+                        </div>
+
+                        <InputError :message="form.errors.trade_picture" class="mt-2" />
+                    </div>
+
                     <div>
                         <InputLabel for="trade_title" value="Title" />
                         <TextInput id="trade_title" v-model="form.trade_title" class="mt-1 block w-full"
