@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Lists;
 
-use App\Models\Post;
 use Inertia\Inertia;
+use App\Models\Post\Post;
 use Illuminate\Http\Request;
+use App\Models\Post\PostComment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -35,9 +36,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'post_title' => 'required|string|max:255',
             'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'post_title' => 'required|string|max:255',
             'post_list_type' => 'required|string',
+            'post_category' => 'required|string',
+            'post_status' => 'required|string',
             'post_content' => 'required|string|max:65535'
         ]);
 
@@ -53,6 +56,22 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
+    public function comment(Request $request)
+    {
+        $request->validate([
+            'comment_text' => 'required|string|max:255',
+            'post_id' => 'required|exists:posts,id',
+        ]);
+
+        PostComment::create([
+            'user_id' => Auth::id(),
+            'post_id' => $request->post_id,
+            'comment_text' => $request->comment_text,
+        ]);
+
+        return back()->with('success', 'Comment added successfully.');
+    }
+
     /**
      * Display the specified post.
      */
@@ -60,17 +79,20 @@ class PostController extends Controller
     {
         $isAuthorized = Auth::check();
 
-        $post = Post::with('user')->find($id);
-        $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
+        $post = Post::with(['user', 'comments.user'])
+                    ->findOrFail($id);
+                    $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
+
+        $commentCount = $post->comments->count();
+        $comments = $post->comments()->with('user')->latest()->get();
 
         $relatedPosts = Post::where('post_list_type', $post->post_list_type)
-            ->where('id', '!=', $id)
-            ->take(5)
-            ->get();
-
+                            ->where('id', '!=', $id)
+                            ->take(5)
+                            ->get();
         $relatedPosts = $relatedPosts->map(function ($relatedPost) {
-            $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
-            return $relatedPost;
+                        $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
+                        return $relatedPost;
         });
 
         return Inertia::render('Lists/Posts/Show', [
@@ -78,6 +100,9 @@ class PostController extends Controller
             'post' => $post,
             'relatedPosts' => $relatedPosts,
             'isAuthorized' => $isAuthorized,
+            'comments' => $comments,
+            'commentCount' => $commentCount,
+            'user_id' => Auth::id(),
         ]);
     }
 
@@ -111,22 +136,24 @@ class PostController extends Controller
         }
 
         $validatedData = $request->validate([
+            'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'post_title' => 'required|string|max:255',
-            // 'post_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'post_list_type' => 'required|string',
+            'post_category' => 'required|string',
+            'post_status' => 'required|string',
             'post_content' => 'required|string|max:65535'
         ]);
 
-        // if ($request->hasFile('post_picture')) {
-        //     if ($post->post_picture) {
-        //         Storage::disk('public')->delete($post->post_picture);
-        //     }
+        $post_picture = $post->post_picture;
 
-        //     $path = $request->file('post_picture')->store('post_pictures', 'public');
-        //     $validatedData['post_picture'] = $path;
-        // }
+        if ($request->hasFile('post_picture')) {
+            Storage::delete('public/' . $post->post_picture);
+            $post_picture = $request->file('post_picture')->store('post_pictures', 'public');
+        }
 
-        $post->update($validatedData);
+        $post->update(array_merge($validatedData, [
+            'post_picture' => $post_picture,
+        ]));
 
         return redirect()->route('posts.show', $post->id)
             ->with('success', 'Post updated successfully!');

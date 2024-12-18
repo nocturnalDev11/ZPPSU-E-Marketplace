@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MessagesController extends Controller
 {
-    // Your controller method looks correct, just ensure the relationships are in place.
     public function index(Request $request)
     {
         $user = Auth::user();
@@ -30,7 +29,7 @@ class MessagesController extends Controller
                         ->where('messages.sender_id', Auth::id());
                 });
         })
-            ->where('id', '!=', Auth::id()) // Exclude the authenticated user
+            ->where('id', '!=', Auth::id())
             ->with(['sentMessages' => function ($query) {
                 $query->where('recipient_id', Auth::id())->latest();
             }, 'receivedMessages' => function ($query) {
@@ -45,7 +44,7 @@ class MessagesController extends Controller
             });
 
         return Inertia::render('Messages/Index', [
-            'users' => $users  // Ensure the data is passed properly
+            'users' => $users
         ]);
     }
 
@@ -60,14 +59,12 @@ class MessagesController extends Controller
             ->orderBy('created_at', 'asc')
             ->get()
             ->map(function ($message) {
-                // Generate full URL for content_link_image
                 if ($message->content_link_image) {
                     $message->content_link_image_url = Storage::url($message->content_link_image);
                 }
                 return $message;
             });
 
-        // Get users who have a conversation with the authenticated user
         $users = User::where(function ($query) {
             $query->whereExists(function ($subQuery) {
                 $subQuery->selectRaw(1)
@@ -82,7 +79,7 @@ class MessagesController extends Controller
                         ->where('messages.sender_id', Auth::id());
                 });
         })
-            ->where('id', '!=', Auth::id()) // Exclude the authenticated user
+            ->where('id', '!=', Auth::id())
             ->with(['sentMessages' => function ($query) {
                 $query->where('recipient_id', Auth::id())->latest();
             }, 'receivedMessages' => function ($query) {
@@ -90,7 +87,6 @@ class MessagesController extends Controller
             }])
             ->get()
             ->map(function ($userItem) {
-                // Combine sent and received messages, and get the most recent message
                 $userItem->latestMessage = $userItem->sentMessages->merge($userItem->receivedMessages)
                     ->sortByDesc('created_at')
                     ->first();

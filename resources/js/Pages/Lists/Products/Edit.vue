@@ -24,13 +24,19 @@ const form = useForm({
 });
 
 const imagePreview = ref(props.product.prod_picture);
+const fileName = ref("No file chosen");
 
 const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
+        fileName.value = file.name;
         imagePreview.value = URL.createObjectURL(file);
         form.prod_picture = file;
     }
+};
+
+const triggerFileInput = () => {
+    document.getElementById("prod_picture").click();
 };
 
 const updateProduct = () => {
@@ -62,13 +68,23 @@ const updateProduct = () => {
 
                     <div>
                         <InputLabel value="Product Image" />
-                        <input type="file" id="prod_picture" @change="handleImageUpload" />
+
+                        <input type="file" id="prod_picture" @change="handleImageUpload" class="hidden" />
+
+                        <div class="flex items-center space-x-4 mt-1">
+                            <button type="button" @click="triggerFileInput"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+                                Choose File
+                            </button>
+                            <span class="text-gray-600">{{ fileName }}</span>
+                        </div>
+
                         <div class="mt-4">
                             <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
                         </div>
+
                         <InputError :message="form.errors.prod_picture" class="mt-2" />
                     </div>
-
 
                     <div>
                         <InputLabel for="prod_name" value="Product Name" />

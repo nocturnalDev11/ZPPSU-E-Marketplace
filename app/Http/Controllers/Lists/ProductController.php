@@ -120,7 +120,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('prod_picture')) {
             Storage::delete('public/' . $product->prod_picture);
-            $prod_picture = $request->file('prod_picture')->store('products', 'public');
+            $prod_picture = $request->file('prod_picture')->store('product_pictures', 'public');
         }
 
         $product->update(array_merge($validatedData, [
@@ -130,7 +130,6 @@ class ProductController extends Controller
         return redirect()->route('products.show', $product->id)
             ->with('success', 'Product updated successfully!');
     }
-
 
     /**
      * Remove the specified product from storage.

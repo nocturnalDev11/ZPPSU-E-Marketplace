@@ -1,5 +1,8 @@
 <script setup>
+import Comment from './Comment.vue';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import InputError from '@/Components/InputError.vue';
 import TextArea from '@/Components/TextArea.vue';
 import Modal from '@/Components/Modal.vue';
 import Delete from './Partials/Delete.vue';
@@ -119,14 +122,14 @@ const closeModal = () => {
                                 </p>
                             </div>
                         </div>
+                        <!--  Comment section -->
+                        <Comment v-if="post" :post="post" :comments="post.comments" :user_id="user.id" />
                     </div>
                 </div>
-                <!-- End Content -->
 
                 <!-- Sidebar -->
                 <div class="lg:col-span-1 lg:w-full lg:h-full dark:from-gray-800">
                     <div class="sticky top-0 start-0 py-8 lg:ps-8">
-                        <!-- Avatar Media -->
                         <div
                             class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-neutral-700">
                             <a class="block shrink-0 focus:outline-none" href="#">
@@ -302,12 +305,10 @@ const closeModal = () => {
                         </div>
                     </div>
                 </div>
-                <!-- End Content -->
 
                 <!-- Sidebar -->
                 <div class="lg:col-span-1 lg:w-full lg:h-full dark:from-gray-800">
                     <div class="sticky top-0 start-0 py-8 lg:ps-8">
-                        <!-- Avatar Media -->
                         <div
                             class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-neutral-700">
                             <a class="block shrink-0 focus:outline-none" href="#">
@@ -357,11 +358,9 @@ const closeModal = () => {
                                 </div>
                             </div>
                         </div>
-                        <!-- End Avatar Media -->
 
                         <div class="space-y-6">
                             <h3 class="text-2xl font-semibold dark:text-white">Related Posts</h3>
-                            <!-- Related post (based on category) -->
                             <Link :href="route('posts.show', relatedPost.id)" v-for="relatedPost in relatedPosts"
                                 :key="relatedPost.id" class="group flex items-center gap-x-6 focus:outline-none">
                             <div class="shrink-0 relative rounded-lg overflow-hidden size-20">

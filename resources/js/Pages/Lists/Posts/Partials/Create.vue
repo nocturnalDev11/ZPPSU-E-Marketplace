@@ -11,9 +11,11 @@ import { ref } from 'vue';
 const showCreateModal = ref(false);
 
 const form = useForm({
-    post_title: '',
     post_picture: null,
+    post_title: '',
     post_list_type: '',
+    post_category: '',
+    post_status: '',
     post_content: '',
 });
 
@@ -63,13 +65,6 @@ const closeModal = () => {
 
                 <form @submit.prevent="submitPost" class="space-y-4">
                     <div>
-                        <InputLabel for="post_title" value="Title" />
-                        <TextInput id="post_title" v-model="form.post_title" class="mt-1 block w-full"
-                            placeholder="Title" />
-                        <InputError :message="form.errors.post_title" class="mt-2" />
-                    </div>
-
-                    <div>
                         <InputLabel value="Post image" />
 
                         <!-- Hidden File Input -->
@@ -93,15 +88,53 @@ const closeModal = () => {
                     </div>
 
                     <div>
-                        <InputLabel for="post_list_type" value="Category" />
+                        <InputLabel for="post_title" value="Title" />
+                        <TextInput id="post_title" v-model="form.post_title" class="mt-1 block w-full"
+                            placeholder="Title" />
+                        <InputError :message="form.errors.post_title" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="post_list_type" value="List type" />
                         <select id="post_list_type" v-model="form.post_list_type"
                             class="mt-1 block w-full text-gray-400 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
                             <option value="" selected>Select type</option>
-                            <option value="Apparel">Products</option>
-                            <option value="School supplies">Services</option>
-                            <option value="Footwares">Tradings</option>
+                            <option value="Products">Products</option>
+                            <option value="Services">Services</option>
+                            <option value="Tradings">Tradings</option>
                         </select>
                         <InputError :message="form.errors.post_list_type" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="post_category" value="Category" />
+                        <select id="post_category" v-model="form.post_category"
+                            class="mt-1 block w-full text-gray-400 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
+                            <option value="" selected>Select category</option>
+                            <option value="Apparel">Apparel</option>
+                            <option value="School supplies">School Supplies</option>
+                            <option value="Footwares">Footwares</option>
+                            <option value="Stationery">Stationery</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="University merchandise">University Merchandise</option>
+                            <option value="Musical instruments">Musical instruments</option>
+                            <option value="Books">Books</option>
+                        </select>
+                        <InputError :message="form.errors.post_category" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="post_status" value="Status" />
+                        <select id="post_status" v-model="form.post_status"
+                            class="mt-1 block w-full text-gray-400 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
+                            <option value="" selected>Select status</option>
+                            <option value="Searching for products">Searching for products</option>
+                            <option value="Searching for services">Searching for services</option>
+                            <option value="Searching for trades">Searching for trades</option>
+                            <option value="Discontinued">Discontinued</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                        <InputError :message="form.errors.post_status" class="mt-2" />
                     </div>
 
                     <div>

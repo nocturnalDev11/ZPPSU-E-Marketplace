@@ -1,5 +1,6 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -12,12 +13,29 @@ const props = defineProps({
 });
 
 const form = useForm({
-    services_title: props.service.services_title || '',
-    services_status: props.service.services_status || '',
+    services_picture: null,
+    services_title: props.service.services_title,
+    services_status: props.service.services_status,
     services_fee: props.service.services_fee || 0,
-    services_category: props.service.services_category || '',
-    services_description: props.service.services_description || '',
+    services_category: props.service.services_category,
+    services_description: props.service.services_description,
 });
+
+const imagePreview = ref(props.service.services_picture);
+const fileName = ref("No file chosen");
+
+const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        fileName.value = file.name;
+        imagePreview.value = URL.createObjectURL(file);
+        form.services_picture = file;
+    }
+};
+
+const triggerFileInput = () => {
+    document.getElementById("services_picture").click();
+};
 
 const updateService = () => {
     form.put(route('services.update', props.service.id), {
@@ -29,6 +47,16 @@ const updateService = () => {
             console.error('Error updating service:', errors);
         },
     });
+
+    router.post(`/services/${props.service.id}`, {
+        _method: 'put',
+        services_picture: form.services_picture,
+        services_title: form.services_title,
+        services_status: form.services_status,
+        services_fee: form.services_fee,
+        services_category: form.services_category,
+        services_description: form.services_description,
+    })
 };
 
 </script>
@@ -43,6 +71,26 @@ const updateService = () => {
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Edit Product</h2>
 
                 <form @submit.prevent="updateService" class="space-y-4">
+                    <div>
+                        <InputLabel value="Image" />
+
+                        <input type="file" id="services_picture" @change="handleImageUpload" class="hidden" />
+
+                        <div class="flex items-center space-x-4 mt-1">
+                            <button type="button" @click="triggerFileInput"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+                                Choose File
+                            </button>
+                            <span class="text-gray-600">{{ fileName }}</span>
+                        </div>
+
+                        <div class="mt-4">
+                            <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
+                        </div>
+
+                        <InputError :message="form.errors.services_picture" class="mt-2" />
+                    </div>
+
                     <div>
                         <InputLabel for="services_title" value="Services title" />
                         <TextInput id="services_title" v-model="form.services_title" class="mt-1 block w-full"

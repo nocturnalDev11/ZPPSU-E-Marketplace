@@ -116,6 +116,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
         Route::put('/{id}', [PostController::class, 'update'])->name('update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
+        Route::post('/comment', [PostController::class, 'comment'])->name('comment');
     });
 });
 

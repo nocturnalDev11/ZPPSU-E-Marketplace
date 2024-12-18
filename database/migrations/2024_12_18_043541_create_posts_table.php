@@ -17,7 +17,18 @@ return new class extends Migration
             $table->string('post_title');
             $table->string('post_picture')->nullable();
             $table->string('post_list_type');
+            $table->string('post_category');
+            $table->string('post_status');
             $table->longText('post_content');
+            $table->timestamp('edited_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
+            $table->longText('comment_text');
             $table->timestamp('edited_at')->nullable();
             $table->timestamps();
         });
