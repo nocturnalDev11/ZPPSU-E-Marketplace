@@ -19,16 +19,27 @@ class UserSeeder extends Seeder
             'login_id' => 'CICS-12345678',
             'email' => 'jacintolutrezehue@gmail.com',
             'password' => Hash::make('password'),
-            'role_id' => 3,
+            'role_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         User::create([
             'name' => 'John Cena',
+            'login_id' => 'VL-12345678',
             'email' => 'john@gmail.com',
             'password' => Hash::make('password'),
-            'role_id' => 4,
+            'role_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        User::create([
+            'name' => 'Quo Hua Tan',
+            'login_id' => '12345678',
+            'email' => 'tan@gmail.com',
+            'password' => Hash::make('password'),
+            'role_id' => 3,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
