@@ -1,34 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\Auth\AuthAdminController;
-use App\Http\Controllers\Campus\Auth\AuthCampusController;
+use App\Http\Controllers\User\Auth\PasswordController;
+use App\Http\Controllers\User\Auth\VerifyEmailController;
+use App\Http\Controllers\User\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\User\Auth\AuthenticatedSessionController;
 
 Route::middleware('guest')->group(function () {
-    /*
-    |--------------------------------------------------------------------------
-    | Admin routes
-    |--------------------------------------------------------------------------
-    */
-    Route::get('admin/login', [AuthAdminController::class, 'create'])->name('admin.login');
-    Route::post('admin/login', [AuthAdminController::class, 'store']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Campus user routes
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/verification', [AuthCampusController::class, 'verification'])->name('verification');
-    Route::post('/send-credentials', [AuthCampusController::class, 'sendCredentials'])->name('send.credentials');
-    Route::get('campus/login', [AuthCampusController::class, 'create'])->name('campus.login');
-    Route::post('campus/login', [AuthCampusController::class, 'store']);
+    Route::get('/verification', [VerifyEmailController::class, 'verification'])->name('verification');
+    Route::post('/send-credentials', [VerifyEmailController::class, 'sendCredentials'])->name('send.credentials');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('admin/logout', [AuthAdminController::class, 'destroy'])->name('admin.logout');
+    // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
+    // Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [ProfileController::class, 'updatePassword'])->name('password.update');
-    Route::post('campus/logout', [AuthCampusController::class, 'destroy'])->name('campus.logout');
-
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
