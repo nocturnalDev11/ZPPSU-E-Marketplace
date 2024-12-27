@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\Lists\PostController;
 use App\Http\Controllers\User\Lists\SearchController;
+use App\Http\Controllers\User\Lists\ProductController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 /*
@@ -24,17 +26,33 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('update.picture');
     });
 
-    // Route::prefix('messages')->group(function () {
-    //     Route::get('/', [MessagesController::class, 'index'])->name('messages.index');
-    //     Route::get('/{user}', [MessagesController::class, 'conversation'])->name('messages.conversation');
-    //     Route::post('/store', [MessagesController::class, 'store'])->name('messages.store');
-    //     Route::post('/product-inquiry', [MessagesController::class, 'storeListInquiry'])->name('message.storeListInquiry');
-    //     Route::post('/reply/{user}', [MessagesController::class, 'reply'])->name('messages.reply');
-    //     Route::delete('/{message}', [MessagesController::class, 'destroy'])->name('messages.destroy');
-    // });
+    Route::prefix('messages')->group(function () {
+        Route::get('/', [MessagesController::class, 'index'])->name('messages.index');
+        Route::get('/{user}', [MessagesController::class, 'conversation'])->name('messages.conversation');
+        Route::post('/store', [MessagesController::class, 'store'])->name('messages.store');
+        Route::post('/product-inquiry', [MessagesController::class, 'storeListInquiry'])->name('message.storeListInquiry');
+        Route::post('/reply/{user}', [MessagesController::class, 'reply'])->name('messages.reply');
+        Route::delete('/{message}', [MessagesController::class, 'destroy'])->name('messages.destroy');
+    });
 });
 
 Route::post('/search', [SearchController::class, 'search'])->name('search');
+
+Route::prefix('products')->name('products.')->group(function () {
+    // Public routes (viewing)
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/{id}', [ProductController::class, 'show'])->name('show');
+
+    // Protected routes (modifying)
+    Route::middleware('auth')->group(function () {
+        Route::post('/', [ProductController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ProductController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy');
+        Route::post('/rate', [ProductController::class, 'rate'])->name('rate');
+        Route::post('/reply', [ProductController::class, 'reply'])->name('reply');
+    });
+});
 
 Route::prefix('posts')->name('posts.')->group(function () {
     // Public routes (viewing)
