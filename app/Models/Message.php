@@ -11,16 +11,10 @@ class Message extends Model
         'recipient_id',
         'content',
         'image',
-        'video',
         'content_title',
         'content_link',
         'content_link_image',
         'content_link_description',
-        'plan_meetup',
-        'plan_date',
-        'plan_time',
-        'plan_location',
-        'plan_notes',
         'created_at'
     ];
 

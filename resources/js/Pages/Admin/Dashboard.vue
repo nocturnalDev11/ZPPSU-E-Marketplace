@@ -1,235 +1,217 @@
 <script setup>
-import { Head, usePage } from '@inertiajs/vue3';
-import AuthAdminLayout from '../../Layouts/AuthAdminLayout.vue';
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 
-// Access props from Inertia
 const { props } = usePage();
 const {
     totalUsers,
-    totalCampusUser,
+    totalStudents,
+    totalFaculties,
+    totalStaff,
     totalProducts,
-    totalServices,
     totalPosts,
-    totalTrades,
-    newUsersThisWeek,
-    newServicesThisWeek,
-    newPostsThisWeek,
-    newTradesThisWeek,
-    newProductsThisWeek,
-    newCampusUsersThisWeek,
-    postPercentage,
-    tradePercentage,
-    productPercentage,
-    servicePercentage,
-    percentageChange,
-    percentageChangeInCampusUsers,
+    users
 } = props;
 </script>
 
 <template>
-    <AuthAdminLayout>
 
-        <Head title="Admin Dashboard" />
+    <Head title="Admin Dashboard" />
 
-        <div class="dashboard p-6">
-            <h1 class="text-2xl font-bold mb-4 dark:text-gray-50">Admin Dashboard</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                <!-- Total users -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            All Users: <span :class="newUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newUsersThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalUsers }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total
-                                    users</span>
-                            </p>
-                        </div>
-                        <p class="text-sm" :class="percentageChange >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ percentageChange }}% since last week
-                        </p>
+    <AdminLayout>
+        <div class="relative w-full pt-16">
+            <div class="grid gap-4 px-4 md:grid-cols-2 xl:grid-cols-4">
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400">
+                        <h3>Total users</h3>
                     </div>
-                    <div
-                        class="bg-red-100 text-red-600 dark:bg-red-500 dark:text-red-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-red-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                        </svg>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalUsers }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-orange-300 to-orange-500 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-end px-4 dark:text-gray-400">
+                        <Link :href="route('all.users')" class="hover:underline">View all</Link>
                     </div>
                 </div>
 
-                <!-- New Users Card -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            New Users
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ newUsersThisWeek }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total new
-                                    users</span>
-                            </p>
-                        </div>
-                        <p class="text-sm" :class="percentageChange >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ percentageChange }}% since last week
-                        </p>
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400">
+                        <h3>Total students</h3>
                     </div>
-                    <div
-                        class="bg-green-100 text-green-600 dark:bg-green-500 dark:text-green-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-green-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                        </svg>
-
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalStudents }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-pink-500 to-sky-500 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Total campus users -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            Campus user: <span
-                                :class="newCampusUsersThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newCampusUsersThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalCampusUser }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total campus
-                                    users</span>
-                            </p>
-                        </div>
-                        <p class="text-sm"
-                            :class="percentageChangeInCampusUsers >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ percentageChangeInCampusUsers }}% since last week
-                        </p>
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400">
+                        <h3>Total faculties</h3>
                     </div>
-                    <div
-                        class="bg-yellow-100 text-yellow-600 dark:bg-yellow-600 dark:text-yellow-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-yellow-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                        </svg>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalFaculties }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-400 to-sky-400 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Total Products -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            Total Products: <span
-                                :class="newProductsThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newProductsThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalProducts }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total
-                                    products</span></p>
-                        </div>
-                        <p class="text-sm" :class="productPercentage >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ productPercentage }}% since last week
-                        </p>
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400">
+                        <h3>Total staff</h3>
                     </div>
-                    <div
-                        class="bg-orange-100 text-orange-600 dark:bg-orange-400 dark:text-orange-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-orange-900 p-3">
-                        <svg class="size-6.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-                        </svg>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalStaff }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-500 to-sky-500 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Total services -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            Total Services: <span
-                                :class="newServicesThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newServicesThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalServices }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total
-                                    services</span></p>
+
+            </div>
+
+            <div class="grid gap-4 px-4 pt-6 md:grid-cols-2 xl:grid-cols-4">
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
+                        <h3>Total products</h3>
+                    </div>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalProducts }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-teal-400 to-green-500 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M4.00436 6.41686L0.761719 3.17422L2.17593 1.76001L5.41857 5.00265H20.6603C21.2126 5.00265 21.6603 5.45037 21.6603 6.00265C21.6603 6.09997 21.6461 6.19678 21.6182 6.29L19.2182 14.29C19.0913 14.713 18.7019 15.0027 18.2603 15.0027H6.00436V17.0027H17.0044V19.0027H5.00436C4.45207 19.0027 4.00436 18.5549 4.00436 18.0027V6.41686ZM6.00436 7.00265V13.0027H17.5163L19.3163 7.00265H6.00436ZM5.50436 23.0027C4.67593 23.0027 4.00436 22.3311 4.00436 21.5027C4.00436 20.6742 4.67593 20.0027 5.50436 20.0027C6.33279 20.0027 7.00436 20.6742 7.00436 21.5027C7.00436 22.3311 6.33279 23.0027 5.50436 23.0027ZM17.5044 23.0027C16.6759 23.0027 16.0044 22.3311 16.0044 21.5027C16.0044 20.6742 16.6759 20.0027 17.5044 20.0027C18.3328 20.0027 19.0044 20.6742 19.0044 21.5027C19.0044 22.3311 18.3328 23.0027 17.5044 23.0027Z">
+                                    </path>
+                                </svg>
+                            </div>
                         </div>
-                        <p class="text-sm" :class="servicePercentage >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ servicePercentage }}% since last week
-                        </p>
                     </div>
                     <div
-                        class="bg-orange-100 text-cyan-600 dark:bg-cyan-600 dark:text-cyan-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-cyan-900 p-3">
-                        <svg class="size-6.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14.079 6.839a3 3 0 0 0-4.255.1M13 20h1.083A3.916 3.916 0 0 0 18 16.083V9A6 6 0 1 0 6 9v7m7 4v-1a1 1 0 0 0-1-1h-1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1Zm-7-4v-6H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h1Zm12-6h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1v-6Z" />
-                        </svg>
+                        class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
+                        <h3>View all</h3>
                     </div>
                 </div>
 
-                <!-- Total posts -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            Total Posts: <span :class="newPostsThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newPostsThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalPosts }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total
-                                    posts</span></p>
+                <!-- <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
+                        <h3>Total services</h3>
+                    </div>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalServices }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-pink-300 to-orange-400 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M19.9381 8H21C22.1046 8 23 8.89543 23 10V14C23 15.1046 22.1046 16 21 16H19.9381C19.446 19.9463 16.0796 23 12 23V21C15.3137 21 18 18.3137 18 15V9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9V16H3C1.89543 16 1 15.1046 1 14V10C1 8.89543 1.89543 8 3 8H4.06189C4.55399 4.05369 7.92038 1 12 1C16.0796 1 19.446 4.05369 19.9381 8ZM3 10V14H4V10H3ZM20 10V14H21V10H20ZM7.75944 15.7849L8.81958 14.0887C9.74161 14.6662 10.8318 15 12 15C13.1682 15 14.2584 14.6662 15.1804 14.0887L16.2406 15.7849C15.0112 16.5549 13.5576 17 12 17C10.4424 17 8.98882 16.5549 7.75944 15.7849Z">
+                                    </path>
+                                </svg>
+                            </div>
                         </div>
-                        <p class="text-sm" :class="postPercentage >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ postPercentage }}% since last week
-                        </p>
                     </div>
                     <div
-                        class="bg-orange-100 text-cyan-600 dark:bg-cyan-600 dark:text-cyan-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-cyan-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
-                        </svg>
+                        class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
+                        <h3>View all</h3>
+                    </div>
+                </div> -->
+
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
+                        <h3>Total posts</h3>
+                    </div>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ totalPosts }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-sky-300 to-purple-400 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M19 22H5C3.34315 22 2 20.6569 2 19V3C2 1.34315 3.34315 0 5 0H19C20.6569 0 22 1.34315 22 3V19C22 20.6569 20.6569 22 19 22ZM5 2C4.44772 2 4 2.44772 4 3V19C4 19.5523 4.44772 20 5 20H19C19.5523 20 20 19.5523 20 19V3C20 2.44772 19.5523 2 19 2H5ZM6 6H18V8H6V6ZM6 10H18V12H6V10ZM6 14H13V16H6V14Z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
+                        <h3>View all</h3>
                     </div>
                 </div>
 
-                <!-- Total trades -->
-                <div
-                    class="flex items-center justify-between px-5 py-4 bg-white dark:bg-gray-800/60 shadow-xl shadow-gray-200 dark:shadow-gray-800/30 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                    <div>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm font-semibold uppercase">
-                            Total Trades: <span :class="newTradesThisWeek >= 0 ? 'text-green-500' : 'text-red-500'">+{{
-                                newTradesThisWeek }}</span>
-                        </h2>
-                        <div class="flex flex-wrap gap-3 py-2">
-                            <p class="text-3xl font-bold text-gray-800 dark:text-gray-200">{{ totalTrades }}</p>
-                            <p class="text-gray-400 dark:text-gray-300 text-base"><span class="text-sm">Total
-                                    trades</span></p>
+                <!-- <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                    <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
+                        <h3>Total trades</h3>
+                    </div>
+                    <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="font-medium text-4xl text-gray-800 dark:text-white">
+                                <div>{{ $totalTrades }}</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-500 to-sky-300 p-2 rounded-md">
+                                <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M16.0503 12.0498L21 16.9996L16.0503 21.9493L14.636 20.5351L17.172 17.9988L4 17.9996V15.9996L17.172 15.9988L14.636 13.464L16.0503 12.0498ZM7.94975 2.0498L9.36396 3.46402L6.828 5.9988L20 5.99955V7.99955L6.828 7.9988L9.36396 10.5351L7.94975 11.9493L3 6.99955L7.94975 2.0498Z">
+                                    </path>
+                                </svg>
+                            </div>
                         </div>
-                        <p class="text-sm" :class="tradePercentage >= 0 ? 'text-green-500' : 'text-red-500'">
-                            {{ tradePercentage }}% since last week
-                        </p>
                     </div>
                     <div
-                        class="bg-orange-100 text-cyan-600 dark:bg-cyan-600 dark:text-cyan-100 rounded-full shadow-lg shadow-gray-200 dark:shadow-cyan-900 p-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" width="24" height="24" class="size-6.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                        </svg>
+                        class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
+                        <h3>View all</h3>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-    </AuthAdminLayout>
+    </AdminLayout>
 </template>

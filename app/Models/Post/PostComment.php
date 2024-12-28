@@ -15,6 +15,7 @@ class PostComment extends Model
     protected $fillable = [
         'user_id',
         'post_id',
+        'parent_id',
         'comment_text',
     ];
 
@@ -30,5 +31,10 @@ class PostComment extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(PostComment::class, 'parent_id')->with('replies'); // Recursively load replies
     }
 }

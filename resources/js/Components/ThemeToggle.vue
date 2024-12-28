@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
     <button @click="toggleDarkMode" type="button"
-        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-xl text-sm p-2 ml-3">
+        class="inline-flex items-center justify-center rounded-full p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none dark:text-gray-500 dark:hover:bg-gray-900 dark:hover:text-gray-400 dark:focus:bg-gray-900 dark:focus:text-gray-400">
         <!-- Dark Icon -->
         <svg v-if="!isDarkMode" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
             <path class="fill-slate-400"
