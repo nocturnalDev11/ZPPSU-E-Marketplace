@@ -73,7 +73,11 @@ class ProfileController extends Controller
                 'description' => $post->post_content,
                 'created_at' => $post->created_at,
                 'route' => route('posts.show', $post->id),
+<<<<<<< HEAD
                 'type' => 'Post',
+=======
+                'type' => 'Post'
+>>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
             ];
         });
 
@@ -132,7 +136,10 @@ class ProfileController extends Controller
             // 'productCount' => $products->count(),
             // 'serviceCount' => $services->count(),
             // 'tradeCount' => $trades->count(),
+<<<<<<< HEAD
             'guard' => auth()->guard('admin')->check() ? 'admin' : (Auth::check() ? 'user' : 'guest'),
+=======
+>>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
         ]);
     }
 

@@ -5,9 +5,12 @@ use App\Http\Controllers\User\Auth\PasswordController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
 use App\Http\Controllers\User\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\User\Auth\AuthenticatedSessionController;
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\Auth\AdminAuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+=======
+>>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -23,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+<<<<<<< HEAD
 });
 
 Route::middleware('guest:admin')->group(function () {
@@ -33,4 +37,6 @@ Route::middleware('guest:admin')->group(function () {
 Route::middleware('auth:admin')->group(function () {
     Route::put('admin/password', [PasswordController::class, 'update'])->name('admin.password.update');
     Route::post('admin/logout', [AdminAuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
+=======
+>>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 });

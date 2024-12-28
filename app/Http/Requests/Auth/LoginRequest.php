@@ -2,11 +2,19 @@
 
 namespace App\Http\Requests\Auth;
 
+<<<<<<< HEAD
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
+=======
+use Illuminate\Auth\Events\Lockout;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+>>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
