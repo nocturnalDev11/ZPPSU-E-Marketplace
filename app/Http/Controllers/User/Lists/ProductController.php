@@ -59,7 +59,7 @@ class ProductController extends Controller
             'user_id' => Auth::id(),
             'product_id' => $request->product_id,
             'parent_id' => $request->parent_id,
-            'rating_text' => $request->rating_text,  // Only save the rating_text for replies
+            'rating_text' => $request->rating_text,
         ]);
 
         return back()->with('success', 'Reply added successfully.');
@@ -104,10 +104,10 @@ class ProductController extends Controller
         $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
 
         $ratings = $product->ratings()
-            ->whereNull('parent_id')
-            ->with('replies.user')
-            ->latest()
-            ->get();
+                ->whereNull('parent_id')
+                ->with('replies.user')
+                ->latest()
+                ->get();
 
         return Inertia::render('User/Lists/Products/Show', [
             'user' => Auth::user(),

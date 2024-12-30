@@ -73,25 +73,21 @@ class ProfileController extends Controller
                 'description' => $post->post_content,
                 'created_at' => $post->created_at,
                 'route' => route('posts.show', $post->id),
-<<<<<<< HEAD
                 'type' => 'Post',
-=======
-                'type' => 'Post'
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
             ];
         });
 
-        // $products = $profileUser->products->map(fn($product) => [
-        //     'title' => $product->prod_name,
-        //     'status' => $product->prod_status,
-        //     'category' => $product->prod_category,
-        //     'image' => $product->prod_picture ? Storage::url($product->prod_picture) : null,
-        //     'description' => $product->prod_description,
-        //     'price' => $product->prod_price,
-        //     'created_at' => $product->created_at,
-        //     'route' => route('products.show', $product->id),
-        //     'type' => 'Product',
-        // ]);
+        $products = $profileUser->products->map(fn($product) => [
+            'title' => $product->prod_name,
+            'status' => $product->prod_status,
+            'category' => $product->prod_category,
+            'image' => $product->prod_picture ? Storage::url($product->prod_picture) : null,
+            'description' => $product->prod_description,
+            'price' => $product->prod_price,
+            'created_at' => $product->created_at,
+            'route' => route('products.show', $product->id),
+            'type' => 'Product',
+        ]);
 
         // $services = $profileUser->services->map(fn($service) => [
         //     'title' => $service->services_title,
@@ -115,7 +111,7 @@ class ProfileController extends Controller
 
         $activities = collect()
             ->merge($posts)
-            // ->merge($products)
+            ->merge($products)
             // ->merge($services)
             // ->merge($trades)
             ->sortByDesc('created_at')
@@ -129,17 +125,13 @@ class ProfileController extends Controller
             'profileUser' => $profileUser,
             'activities' => $activities,
             'posts' => $posts,
-            // 'products' => $products,
+            'products' => $products,
             // 'services' => $services,
             // 'trades' => $trades,
             'postCount' => $posts->count(),
-            // 'productCount' => $products->count(),
+            'productCount' => $products->count(),
             // 'serviceCount' => $services->count(),
             // 'tradeCount' => $trades->count(),
-<<<<<<< HEAD
-            'guard' => auth()->guard('admin')->check() ? 'admin' : (Auth::check() ? 'user' : 'guest'),
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
         ]);
     }
 

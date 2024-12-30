@@ -1,15 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import Create from './Partials/Create.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 
-const props = defineProps({
+const { props } = usePage();
+
+defineProps({
     user: {
         type: Object,
         required: true,
-        default: null,
     },
     posts: {
         type: Array,
@@ -26,20 +28,19 @@ const filteredPosts = computed(() => {
     );
 });
 
-const showModal = ref(false);
+const isAdmin = computed(() => props.auth?.admin || false);
+const currentLayout = computed(() => {
+    if (isAdmin.value) return AdminLayout;
+    return props.auth?.user ? AppLayout : GuestLayout;
+});
 
-const closeModal = () => {
-    showModal.value = false;
-    form.clearErrors();
-    form.reset();
-}
 </script>
 
 <template>
 
     <Head title="Posts" />
 
-    <component :is="($page.props.auth.user ? AppLayout : GuestLayout)">
+    <component :is="currentLayout">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Posts
@@ -81,45 +82,53 @@ const closeModal = () => {
                 class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-gray-100 dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                 <div class="mb-1 w-full">
                     <div class="mb-4">
-                        <nav class="xl:flex lg:flex md:hidden sm:hidden mb-5">
-                            <ol class="inline-flex items-center space-x-1 md:space-x-2">
-                                <li class="inline-flex items-center">
-                                    <Link :href="route('home')" v-if="$page.props.auth.user"
-                                        class="inline-flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100">
-                                    <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                                        </path>
-                                    </svg>
-                                    Home
-                                    </Link>
-
-                                    <Link v-else :href="route('landing.page')"
-                                        class="inline-flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100">
-                                    <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                                        </path>
-                                    </svg>
-                                    Home
-                                    </Link>
-                                </li>
-                                <li>
-                                    <div class="flex items-center">
-                                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                        <div v-if="$page.props.auth.user">
+                            <nav class="xl:flex lg:flex md:hidden sm:hidden mb-5">
+                                <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                                    <li class="inline-flex items-center">
+                                        <Link :href="route('home')" v-if="$page.props.auth.user"
+                                            class="inline-flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100">
+                                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd"></path>
+                                            <path
+                                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                                            </path>
                                         </svg>
-                                        <span class="ml-1 text-md font-medium text-gray-400 md:ml-2"
-                                            aria-current="page">Posts</span>
-                                    </div>
-                                </li>
-                            </ol>
-                        </nav>
+                                        Home
+                                        </Link>
+
+                                        <Link v-else :href="route('landing.page')"
+                                            class="inline-flex items-center text-gray-700 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100">
+                                        <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                                            </path>
+                                        </svg>
+                                        Home
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <span class="ml-1 text-md font-medium text-gray-400 md:ml-2"
+                                                aria-current="page">Posts</span>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+
+                        <div v-if="$page.props.auth.admin">
+                            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                                All posts
+                            </h2>
+                        </div>
                     </div>
                     <div class="block items-center sm:flex md:divide-x md:divide-gray-100 dark:md:divide-gray-700">
                         <form class="mb-4 sm:pr-3 sm:mb-0">

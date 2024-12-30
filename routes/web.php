@@ -9,10 +9,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\Lists\PostController;
 use App\Http\Controllers\User\Lists\SearchController;
 use App\Http\Controllers\User\Lists\ProductController;
-<<<<<<< HEAD
+use App\Http\Controllers\User\Lists\ServiceController;
 use App\Http\Controllers\Admin\Users\UserManagementController;
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 /*
@@ -58,6 +56,23 @@ Route::prefix('products')->name('products.')->group(function () {
     });
 });
 
+Route::prefix('services')->name('services.')->group(function () {
+    // Public routes (viewing)
+    Route::get('/', [ServiceController::class, 'index'])->name('index');
+    Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
+
+    // Protected routes (modifying)
+    Route::middleware('auth')->group(function () {
+        Route::get('/create', [ServiceController::class, 'create'])->name('create');
+        Route::post('/', [ServiceController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [ServiceController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [ServiceController::class, 'update'])->name('update');
+        Route::delete('/{id}', [ServiceController::class, 'destroy'])->name('destroy');
+        Route::post('/rate', [ServiceController::class, 'rate'])->name('rate');
+        Route::post('/reply', [ServiceController::class, 'reply'])->name('reply');
+    });
+});
+
 Route::prefix('posts')->name('posts.')->group(function () {
     // Public routes (viewing)
     Route::get('/', [PostController::class, 'index'])->name('index');
@@ -79,7 +94,6 @@ Route::prefix('posts')->name('posts.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-<<<<<<< HEAD
 Route::middleware('auth:admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -90,18 +104,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/user/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
     Route::put('/admin/user/{id}', [UserManagementController::class, 'update'])->name('user.update');
     Route::delete('/admin/user/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
-=======
-Route::middleware('admin')->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-    // User Management Routes
-    // Route::get('/admin/all-users', [UserManagementController::class, 'index'])->name('all.users');
-    // Route::post('/admin/user', [UserManagementController::class, 'store'])->name('users.store');
-    // Route::get('/admin/user/{id}', [UserManagementController::class, 'show'])->name('users.show');
-    // Route::get('/admin/user/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
-    // Route::put('/admin/user/{id}', [UserManagementController::class, 'update'])->name('user.update');
-    // Route::delete('/admin/user/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 });
 
 require __DIR__ . '/auth.php';

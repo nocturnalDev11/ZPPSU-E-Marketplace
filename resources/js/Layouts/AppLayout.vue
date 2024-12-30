@@ -13,16 +13,19 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <nav
-        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]">
+        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]"
+    >
         <Link v-if="$page.props.auth.user" :href="route('home')" class="flex items-center space-x-3 xl:hidden">
-        <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </Link>
 
-        <Link v-else :href="route('landing.page')" :class="[
+        <Link
+            v-else :href="route('landing.page')" :class="[
                 route().current() === 'landing.page' ? 'xl:flex' : 'xl:hidden',
                 'items-center space-x-3'
-            ]">
-        <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            ]"
+        >
+            <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </Link>
 
         <div class="items-center justify-between hidden w-full md:flex md:w-auto">
@@ -105,11 +108,13 @@ const showingNavigationDropdown = ref(false);
     </nav>
 
     <!-- Responsive Navigation Menu -->
-    <aside v-if="route().current() !== 'landing.page'" :class="{
+    <aside
+        v-if="route().current() !== 'landing.page'" :class="{
             'block xl:hidden': showingNavigationDropdown,
             'hidden xl:block': !showingNavigationDropdown,
         }"
-        class="w-96 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-gray-100 dark:bg-gray-950 flex-col justify-start items-start gap-5">
+        class="w-96 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-gray-100 dark:bg-gray-950 flex-col justify-start items-start gap-5"
+    >
         <div class="size-full flex flex-col">
             <div class="flex items-center justify-between pt-4 pe-4">
                 <Link :href="route('home')">
@@ -240,7 +245,6 @@ const showingNavigationDropdown = ref(false);
                 <slot name="route" />
             </nav>
         </div>
-
         <slot />
     </main>
 </template>

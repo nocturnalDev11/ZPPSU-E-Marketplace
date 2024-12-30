@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
@@ -216,5 +215,3 @@ const {
         </div>
     </AdminLayout>
 </template>
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92

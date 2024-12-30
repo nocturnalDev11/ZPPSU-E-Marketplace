@@ -9,10 +9,7 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-<<<<<<< HEAD
     protected $table = 'admins';
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
     protected $guard = 'admin';
 
     /**

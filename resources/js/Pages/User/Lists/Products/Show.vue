@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import Edit from './Partials/Edit.vue';
 import Rating from './Partials/Rating.vue';
 import Delete from './Partials/Delete.vue';
@@ -8,12 +8,15 @@ import Modal from '@/Components/Modal.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import TextArea from '@/Components/TextArea.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
-const props = defineProps({
+const { props } = usePage();
+
+defineProps({
     user: {
         type: Object,
         required: true,
@@ -68,12 +71,19 @@ const closeModal = () => {
 };
 
 const activeTab = ref('description');
+
+const isAdmin = computed(() => props.auth?.admin || false);
+const currentLayout = computed(() => {
+    if (isAdmin.value) return AdminLayout;
+    return props.auth?.user ? AppLayout : GuestLayout;
+});
 </script>
 
 <template>
 
     <Head :title="product.prod_name" />
-    <component :is="($page.props.auth.user ? AppLayout : GuestLayout)">
+
+    <component :is="currentLayout">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Product

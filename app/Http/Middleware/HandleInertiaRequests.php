@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
                         ? Storage::url(Auth::user()->profile_picture)
                         : null,
                 ] : null,
+                'admin' => Auth::guard('admin')->check(),
             ],
         ]);
     }

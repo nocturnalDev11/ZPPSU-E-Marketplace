@@ -1,19 +1,22 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import Edit from './Partials/Edit.vue';
 import Delete from './Partials/Delete.vue';
 import Modal from '@/Components/Modal.vue';
 import Comment from './Partials/Comment.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import TextArea from '@/Components/TextArea.vue';
+import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
-const props = defineProps({
+const { props } = usePage();
+
+defineProps({
     user: {
         type: Object,
         required: true,
@@ -52,12 +55,19 @@ const closeModal = () => {
     form.clearErrors();
     form.reset();
 };
+
+const isAdmin = computed(() => props.auth?.admin || false);
+const currentLayout = computed(() => {
+    if (isAdmin.value) return AdminLayout;
+    return props.auth?.user ? AppLayout : GuestLayout;
+});
+
 </script>
 
 <template>
 
     <Head :title="post.post_title" />
-    <component :is="($page.props.auth.user ? AppLayout : GuestLayout)">
+    <component :is="currentLayout">
         <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
             <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
                 <!-- Content -->

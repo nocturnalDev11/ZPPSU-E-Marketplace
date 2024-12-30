@@ -16,13 +16,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-<<<<<<< HEAD
         if (!$request->is('admin/login') && !Auth::guard('admin')->check()) {
             return redirect('/');
-=======
-        if (Auth::guard('admin')->check()) {
-            return $next($request);
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
         }
     }
 }

@@ -2,11 +2,8 @@
 import { computed } from 'vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-<<<<<<< HEAD
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import UpdateProfilePicture from '../Profile/Partials/UpdateProfilePicture.vue';
 
@@ -26,23 +23,16 @@ function formatDate(dateString) {
 
 const posts = computed(() => props.posts || []);
 // const trades = computed(() => props.trades || []);
-// const products = computed(() => props.products || []);
+const products = computed(() => props.products || []);
 // const services = computed(() => props.services || []);
 const activities = computed(() => props.activities || []);
 const user = computed(() => props.profileUser || {});
-<<<<<<< HEAD
-const guard = computed(() => props.guard || {});
-=======
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
+const isAdmin = computed(() => props.auth?.admin || false);
 const loggedInUserId = computed(() => props.auth.user?.id || null);
 
-console.log(props.guard);
-const layoutComponent = computed(() => {
-    console.log(props.guard);
-    if (props.guard === 'admin') {
-        return AdminLayout;
-    }
-    return props.guard === 'user' ? AppLayout : AdminLayout;
+const currentLayout = computed(() => {
+    if (isAdmin.value) return AdminLayout;
+    return props.auth?.user ? AppLayout : GuestLayout;
 });
 
 </script>
@@ -51,11 +41,7 @@ const layoutComponent = computed(() => {
 
     <Head title="Profile" />
 
-<<<<<<< HEAD
-    <component :is="layoutComponent">
-=======
-    <AppLayout>
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
+    <component :is="currentLayout">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Profile
@@ -63,11 +49,7 @@ const layoutComponent = computed(() => {
         </template>
 
         <template #route>
-<<<<<<< HEAD
             <nav class="flex">
-=======
-            <nav class="flex" aria-label="Breadcrumb">
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
                         <Link :href="route('home')"
@@ -96,11 +78,7 @@ const layoutComponent = computed(() => {
             </nav>
         </template>
 
-<<<<<<< HEAD
         <div class="flex transition-all h-full w-full mx-auto py-10">
-=======
-        <div class="flex transition-all h-full w-full mx-auto">
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
             <div class="relative w-full overflow-y-auto">
                 <div class="grid grid-cols-1 px-4 xl:grid-cols-3 xl:gap-6">
                     <div class="col-span-full xl:col-auto">
@@ -120,10 +98,6 @@ const layoutComponent = computed(() => {
                                             {{ user?.name?.charAt(0).toUpperCase() || '?' }}
                                         </span>
                                     </div>
-
-                                    <SecondaryButton v-if="loggedInUserId && loggedInUserId !== user.id">
-                                        Message
-                                    </SecondaryButton>
 
                                     <UpdateProfilePicture v-if="loggedInUserId && loggedInUserId === user.id" />
                                 </div>
@@ -229,14 +203,14 @@ const layoutComponent = computed(() => {
                                                     <span v-if="activity.type === 'Post'">
                                                         Post created: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
-                                                    <!-- <span v-else-if="activity.type === 'Product'">
+                                                    <span v-else-if="activity.type === 'Product'">
                                                         Product listed: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
-                                                    <span v-else-if="activity.type === 'Service'">
+                                                    <!--<span v-else-if="activity.type === 'Service'">
                                                         Service offered: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
                                                                 activity.title }}</a>
@@ -258,7 +232,7 @@ const layoutComponent = computed(() => {
                     </div>
 
                     <div class="col-span-2">
-                        <!-- <div v-for="product in products" :key="product.id"
+                        <div v-for="product in products" :key="product.id"
                             class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
                             <img class="object-cover w-full lg:w-48 lg:h-48 rounded-lg" :src="product.image"
                                 :alt="product.title">
@@ -299,7 +273,7 @@ const layoutComponent = computed(() => {
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                         <!-- <div v-for="service in services" :key="service.id"
                             class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
@@ -373,9 +347,5 @@ const layoutComponent = computed(() => {
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
     </component>
-=======
-    </AppLayout>
->>>>>>> 9f64e7b045f88b60a0adb93d761525d625705b92
 </template>
