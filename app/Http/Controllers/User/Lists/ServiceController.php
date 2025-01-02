@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class ServiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the service.
      */
     public function index()
     {
@@ -104,8 +104,7 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $service = Service::with(['user', 'ratings.user'])
-            ->findOrFail($id);
+        $service = Service::with(['user', 'ratings.user'])->findOrFail($id);
 
         $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
 

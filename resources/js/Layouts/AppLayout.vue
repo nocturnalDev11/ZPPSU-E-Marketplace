@@ -174,6 +174,25 @@ const showingNavigationDropdown = ref(false);
                         </SidebarLink>
                     </li>
                     <li>
+                        <SidebarLink :href="route('trades.index')" :active="route().current('trades.index')">
+                            <div class="h-5 gap-3 flex items-center">
+                                <div class="relative">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <g id="Swap">
+                                            <path id="icon"
+                                                d="M2.50325 9.00193C2.50145 5.42312 5.40119 2.52045 8.98001 2.51865M8.99678 2.5L7.25783 4.94982M17.5 10.9172C17.5 14.496 14.5988 17.3972 11.02 17.3972M11.0022 17.4161L12.7423 14.9671M14.5833 8.3334C12.9725 8.3334 11.6667 7.02756 11.6667 5.41673C11.6667 3.8059 12.9725 2.50006 14.5833 2.50006C16.1942 2.50006 17.5 3.8059 17.5 5.41673C17.5 7.02756 16.1942 8.3334 14.5833 8.3334ZM5.41667 17.5001C4.24628 17.5001 3.66109 17.5001 3.24072 17.2192C3.05873 17.0976 2.90248 16.9413 2.78088 16.7593C2.5 16.339 2.5 15.7538 2.5 14.5834C2.5 13.413 2.5 12.8278 2.78088 12.4074C2.90248 12.2255 3.05873 12.0692 3.24072 11.9476C3.66109 11.6667 4.24628 11.6667 5.41667 11.6667C6.58705 11.6667 7.17224 11.6667 7.59262 11.9476C7.7746 12.0692 7.93085 12.2255 8.05245 12.4074C8.33333 12.8278 8.33333 13.413 8.33333 14.5834C8.33333 15.7538 8.33333 16.339 8.05245 16.7593C7.93085 16.9413 7.7746 17.0976 7.59262 17.2192C7.17224 17.5001 6.58705 17.5001 5.41667 17.5001Z"
+                                                stroke="#6B7280" stroke-width="1.60274" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
+                                    Trades</h2>
+                            </div>
+                        </SidebarLink>
+                    </li>
+                    <li>
                         <SidebarLink :href="route('messages.index')" :active="route().current('messages.index')">
                             <div class="h-5 gap-3 flex">
                                 <div class="relative">

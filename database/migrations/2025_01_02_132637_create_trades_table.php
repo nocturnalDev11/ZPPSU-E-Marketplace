@@ -11,25 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('trades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('services_picture')->nullable();
-            $table->string('services_title');
-            $table->string('services_status');
-            $table->decimal('services_fee', 10, 2);
-            $table->string('services_category');
-            $table->longText('services_description');
+            $table->string('trade_picture')->nullable();
+            $table->string('trade_title');
+            $table->string('trade_category');
+            $table->longText('trade_description');
+            $table->string('trade_status')->default('available');
+            $table->string('trade_type');
+            $table->decimal('trade_value', 8, 2)->nullable();
+            $table->longText('trade_conditions')->nullable();
+            $table->date('trade_duration')->nullable();
             $table->decimal('avg_rating', 3, 2)->default(0);
             $table->timestamp('edited_at')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('service_ratings', function (Blueprint $table) {
+        Schema::create('trade_ratings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('services_id')->constrained('services')->onDelete('cascade');
-            $table->foreignId('parent_id')->nullable()->constrained('service_ratings')->onDelete('cascade');
+            $table->foreignId('trades_id')->constrained('trades')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('trade_ratings')->onDelete('cascade');
             $table->longText('rating_text')->nullable();
             $table->decimal('rating_value', 2, 1)->nullable();
             $table->timestamp('edited_at')->nullable();
@@ -42,7 +45,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_ratings');
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('trade_ratings');
+        Schema::dropIfExists('trades');
     }
 };

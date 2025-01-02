@@ -14,7 +14,7 @@ defineProps({
         required: true,
         default: null,
     },
-    services: {
+    trades: {
         type: Array,
         default: () => [],
     },
@@ -22,10 +22,10 @@ defineProps({
 
 const searchTerm = ref('');
 
-const filteredServices = computed(() => {
-    if (!searchTerm.value) return props.services;
-    return props.services.filter(service =>
-        service.services_title.toLowerCase().includes(searchTerm.value.toLowerCase())
+const filteredTrades = computed(() => {
+    if (!searchTerm.value) return props.trades;
+    return props.trades.filter(trade =>
+        trade.trade_title.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 });
 
@@ -39,12 +39,12 @@ const currentLayout = computed(() => {
 
 <template>
 
-    <Head title="All services" />
+    <Head title="All trades" />
 
     <component :is="currentLayout">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Services
+                Trades
             </h2>
         </template>
 
@@ -62,7 +62,7 @@ const currentLayout = computed(() => {
                         Home
                         </Link>
 
-                        <Link v-if="$page.props.auth.admin" :href="route('home')"
+                        <Link v-if="$page.props.auth.admin" :href="route('dashboard')"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -80,7 +80,7 @@ const currentLayout = computed(() => {
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
                             <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-300">
-                                Services
+                                Trades
                             </span>
                         </div>
                     </li>
@@ -88,7 +88,7 @@ const currentLayout = computed(() => {
             </nav>
         </template>
 
-        <div class="container w-full mx-auto pt-4">
+        <div class="container w-full mx-auto">
             <div
                 class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                 <div class="mb-1 w-full">
@@ -116,24 +116,24 @@ const currentLayout = computed(() => {
                                                 clip-rule="evenodd"></path>
                                         </svg>
                                         <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2"
-                                            aria-current="page">Services</span>
+                                            aria-current="page">Trades</span>
                                     </div>
                                 </li>
                             </ol>
                         </nav>
-                        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100 sm:text-2xl">All services
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100 sm:text-2xl">All trades
                         </h1>
                     </div>
                     <div class="block items-center sm:flex md:divide-x md:divide-gray-100 dark:md:divide-gray-700">
                         <form class="mb-4 sm:pr-3 sm:mb-0">
-                            <label for="services-search" class="sr-only">Search</label>
+                            <label for="trades-search" class="sr-only">Search</label>
                             <div class="relative mt-1 sm:w-64 xl:w-96">
-                                <input type="text" id="services-search" v-model="searchTerm"
-                                    placeholder="Search for services"
+                                <input type="text" id="trades-search" v-model="searchTerm"
+                                    placeholder="Search for trades"
                                     class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                             </div>
                         </form>
-                        <div class="flex items-center w-full">
+                        <div class="flex items-center w-full sm:justify-end">
                             <!-- <div class="hidden pl-2 space-x-1 md:flex">
                                     <a href="#"
                                         class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100">
@@ -180,63 +180,67 @@ const currentLayout = computed(() => {
                                         d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                Add service
+                                Add trades
                             </Create>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="grid h-full w-full grid-cols-3 gap-4 px-2 md:h-auto xl:grid-cols-5 pt-44 lg:p-5">
-                <template v-if="filteredServices.length > 0">
-                    <div v-for="service in filteredServices" :key="service.id" class="mb-6 w-full select-none">
-                        <div class="relative pb-64">
-                            <div class="cursor-pointer">
-                                <img class="absolute h-full w-full cursor-pointer rounded-lg border-b object-cover shadow-md"
-                                    :src="service.services_picture || 'default-image-url'" alt="service name" />
-                            </div>
-                        </div>
 
-                        <div class="relative -mt-16 px-4">
-                            <div
-                                class="rounded-lg border dark:border-none bg-white dark:bg-gray-800 shadow-lg shadow-gray-200 dark:shadow-none">
-                                <div class="p-5">
-                                    <div class="flex items-center justify-between">
-                                        <div class="text-xs opacity-75">
-                                            <a class="hover:underline dark:text-gray-200" href="#">{{
-                                                service.services_category }}</a>
-                                        </div>
-
-                                        <span
-                                            class="select-none rounded-full bg-teal-100 text-green-500 dark:bg-teal-200 dark:text-green-700 px-3 py-1 text-xs">
-                                            {{ service.services_status }}
-                                        </span>
-                                    </div>
-
-                                    <a class="mt-2 block truncate text-lg font-medium text-gray-800 dark:text-gray-100 hover:underline"
-                                        href="#">
-                                        {{ service.services_title }}
-                                    </a>
+            <div class="grid h-full w-full grid-cols-3 gap-4 px-2 md:h-auto xl:grid-cols-5 pt-44 lg:p-5 ">
+                <template v-if="filteredTrades.length > 0">
+                    <template v-if="trades.length > 0">
+                        <div v-for="trade in filteredTrades" :key="trade.id"
+                            class="mb-6 w-full select-none cursor-pointer">
+                            <div class="relative pb-64">
+                                <div class="cursor-pointer">
+                                    <img class="absolute h-full w-full cursor-pointer rounded-lg object-cover shadow-md"
+                                        :src="trade.trade_picture || 'default-image-url'" :alt="trade.trade_title" />
                                 </div>
+                            </div>
 
-                                <div class="flex items-center justify-between px-4 pb-3">
-                                    <div>
-                                        <div class="text-lg">
-                                            <span class="font-medium text-gray-800 dark:text-gray-100">₱{{
-                                                service.services_fee }}</span>
+                            <div class="relative -mt-16 px-4">
+                                <div
+                                    class="rounded-lg border dark:border-none bg-white dark:bg-gray-800 shadow-lg shadow-gray-200 dark:shadow-none">
+                                    <div class="p-5">
+                                        <div class="flex items-center justify-between">
+                                            <div class="text-xs opacity-75">
+                                                <a class="hover:underline dark:text-gray-200" href="#">
+                                                    {{ trade.trade_category }}</a>
+                                            </div>
+
+                                            <span
+                                                class="select-none rounded-full bg-teal-100 text-green-500 dark:bg-teal-200 dark:text-green-700 px-3 py-1 text-xs">
+                                                {{ trade.trade_status }}
+                                            </span>
                                         </div>
+
+                                        <a class="mt-2 block truncate text-lg font-medium text-gray-800 dark:text-gray-100 hover:underline"
+                                            href="#">
+                                            {{ trade.trade_title }}
+                                        </a>
                                     </div>
 
-                                    <div>
-                                        <Link :href="route('services.show', service.id)"
-                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline"
-                                            href="#">
-                                        View service &rarr;
+                                    <div class="flex items-center justify-between px-4 pb-3">
+                                        <div class="text-lg">
+                                            <span class="font-medium text-gray-800 dark:text-gray-100">{{
+                                                trade.trade_type }}</span>
+                                        </div>
+
+                                        <Link :href="route('trades.show', trade.id)"
+                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
+                                        View trade &rarr;
                                         </Link>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
+                    <template v-else>
+                        <div class="col-span-full text-center text-gray-600">
+                            No trades available.
+                        </div>
+                    </template>
                 </template>
             </div>
         </div>

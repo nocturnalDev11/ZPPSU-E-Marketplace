@@ -13,14 +13,14 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
-    // services: {
-    //     type: Array,
-    //     default: () => [],
-    // },
-    // trades: {
-    //     type: Array,
-    //     default: () => [],
-    // },
+    services: {
+        type: Array,
+        default: () => [],
+    },
+    trades: {
+        type: Array,
+        default: () => [],
+    },
     posts: {
         type: Array,
         default: () => [],
@@ -192,7 +192,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </div>
 
             <!-- Services -->
-            <!-- <div class="container px-4 w-full mx-auto md:h-auto py-24">
+            <div class="container px-4 w-full mx-auto md:h-auto py-24">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Services</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -257,10 +257,10 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
                         </div>
                     </template>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Trades -->
-            <!-- <div class="container px-4 w-full mx-auto md:h-auto py-24">
+            <div class="container px-4 w-full mx-auto md:h-auto py-24">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Trades</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -321,7 +321,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
                         </div>
                     </template>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Posts -->
             <div class="container px-4 w-full mx-auto md:h-auto py-24">

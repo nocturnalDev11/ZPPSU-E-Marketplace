@@ -7,6 +7,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\Lists\PostController;
+use App\Http\Controllers\User\Lists\TradeController;
 use App\Http\Controllers\User\Lists\SearchController;
 use App\Http\Controllers\User\Lists\ProductController;
 use App\Http\Controllers\User\Lists\ServiceController;
@@ -85,6 +86,23 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::put('/{id}', [PostController::class, 'update'])->name('update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
         Route::post('/comment', [PostController::class, 'comment'])->name('comment');
+    });
+});
+
+Route::prefix('trades')->name('trades.')->group(function () {
+    // Public routes (viewing)
+    Route::get('/', [TradeController::class, 'index'])->name('index');
+    Route::get('/{id}', [TradeController::class, 'show'])->name('show');
+
+    // Protected routes
+    Route::middleware('auth')->group(function () {
+        Route::get('/create', [TradeController::class, 'create'])->name('create');
+        Route::post('/', [TradeController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [TradeController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [TradeController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TradeController::class, 'destroy'])->name('destroy');
+        Route::post('/rate', [TradeController::class, 'rate'])->name('rate');
+        Route::post('/reply', [TradeController::class, 'reply'])->name('reply');
     });
 });
 
