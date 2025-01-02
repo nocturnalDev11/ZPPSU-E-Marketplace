@@ -62,7 +62,7 @@ const closeModal = () => {
 <template>
     <div>
         <SecondaryButton @click="showCreateModal = true">Add New Services</SecondaryButton>
-
+        <!-- Modal for creating a new product -->
         <Modal :show="showCreateModal" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Create New Service</h2>
