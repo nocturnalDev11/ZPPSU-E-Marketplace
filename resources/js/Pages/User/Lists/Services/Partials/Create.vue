@@ -61,9 +61,8 @@ const closeModal = () => {
 
 <template>
     <div>
-        <!-- Button to open modal -->
         <SecondaryButton @click="showCreateModal = true">Add New Services</SecondaryButton>
-        <!-- Modal for creating a new product -->
+
         <Modal :show="showCreateModal" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 pb-3">Create New Service</h2>
@@ -79,10 +78,8 @@ const closeModal = () => {
                     <div>
                         <InputLabel value="Services Image" />
 
-                        <!-- Hidden File Input -->
                         <input type="file" id="services_picture" @change="handleImageUpload" class="hidden" />
 
-                        <!-- Custom Button and Filename Display -->
                         <div class="flex items-center space-x-4 mt-1">
                             <button type="button" @click="triggerFileInput"
                                 class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
@@ -93,7 +90,6 @@ const closeModal = () => {
 
                         <InputError :message="form.errors.services_picture" class="mt-2" />
 
-                        <!-- Image Preview -->
                         <div v-if="imagePreview" class="mt-4">
                             <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover rounded-md" />
                         </div>
@@ -150,10 +146,10 @@ const closeModal = () => {
                         <InputError :message="form.errors.services_description" class="mt-2" />
 
                         <div :class="{
-                            'text-red-500': wordCount < 15,
-                            'text-green-500': wordCount >= 15
+                            'text-red-500': wordCount < 10,
+                            'text-green-500': wordCount >= 10
                         }" class="text-sm mt-1">
-                            <span v-if="wordCount < 50">You need at least 50 words. (Current: {{ wordCount }})</span>
+                            <span v-if="wordCount < 10">You need at least 10 words. (Current: {{ wordCount }})</span>
                             <span v-else>Looks good! You have typed {{ wordCount }} words.</span>
                         </div>
                     </div>

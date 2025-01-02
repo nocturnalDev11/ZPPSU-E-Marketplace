@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('services_fee', 10, 2);
             $table->string('services_category');
             $table->longText('services_description');
+            $table->decimal('avg_rating', 3, 2)->default(0);
             $table->timestamp('edited_at')->nullable();
             $table->timestamps();
         });
@@ -41,7 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_ratings');
         Schema::dropIfExists('services');
     }
 };

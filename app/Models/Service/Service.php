@@ -19,6 +19,7 @@ class Service extends Model
         'services_fee',
         'services_category',
         'services_description',
+        'avg_rating',
         'edited_at',
     ];
 
@@ -29,6 +30,6 @@ class Service extends Model
 
     public function ratings(): HasMany
     {
-        return $this->hasMany(ServiceRating::class);
+        return $this->hasMany(ServiceRating::class, 'services_id');
     }
 }

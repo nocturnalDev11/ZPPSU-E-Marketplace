@@ -13,19 +13,16 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <nav
-        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]"
-    >
+        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]">
         <Link v-if="$page.props.auth.user" :href="route('home')" class="flex items-center space-x-3 xl:hidden">
-            <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+        <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </Link>
 
-        <Link
-            v-else :href="route('landing.page')" :class="[
+        <Link v-else :href="route('landing.page')" :class="[
                 route().current() === 'landing.page' ? 'xl:flex' : 'xl:hidden',
                 'items-center space-x-3'
-            ]"
-        >
-            <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+            ]">
+        <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </Link>
 
         <div class="items-center justify-between hidden w-full md:flex md:w-auto">
@@ -108,13 +105,11 @@ const showingNavigationDropdown = ref(false);
     </nav>
 
     <!-- Responsive Navigation Menu -->
-    <aside
-        v-if="route().current() !== 'landing.page'" :class="{
+    <aside v-if="route().current() !== 'landing.page'" :class="{
             'block xl:hidden': showingNavigationDropdown,
             'hidden xl:block': !showingNavigationDropdown,
         }"
-        class="w-96 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-gray-100 dark:bg-gray-950 flex-col justify-start items-start gap-5"
-    >
+        class="w-96 fixed top-0 left-0 z-40 h-screen xl:p-4 p-2 bg-gray-100 dark:bg-gray-950 flex-col justify-start items-start gap-5">
         <div class="size-full flex flex-col">
             <div class="flex items-center justify-between pt-4 pe-4">
                 <Link :href="route('home')">
@@ -130,7 +125,7 @@ const showingNavigationDropdown = ref(false);
                         <SidebarLink :href="route('products.index')" :active="route().current('products.index')">
                             <div class="h-5 gap-3 flex">
                                 <div class="relative">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20"
                                         fill="none">
                                         <g id="Delivery">
                                             <path id="icon"
@@ -141,6 +136,25 @@ const showingNavigationDropdown = ref(false);
                                 </div>
                                 <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
                                     Products</h2>
+                            </div>
+                        </SidebarLink>
+                    </li>
+                    <li>
+                        <SidebarLink :href="route('services.index')" :active="route().current('services.index')">
+                            <div class="h-5 gap-3 flex">
+                                <div class="relative">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 20 20"
+                                        fill="none">
+                                        <g id="Shop">
+                                            <path id="icon"
+                                                d="M15.8338 7.5V14.1667C15.8338 15.738 15.8338 16.5237 15.3456 17.0118C14.8575 17.5 14.0718 17.5 12.5005 17.5H7.50045C5.9291 17.5 5.14343 17.5 4.65527 17.0118C4.16712 16.5237 4.16712 15.738 4.16712 14.1667V7.5M7.50045 2.5H6.03139C5.45185 2.5 5.16208 2.5 4.91255 2.58051C4.55586 2.69558 4.24838 2.92752 4.03974 3.23887C3.89378 3.45668 3.81417 3.73531 3.65496 4.29255L3.46215 4.9674C3.30254 5.52601 3.22274 5.80531 3.21582 6.00994C3.18427 6.942 3.92364 7.71858 4.85614 7.73279C5.06086 7.7359 5.34374 7.6699 5.9095 7.53789C6.19705 7.47079 6.34083 7.43724 6.46286 7.38751C7.00256 7.16753 7.38815 6.68161 7.47974 6.10604C7.50045 5.9759 7.50045 5.82826 7.50045 5.53299V2.5ZM7.50045 2.5H12.5005M7.50045 2.5V5C7.50045 5.77657 7.50045 6.16485 7.62732 6.47114C7.79647 6.87952 8.12093 7.20398 8.52931 7.37313C8.8356 7.5 9.22388 7.5 10.0005 7.5C10.777 7.5 11.1653 7.5 11.4716 7.37313C11.88 7.20398 12.2044 6.87952 12.3736 6.47114C12.5005 6.16485 12.5005 5.77657 12.5005 5V2.5M12.5005 2.5H13.9695C14.549 2.5 14.8388 2.5 15.0884 2.58051C15.445 2.69558 15.7525 2.92752 15.9612 3.23887C16.1071 3.45668 16.1867 3.73531 16.3459 4.29255L16.5388 4.9674C16.6984 5.52601 16.7782 5.80531 16.7851 6.00994C16.8166 6.942 16.0773 7.71858 15.1448 7.73279C14.94 7.7359 14.6572 7.6699 14.0914 7.53789C13.8038 7.47079 13.6601 7.43724 13.538 7.38751C12.9983 7.16753 12.6127 6.68161 12.5212 6.10604C12.5005 5.9759 12.5005 5.82826 12.5005 5.53299V2.5ZM11.6671 17.5V14.1667C11.6671 13.381 11.6671 12.9882 11.423 12.7441C11.179 12.5 10.7861 12.5 10.0005 12.5C9.21478 12.5 8.82194 12.5 8.57786 12.7441C8.33378 12.9882 8.33378 13.381 8.33378 14.1667V17.5H11.6671Z"
+                                                stroke="#6B7280" stroke-width="1.6" />
+                                        </g>
+                                    </svg>
+                                </div>
+                                <h2 class="text-gray-500 dark:text-gray-200 text-sm font-medium leading-snug">
+                                    Services
+                                </h2>
                             </div>
                         </SidebarLink>
                     </li>

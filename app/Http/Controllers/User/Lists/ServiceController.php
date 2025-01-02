@@ -104,7 +104,7 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $service = Service::with(['user', 'comments.user'])
+        $service = Service::with(['user', 'ratings.user'])
             ->findOrFail($id);
 
         $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
