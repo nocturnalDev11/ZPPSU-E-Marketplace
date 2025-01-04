@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\User\Lists;
 
 use App\Models\Post\Post;
+use App\Models\Trade\Trade;
 use Illuminate\Http\Request;
+use App\Models\Product\Product;
+use App\Models\Service\Service;
 use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
@@ -16,9 +19,9 @@ class SearchController extends Controller
         if ($query) {
             $results = array_merge(
                 $this->searchModel(Post::class, 'post_title', 'post_content', $query, 'posts.show'),
-                // $this->searchModel(Product::class, 'prod_name', 'prod_description', $query, 'products.show'),
-                // $this->searchModel(Service::class, 'services_title', 'services_description', $query, 'services.show'),
-                // $this->searchModel(Trade::class, 'trade_title', 'trade_description', $query, 'trades.show')
+                $this->searchModel(Product::class, 'prod_name', 'prod_description', $query, 'products.show'),
+                $this->searchModel(Service::class, 'services_title', 'services_description', $query, 'services.show'),
+                $this->searchModel(Trade::class, 'trade_title', 'trade_description', $query, 'trades.show')
             );
         }
 

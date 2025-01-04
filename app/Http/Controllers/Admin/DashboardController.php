@@ -8,6 +8,8 @@ use App\Models\Post\Post;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Http\Controllers\Controller;
+use App\Models\Service\Service;
+use App\Models\Trade\Trade;
 
 class DashboardController extends Controller
 {
@@ -19,8 +21,10 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $totalStudents = User::where('role_id', '1')->count();
         $totalFaculties = User::where('role_id', '2')->count();
-        $totalStaff = User::where('role_id', '3')->count(); // Corrected here
+        $totalStaff = User::where('role_id', '3')->count();
         $totalProducts = Product::count();
+        $totalServices = Service::count();
+        $totalTrades = Trade::count();
         $totalPosts = Post::count();
         $users = User::all();
 
@@ -30,6 +34,8 @@ class DashboardController extends Controller
             'totalFaculties' => $totalFaculties,
             'totalStaff' => $totalStaff,
             'totalProducts' => $totalProducts,
+            'totalServices' => $totalServices,
+            'totalTrades' => $totalTrades,
             'totalPosts' => $totalPosts,
             'users' => $users
         ]);

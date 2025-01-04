@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink href="#">
+                        <NavLink :href="route('services.index')" :active="route().current('services.index')">
                             Services
                         </NavLink>
                     </li>
@@ -40,7 +40,7 @@ const showingNavigationDropdown = ref(false);
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink href="#">
+                        <NavLink :href="route('trades.index')" :active="route().current('trades.index')">
                             Trades
                         </NavLink>
                     </li>

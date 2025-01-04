@@ -9,8 +9,9 @@ const {
     totalFaculties,
     totalStaff,
     totalProducts,
+    totalServices,
     totalPosts,
-    users
+    totalTrades,
 } = props;
 </script>
 
@@ -137,7 +138,7 @@ const {
                     </div>
                 </div>
 
-                <!-- <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
                     <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
                         <h3>Total services</h3>
                     </div>
@@ -160,7 +161,7 @@ const {
                         class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
                         <h3>View all</h3>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
                     <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
@@ -187,14 +188,14 @@ const {
                     </div>
                 </div>
 
-                <!-- <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
+                <div class="p-4 bg-gray-50 rounded-lg shadow-md sm:p-6 dark:bg-gray-800">
                     <div class="px-4 text-gray-600 dark:text-gray-400 rounded dark:border-gray-600">
                         <h3>Total trades</h3>
                     </div>
                     <div class="h-16 px-4 text-gray-400 dark:border-gray-600">
                         <div class="flex items-center justify-between gap-4">
                             <div class="font-medium text-4xl text-gray-800 dark:text-white">
-                                <div>{{ $totalTrades }}</div>
+                                <div>{{ totalTrades }}</div>
                             </div>
                             <div class="bg-gradient-to-br from-blue-500 to-sky-300 p-2 rounded-md">
                                 <svg class="w-8 h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -210,7 +211,7 @@ const {
                         class="flex items-center justify-end px-4 text-gray-800 dark:text-gray-400 dark:border-gray-600">
                         <h3>View all</h3>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </AdminLayout>

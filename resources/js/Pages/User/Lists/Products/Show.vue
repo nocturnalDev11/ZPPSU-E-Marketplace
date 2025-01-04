@@ -17,6 +17,11 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 const { props } = usePage();
 
 defineProps({
+    // admin: {
+    //     type: Object,
+    //     required: true,
+    //     default: null,
+    // },
     user: {
         type: Object,
         required: true,
@@ -189,6 +194,10 @@ const currentLayout = computed(() => {
                                 <Delete :productId="product.id" />
                             </div>
                         </div>
+
+                        <!-- <div class="flex flex-wrap gap-4 mt-8" v-if="props.admin === props.admin.id">
+                            <Delete :productId="product.id" />
+                        </div> -->
                     </div>
 
                     <div class="mt-8">
