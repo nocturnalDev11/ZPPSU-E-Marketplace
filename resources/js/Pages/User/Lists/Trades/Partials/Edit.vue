@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import AuthUsersLayout from '@/Layouts/AuthUsersLayout.vue';
+import Modal from '@/Components/Modal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -71,7 +71,7 @@ const closeModal = () => {
 <template>
     <div>
         <SecondaryButton @click="showModal = true">
-            Edit trade
+            Edit
         </SecondaryButton>
 
         <Modal :show="showModal" @close="closeModal">

@@ -111,6 +111,20 @@ const closeModal = () => {
                 </div>
 
                 <div class="mt-4">
+                    <InputLabel for="role_id" value="Role" />
+
+                    <select id="role_id" v-model="form.role_id"
+                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
+                        <option value="">Select role</option>
+                        <option value="1">Student</option>
+                        <option value="2">Faculty</option>
+                        <option value="3">Staff</option>
+                    </select>
+
+                    <InputError class="mt-2" :message="form.errors.role_id" />
+                </div>
+
+                <div class="mt-4">
                     <InputLabel for="department" value="Department" />
 
                     <select id="department" v-model="form.department"

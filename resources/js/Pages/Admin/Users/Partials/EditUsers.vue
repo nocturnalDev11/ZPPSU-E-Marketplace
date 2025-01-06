@@ -20,11 +20,14 @@ const form = useForm({
     dob: props.user.dob || '',
     gender: props.user.gender || '',
     home_address: props.user.home_address || '',
+    login_id: props.user.login_id || '',
+    role_id: props.user.role_id || '',
+    department: props.user.department || '',
     email: props.user.email || '',
 });
 
 const updateUser = () => {
-    form.post(route('user.update', props.user.id), {
+    form.put(route('user.update', props.user.id), {
         onSuccess: () => {
             closeModal();
             form.reset();
@@ -97,6 +100,51 @@ const closeModal = () => {
                     <InputLabel for="home_address" value="Home address" />
                     <TextInput id="home_address" v-model="form.home_address" class="mt-1 block w-full" />
                     <InputError :message="form.errors.home_address" class="mt-2" />
+                </div>
+
+                <div>
+                    <InputLabel for="login_id" value="School ID" />
+                    <TextInput id="login_id" type="text" class="mt-1 block w-full" v-model="form.login_id" required
+                        autocomplete="login_id" />
+                    <InputError class="mt-2" :message="form.errors.login_id" />
+                </div>
+
+                <div>
+                    <InputLabel for="role_id" value="Role" />
+
+                    <select id="role_id" v-model="form.role_id"
+                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
+                        <option value="">Select role</option>
+                        <option value="1">Student</option>
+                        <option value="2">Faculty</option>
+                        <option value="3">Staff</option>
+                    </select>
+
+                    <InputError class="mt-2" :message="form.errors.role_id" />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="department" value="Department" />
+
+                    <select id="department" v-model="form.department"
+                        class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
+                        <option value="">Select department</option>
+                        <option value="CICS">CICS</option>
+                        <option value="CME">CME</option>
+                        <option value="CTE">CTE</option>
+                        <option value="CET">CET</option>
+                        <option value="CAHSS">CAHSS</option>
+                        <option value="SBA">SBA</option>
+                        <option value="SHS">SHS</option>
+                        <option value="DRRMO">DRRMO</option>
+                        <option value="Registrar">Registrar</option>
+                        <option value="Admissions Office">Admissions Office</option>
+                        <option value="Guidance and Couseling">Guidance and Couseling</option>
+                        <option value="Medical-Dental Health Services">Medical-Dental Health Services</option>
+                        <option value="Learning Commons Center">Learning Commons Center</option>
+                    </select>
+
+                    <InputError class="mt-2" :message="form.errors.department" />
                 </div>
 
                 <div>

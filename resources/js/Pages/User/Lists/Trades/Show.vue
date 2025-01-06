@@ -1,12 +1,16 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { Head, Link, usePage, useForm } from '@inertiajs/vue3';
-import TextArea from '@/Components/TextArea.vue';
+import Edit from './Partials/Edit.vue';
 import Modal from '@/Components/Modal.vue';
 import Delete from './Partials/Delete.vue';
+import Rating from './Partials/Rating.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import TextArea from '@/Components/TextArea.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
@@ -20,10 +24,6 @@ defineProps({
     trade: {
         type: Object,
         required: true
-    },
-    isAuthorized: {
-        type: Boolean,
-        default: false,
     },
     message: {
         type: Object,
@@ -132,6 +132,8 @@ const currentLayout = computed(() => {
                                 </p>
                             </div>
                         </div>
+                        <Rating v-if="trade && $page.props.auth.user" :trade="trade" :ratings="trade.ratings"
+                            :user_id="user.id" />
                     </div>
                 </div>
 
@@ -221,15 +223,7 @@ const currentLayout = computed(() => {
 
                                 <div class="flex justify-end gap-2"
                                     v-if="props.user && trade.user.id === props.user.id">
-                                    <Link :href="route('trades.edit', trade.id)"
-                                        class="gap-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
-                                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                    </svg>
-                                    Edit
-                                    </Link>
+                                    <Edit :trade="trade" />
                                     <Delete :tradeId="trade.id" />
                                 </div>
                             </div>

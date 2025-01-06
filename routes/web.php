@@ -112,16 +112,18 @@ Route::prefix('trades')->name('trades.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth:admin')->group(function () {
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // User Management Routes
-    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('all.users');
-    Route::post('/admin/user', [UserManagementController::class, 'store'])->name('users.store');
-    Route::get('/admin/user/{id}', [UserManagementController::class, 'show'])->name('users.show');
-    Route::get('/admin/user/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/user/{id}', [UserManagementController::class, 'update'])->name('user.update');
-    Route::delete('/admin/user/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
+    Route::prefix('user')->group(function() {
+        // User Management Routes
+        Route::get('/', [UserManagementController::class, 'index'])->name('all.users');
+        Route::post('/', [UserManagementController::class, 'store'])->name('users.store');
+        Route::get('/{id}', [UserManagementController::class, 'show'])->name('users.show');
+        Route::get('/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
+        Route::put('/{id}', [UserManagementController::class, 'update'])->name('user.update');
+        Route::delete('/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';
