@@ -6,12 +6,13 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Lists\UserProductsController;
 use App\Http\Controllers\User\Lists\PostController;
 use App\Http\Controllers\User\Lists\TradeController;
 use App\Http\Controllers\User\Lists\SearchController;
 use App\Http\Controllers\User\Lists\ProductController;
 use App\Http\Controllers\User\Lists\ServiceController;
+use App\Http\Controllers\Admin\Lists\UserProductsController;
+use App\Http\Controllers\Admin\Lists\UserServicesController;
 use App\Http\Controllers\Admin\Users\UserManagementController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
@@ -130,6 +131,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::prefix('user-products')->group(function() {
         Route::get('/', [UserProductsController::class, 'index'])->name('user-product.index');
         Route::delete('/{id}', [UserProductsController::class, 'destroy'])->name('user-product.destroy');
+    });
+
+    Route::prefix('user-services')->group(function () {
+        Route::get('/', [UserServicesController::class, 'index'])->name('user-service.index');
+        Route::delete('/{id}', [UserServicesController::class, 'destroy'])->name('user-service.destroy');
     });
 });
 

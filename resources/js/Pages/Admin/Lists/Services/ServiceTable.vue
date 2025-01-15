@@ -2,14 +2,14 @@
 import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import DeleteProduct from './Partials/DeleteProduct.vue';
+import DeleteService from './Partials/DeleteService.vue';
 
 const props = defineProps({
     user: {
         type: Array,
         default: () => [],
     },
-    products: {
+    services: {
         type: Array,
         default: () => [],
     },
@@ -28,17 +28,18 @@ function formatDate(dateString) {
 
 const searchTerm = ref('');
 
-const searchedProducts = computed(() => {
-    if (!searchTerm.value) return props.products;
-    return props.products.filter(product =>
-        product.prod_name.toLowerCase().includes(searchTerm.value.toLowerCase())
+const searchedServices = computed(() => {
+    if (!searchTerm.value) return props.services;
+    return props.services.filter(service =>
+        service.services_title.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 });
+
 </script>
 
 <template>
 
-    <Head title="List of products" />
+    <Head title="List of services" />
 
     <AdminLayout>
         <template #route>
@@ -65,7 +66,7 @@ const searchedProducts = computed(() => {
                         </svg>
                         <a href="#"
                             class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                            Products
+                            Services
                         </a>
                     </div>
                 </li>
@@ -83,20 +84,20 @@ const searchedProducts = computed(() => {
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                    Products
+                                    Services
                                 </h2>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Add products, edit and more.
+                                    Add service, edit and more.
                                 </p>
                             </div>
 
                             <div>
                                 <div class="inline-flex items-center gap-x-2">
                                     <form class="inline-flex mb-4 sm:pr-3 sm:mb-0">
-                                        <label for="products-search" class="sr-only">Search</label>
+                                        <label for="service-search" class="sr-only">Search</label>
                                         <div class="relative mt-1 sm:w-64 xl:w-96">
-                                            <input type="text" id="products-search" v-model="searchTerm"
-                                                placeholder="Search for products"
+                                            <input type="text" id="service-search" v-model="searchTerm"
+                                                placeholder="Search for service"
                                                 class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                         </div>
                                     </form>
@@ -113,7 +114,7 @@ const searchedProducts = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Product name
+                                                Services title
                                             </span>
                                         </div>
                                     </th>
@@ -149,24 +150,6 @@ const searchedProducts = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Condition
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Quantity
-                                            </span>
-                                        </div>
-                                    </th>
-
-                                    <th scope="col" class="px-6 py-3 text-start">
-                                        <div class="flex items-center gap-x-2">
-                                            <span
-                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                                                 Created
                                             </span>
                                         </div>
@@ -177,28 +160,29 @@ const searchedProducts = computed(() => {
                             </thead>
 
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <template v-if="searchedProducts.length > 0">
-                                    <tr v-for="product in searchedProducts" :key="product.id">
+                                <template v-if="searchedServices.length > 0">
+                                    <tr v-for="service in searchedServices" :key="service.id">
                                         <td class="size-px whitespace-nowrap">
                                             <div class="ps-6 lg:ps-3 xl:ps-4 pe-6 py-3">
                                                 <div class="flex items-center gap-x-3">
                                                     <div
                                                         class="flex-shrink-0 relative inline-flex items-center justify-center rounded-md overflow-hidden w-20 h-20">
-                                                        <img v-if="product.prod_picture" :src="product.prod_picture"
-                                                            alt="Product image" class="object-cover w-full h-full" />
+                                                        <img v-if="service.services_picture"
+                                                            :src="service.services_picture" alt="services image"
+                                                            class="object-cover w-full h-full" />
 
                                                         <span v-else
                                                             class="p-2 font-medium text-lg text-gray-300 dark:text-gray-100">
-                                                            {{ product.prod_name.charAt(0).toUpperCase() || '?' }}
+                                                            {{ service.services_title.charAt(0).toUpperCase() || '?' }}
                                                         </span>
                                                     </div>
                                                     <div class="grow">
-                                                        <Link :href="route('products.show', product.id)"
+                                                        <Link :href="route('services.show', service.id)"
                                                             class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
-                                                        {{ product.prod_name }}
+                                                        {{ service.services_title }}
                                                         </Link>
                                                         <span class="block text-sm text-green-700 dark:text-green-500">
-                                                            {{ product.prod_price }}
+                                                            {{ service.services_fee }}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -206,57 +190,43 @@ const searchedProducts = computed(() => {
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
-                                                <Link :href="route('users.show', product.user.id)"
+                                                <Link :href="route('users.show', service.user.id)"
                                                     class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
-                                                {{ product.user.name }}
+                                                {{ service.user.name }}
                                                 </Link>
                                                 <span class="block text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ product.user.department }}
+                                                    {{ service.user.department }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ product.prod_status }}
+                                                    {{ service.services_status }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ product.prod_category }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-3">
-                                                <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ product.prod_condition }}
+                                                    {{ service.services_category }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ product.prod_quantity }}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td class="size-px whitespace-nowrap">
-                                            <div class="px-6 py-3">
-                                                <span class="text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ formatDate(product.created_at) }}
+                                                    {{ formatDate(service.created_at) }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="flex gap-x-5 px-6 py-1.5">
-                                                <Link :href="route('products.show', product.id)"
+                                                <Link :href="route('services.show', service.id)"
                                                     class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
                                                 View
                                                 </Link>
-                                                <DeleteProduct :productId="product.id" />
+                                                <DeleteService :serviceId="service.id" />
                                             </div>
                                         </td>
                                     </tr>
@@ -266,7 +236,7 @@ const searchedProducts = computed(() => {
                                         <td colspan="100%">
                                             <div class="flex justify-center items-center h-full py-5">
                                                 <span class="text-gray-700 dark:text-gray-400 italic">
-                                                    No products found.
+                                                    No services found.
                                                 </span>
                                             </div>
                                         </td>
