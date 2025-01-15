@@ -1,13 +1,15 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import EditUsers from './Partials/EditUsers.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import DeleteUsers from './Partials/DeleteUsers.vue';
-import CreateUsers from './Partials/CreateUsers.vue';
+import DeleteProduct from './Partials/DeleteProduct.vue';
 
 const props = defineProps({
-    users: {
+    user: {
+        type: Array,
+        default: () => [],
+    },
+    products: {
         type: Array,
         default: () => [],
     },
@@ -26,18 +28,17 @@ function formatDate(dateString) {
 
 const searchTerm = ref('');
 
-const searchedUsers = computed(() => {
-    if (!searchTerm.value) return props.users;
-    return props.users.filter(user =>
-        user.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+const searchedProducts = computed(() => {
+    if (!searchTerm.value) return props.products;
+    return props.products.filter(product =>
+        product.prod_name.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 });
-
 </script>
 
 <template>
 
-    <Head title="List of users" />
+    <Head title="List of products" />
 
     <AdminLayout>
         <template #route>
@@ -64,7 +65,7 @@ const searchedUsers = computed(() => {
                         </svg>
                         <a href="#"
                             class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                            Users
+                            Products
                         </a>
                     </div>
                 </li>
@@ -82,25 +83,23 @@ const searchedUsers = computed(() => {
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                    Users
+                                    Products
                                 </h2>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Add users, edit and more.
+                                    Add products, edit and more.
                                 </p>
                             </div>
 
                             <div>
                                 <div class="inline-flex items-center gap-x-2">
                                     <form class="inline-flex mb-4 sm:pr-3 sm:mb-0">
-                                        <label for="users-search" class="sr-only">Search</label>
+                                        <label for="products-search" class="sr-only">Search</label>
                                         <div class="relative mt-1 sm:w-64 xl:w-96">
-                                            <input type="text" id="users-search" v-model="searchTerm"
-                                                placeholder="Search for users"
+                                            <input type="text" id="products-search" v-model="searchTerm"
+                                                placeholder="Search for products"
                                                 class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                         </div>
                                     </form>
-
-                                    <CreateUsers />
                                 </div>
                             </div>
                         </div>
@@ -114,7 +113,7 @@ const searchedUsers = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Name
+                                                Product name
                                             </span>
                                         </div>
                                     </th>
@@ -123,7 +122,7 @@ const searchedUsers = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Role
+                                                Posted by
                                             </span>
                                         </div>
                                     </th>
@@ -132,7 +131,7 @@ const searchedUsers = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Login ID
+                                                Status
                                             </span>
                                         </div>
                                     </th>
@@ -141,7 +140,7 @@ const searchedUsers = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Home address
+                                                Category
                                             </span>
                                         </div>
                                     </th>
@@ -150,7 +149,16 @@ const searchedUsers = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Contact number
+                                                Condition
+                                            </span>
+                                        </div>
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-3 text-start">
+                                        <div class="flex items-center gap-x-2">
+                                            <span
+                                                class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                                                Quantity
                                             </span>
                                         </div>
                                     </th>
@@ -169,28 +177,28 @@ const searchedUsers = computed(() => {
                             </thead>
 
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <template v-if="searchedUsers.length > 0">
-                                    <tr v-for="user in searchedUsers" :key="user.id">
+                                <template v-if="searchedProducts.length > 0">
+                                    <tr v-for="product in searchedProducts" :key="product.id">
                                         <td class="size-px whitespace-nowrap">
                                             <div class="ps-6 lg:ps-3 xl:ps-4 pe-6 py-3">
                                                 <div class="flex items-center gap-x-3">
                                                     <div
                                                         class="flex-shrink-0 relative inline-flex items-center justify-center rounded-full shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-10 h-10">
-                                                        <img v-if="user.profile_picture" :src="user.profile_picture"
-                                                            alt="Profile Picture" class="object-cover w-full h-full" />
+                                                        <img v-if="product.prod_picture" :src="product.prod_picture"
+                                                            alt="Product image" class="object-cover w-full h-full" />
 
                                                         <span v-else
                                                             class="p-2 font-medium text-lg text-gray-300 dark:text-gray-100">
-                                                            {{ user.name.charAt(0).toUpperCase() || '?' }}
+                                                            {{ product.prod_name.charAt(0).toUpperCase() || '?' }}
                                                         </span>
                                                     </div>
                                                     <div class="grow">
-                                                        <Link :href="route('users.show', user.id)"
+                                                        <Link :href="route('products.show', product.id)"
                                                             class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
-                                                        {{ user.name }}
+                                                        {{ product.prod_name }}
                                                         </Link>
-                                                        <span class="block text-sm text-gray-500 dark:text-gray-500">
-                                                            {{ user.email }}
+                                                        <span class="block text-sm text-green-700 dark:text-green-500">
+                                                            {{ product.prod_price }}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -198,58 +206,57 @@ const searchedUsers = computed(() => {
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
-                                                <span
-                                                    class="block text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                                    {{ user.role.name.replace('_', ' ').replace(/^\w/, c =>
-                                                    c.toUpperCase()) }}
-                                                </span>
+                                                <Link :href="route('users.show', product.user.id)"
+                                                    class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
+                                                {{ product.user.name }}
+                                                </Link>
                                                 <span class="block text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ user.department }}
+                                                    {{ product.user.department }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ user.login_id }}
+                                                    {{ product.prod_status }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
-                                                <span v-if="user.home_address"
-                                                    class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ user.home_address }}
-                                                </span>
-                                                <span v-else
-                                                    class="block text-sm text-gray-500 dark:text-gray-400 italic">
-                                                    NULL
+                                                <span class="block text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ product.prod_category }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
-                                                <span v-if="user.contact_number"
-                                                    class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ user.contact_number }}
-                                                </span>
-                                                <span v-else
-                                                    class="block text-sm text-gray-500 dark:text-gray-400 italic">
-                                                    NULL
+                                                <span class="block text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ product.prod_condition }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ formatDate(user.created_at) }}
+                                                    {{ product.prod_quantity }}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="size-px whitespace-nowrap">
+                                            <div class="px-6 py-3">
+                                                <span class="text-sm text-gray-500 dark:text-gray-500">
+                                                    {{ formatDate(product.created_at) }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="flex gap-x-5 px-6 py-1.5">
-                                                <EditUsers :user="user" />
-                                                <DeleteUsers :userId="user.id" />
+                                                <Link :href="route('products.show', product.id)"
+                                                    class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                                View
+                                                </Link>
+                                                <DeleteProduct :productId="product.id" />
                                             </div>
                                         </td>
                                     </tr>
@@ -259,7 +266,7 @@ const searchedUsers = computed(() => {
                                         <td colspan="100%">
                                             <div class="flex justify-center items-center h-full py-5">
                                                 <span class="text-gray-700 dark:text-gray-400 italic">
-                                                    No users found.
+                                                    No products found.
                                                 </span>
                                             </div>
                                         </td>

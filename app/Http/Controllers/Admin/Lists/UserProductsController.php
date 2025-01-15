@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Lists;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Models\Product\Product;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserProductsController extends Controller
 {
@@ -13,7 +17,16 @@ class UserProductsController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Lists/ProductsTable');
+        $products = Product::with('user')->get();
+
+        foreach ($products as $product) {
+            $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
+        }
+
+        return Inertia::render('Admin/Lists/Products/ProductTable', [
+            'user' => Auth::user(),
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -45,6 +58,14 @@ class UserProductsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        if ($product->prod_picture) {
+            Storage::disk('public')->delete($product->prod_picture);
+        }
+
+        $product->delete();
+
+        return redirect()->route('user-product.index')->with('success', 'Product deleted successfully.');
     }
 }

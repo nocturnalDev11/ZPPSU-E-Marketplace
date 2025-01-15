@@ -25,7 +25,7 @@
     @inertiaHead
 </head>
 
-<body class="antialiased bg-white dark:bg-gray-900 dark:text-white/50">
+<body class="antialiased bg-gray-50 dark:bg-gray-900 dark:text-white/50">
     @inertia
 </body>
 

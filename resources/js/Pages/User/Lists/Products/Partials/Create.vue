@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, router } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import TextArea from '@/Components/TextArea.vue'
 import TextInput from '@/Components/TextInput.vue';
@@ -48,6 +48,7 @@ const submitProduct = () => {
         onSuccess: () => {
             closeModal();
             form.reset();
+            router.get(route('products.index'), {}, { preserveState: true });
         },
     });
 };

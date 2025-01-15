@@ -83,7 +83,7 @@ function toggleReplyForm(ratingId) {
                     </template>
                 </div>
 
-                <TextArea v-model="form.rating_text" rows="6" class="my-3" placeholder="Write a comment..."
+                <TextArea v-model="form.rating_text" rows="4" class="my-3" placeholder="Write a comment..."
                     required></TextArea>
                 <SecondaryButton type="submit">
                     Rate
@@ -95,7 +95,7 @@ function toggleReplyForm(ratingId) {
         <div class="space-y-4">
             <p class="font-semibold mb-2">Customer Reviews</p>
             <div v-for="rating in ratings.filter(c => c.parent_id === null)" :key="rating.id">
-                <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
+                <article class="p-6 text-base rounded-lg dark:bg-gray-900">
                     <footer class="flex justify-between items-center mb-2">
                         <div class="flex items-center">
                             <div
@@ -103,7 +103,7 @@ function toggleReplyForm(ratingId) {
 
                                 <div
                                     class="mr-3 w-8 h-8 rounded-full flex-shrink-0 relative inline-flex items-center justify-center shadow-lg shadow-red-300 dark:shadow-red-800/70 overflow-hidden bg-red-400 dark:bg-red-800">
-                                    <span class="p-2 font-medium text-lg text-gray-300 dark:text-gray-100">
+                                    <span class="p-2 font-medium text-lg text-white dark:text-gray-100">
                                         {{ rating.user.name.charAt(0).toUpperCase() || '?' }}
                                     </span>
                                 </div>

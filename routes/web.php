@@ -6,6 +6,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Lists\UserProductsController;
 use App\Http\Controllers\User\Lists\PostController;
 use App\Http\Controllers\User\Lists\TradeController;
 use App\Http\Controllers\User\Lists\SearchController;
@@ -86,6 +87,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::put('/{id}', [PostController::class, 'update'])->name('update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
         Route::post('/comment', [PostController::class, 'comment'])->name('comment');
+        Route::delete('/comments/{id}', [PostController::class, 'deleteComment'])->name('comments.delete');
     });
 });
 
@@ -123,6 +125,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         Route::get('/{id}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
         Route::put('/{id}', [UserManagementController::class, 'update'])->name('user.update');
         Route::delete('/{id}', [UserManagementController::class, 'destroy'])->name('user.destroy');
+    });
+
+    Route::prefix('user-products')->group(function() {
+        Route::get('/', [UserProductsController::class, 'index'])->name('user-product.index');
+        Route::delete('/{id}', [UserProductsController::class, 'destroy'])->name('user-product.destroy');
     });
 });
 

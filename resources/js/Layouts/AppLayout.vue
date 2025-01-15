@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <nav
-        class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]">
+        class="bg-gray-50 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 max-w-screen-3xl flex flex-wrap items-center justify-between mx-auto p-4 xl:pl-[30rem]">
         <Link v-if="$page.props.auth.user" :href="route('home')" class="flex items-center space-x-3 xl:hidden">
         <ApplicationLogo class="flex items-center h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
         </Link>

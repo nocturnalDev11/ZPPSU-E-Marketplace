@@ -148,14 +148,14 @@ class ProductController extends Controller
         }
 
         $validatedData = $request->validate([
-            'prod_picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'prod_name' => 'required|string|max:255',
-            'prod_price' => 'required|numeric|min:0',
-            'prod_status' => 'required|string',
-            'prod_category' => 'required|string',
-            'prod_condition' => 'required|string',
-            'prod_description' => 'required|string|max:65535',
-            'prod_quantity' => 'required|integer|min:1',
+            'prod_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'prod_name' => 'nullable|string|max:255',
+            'prod_price' => 'nullable|numeric|min:0',
+            'prod_status' => 'nullable|string',
+            'prod_category' => 'nullable|string',
+            'prod_condition' => 'nullable|string',
+            'prod_description' => 'nullable|string|max:65535',
+            'prod_quantity' => 'nullable|integer|min:1',
         ]);
 
         $prod_picture = $product->prod_picture;
@@ -169,8 +169,7 @@ class ProductController extends Controller
             'prod_picture' => $prod_picture,
         ]));
 
-        return redirect()->route('products.show', $product->id)
-            ->with('success', 'Product updated successfully!');
+        return back()->with('success', 'Product updated successfully!');
     }
 
     /**

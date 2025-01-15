@@ -250,7 +250,8 @@ const currentLayout = computed(() => {
                                         {{ product.status }}
                                     </span>
                                 </div>
-                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                <p
+                                    class="mb-3 font-normal text-justify whitespace-pre-wrap text-gray-700 dark:text-gray-400">
                                     {{ product.description }}
                                 </p>
                                 <p class="font-normal text-xs text-gray-500 dark:text-gray-400">

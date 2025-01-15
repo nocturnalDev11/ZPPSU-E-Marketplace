@@ -116,7 +116,7 @@ const navClasses = computed(() =>
                     Users
                 </div>
                 </Link>
-                <Link :href="route('products.index')"
+                <Link :href="route('user-product.index')"
                     class="hover:ml-4 w-full dark:text-white hover:text-purple-500 dark:hover:text-blue-500 dark:bg-gray-800 bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-950 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" class="w-4 h-4">
                     <g id="Delivery">

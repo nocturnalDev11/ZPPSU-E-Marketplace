@@ -97,7 +97,17 @@ const currentLayout = computed(() => {
 
         <div class="p-8 tracking-wide max-lg:max-w-2xl mx-auto">
             <div>
-                <Link :href="route('products.index')"
+                <Link v-if="$page.props.auth.user" :href="route('products.index')"
+                    class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500">
+                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                Back to products list
+                </Link>
+
+                <Link v-if="$page.props.auth.admin" :href="route('user-product.index')"
                     class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500">
                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -109,7 +119,7 @@ const currentLayout = computed(() => {
             </div>
             <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
                 <div class="space-y-4 lg:sticky top-8">
-                    <div class="bg-gray-100 dark:bg-gray-800/70 p-4 flex items-center sm:h-[380px] rounded-lg">
+                    <div class="p-4 flex items-center sm:h-[380px] rounded-lg">
                         <img :src="product.prod_picture" alt="Product"
                             class="w-full max-h-full object-contain object-top " />
                     </div>
@@ -231,7 +241,7 @@ const currentLayout = computed(() => {
                                 <div class="flex gap-4">
                                     <div
                                         class="flex-shrink-0 relative inline-flex items-center justify-center rounded-2xl shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 mb-2 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-12 h-12">
-                                        <span class="p-2 font-medium text-2xl text-gray-300 dark:text-gray-100">
+                                        <span class="p-2 font-medium text-2xl text-white dark:text-gray-100">
                                             {{ product.user.name.charAt(0).toUpperCase() || '?' }}
                                         </span>
                                     </div>

@@ -120,11 +120,14 @@ const currentLayout = computed(() => {
                     <div class="sticky top-0 start-0 py-8 lg:ps-8">
                         <div
                             class="group flex items-center gap-x-3 border-b border-gray-200 pb-8 mb-8 dark:border-neutral-700">
-                            <a class="block shrink-0 focus:outline-none" href="#">
-                                <img class="size-10 rounded-full"
-                                    src="https://images.unsplash.com/photo-1669837401587-f9a4cfe3126e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                                    alt="Avatar">
-                            </a>
+                            <div class="block shrink-0 focus:outline-none">
+                                <div
+                                    class="mr-3 w-8 h-8 rounded-full flex-shrink-0 relative inline-flex items-center justify-center shadow-lg shadow-red-300 dark:shadow-red-800/70 overflow-hidden bg-red-400 dark:bg-red-800">
+                                    <span class="p-2 font-medium text-lg text-white dark:text-gray-100">
+                                        {{ post.user.name.charAt(0).toUpperCase() || '?' }}
+                                    </span>
+                                </div>
+                            </div>
 
                             <a class="group grow block focus:outline-none" href="">
                                 <h5

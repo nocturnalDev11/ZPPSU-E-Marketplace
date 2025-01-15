@@ -22,8 +22,6 @@ function asset(path) {
                         <br class="hidden md:inline lg:hidden">Discover the ZPPSU E-Marketplace - Your Hub for Student
                         Creativity and Marketable Solutions.
                     </p>
-
-
                 </div>
                 <div class="flex items-center justify-center p-6 mt-8 lg:mt-0 h-65 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
                     <img :src="asset('storage/images/front-page.svg')" alt="image">
