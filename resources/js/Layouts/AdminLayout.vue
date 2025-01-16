@@ -142,7 +142,7 @@ const navClasses = computed(() =>
                     Services
                 </div>
                 </Link>
-                <Link :href="route('posts.index')"
+                <Link :href="route('user-post.index')"
                     class="hover:ml-4 w-full dark:text-white hover:text-purple-500 dark:hover:text-blue-500 dark:bg-gray-800 bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-950 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-4 h-4">
@@ -153,7 +153,7 @@ const navClasses = computed(() =>
                     Posts
                 </div>
                 </Link>
-                <Link :href="route('trades.index')"
+                <Link :href="route('user-trade.index')"
                     class="hover:ml-4 w-full dark:text-white hover:text-purple-500 dark:hover:text-blue-500 dark:bg-gray-800 bg-gray-100 hover:bg-gray-200 dark:hover:bg-gray-950 p-2 pl-8 rounded-full transform ease-in-out duration-300 flex flex-row items-center space-x-3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="none">
                     <g id="Swap">

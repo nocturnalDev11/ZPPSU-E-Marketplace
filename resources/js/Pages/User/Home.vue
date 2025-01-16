@@ -41,7 +41,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </h2>
         </template>
 
-        <div class="block justify-between items-center mx-4 mb-6 pt-10 px-5 sm:flex">
+        <div class="block items-center mx-4 mb-6 pt-10 px-5 sm:flex">
             <div
                 class="p-5 mb-1 w-full bg-white dark:bg-gray-950 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-900">
                 <div class="mb-4">
@@ -65,9 +65,8 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
                         userName }}!</h1>
                 </div>
                 <div
-                    class="block items-center sm:flex md:divide-x divide-gray-400 md:divide-gray-100 dark:divide-gray-700 dark:md:divide-gray-600">
-                    <Search />
-                    <div class="flex items-center w-full sm:justify-end">
+                    class="block items-center sm:flex">
+                    <div class="flex items-center w-full">
                         <Link :href="route('profile.show')"
                             class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800 sm:ml-auto">
                         <svg class="mr-2 -ml-1 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

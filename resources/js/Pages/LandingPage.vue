@@ -11,7 +11,7 @@ function asset(path) {
 
     <Head title="LandingPage" />
     <GuestLayout>
-        <div class="container px-4 md:px-10 mx-auto w-full h-screen">
+        <div class="container px-4 md:px-10 mx-auto w-full h-full my-auto">
             <div class="flex flex-col justify-center mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
                 <div
                     class="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left dark:text-gray-300">

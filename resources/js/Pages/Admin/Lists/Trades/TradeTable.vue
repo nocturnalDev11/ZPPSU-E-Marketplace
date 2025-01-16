@@ -2,14 +2,14 @@
 import { ref, computed } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import DeletePost from './Partials/DeletePost.vue';
+import DeleteTrade from './Partials/DeleteTrade.vue';
 
 const props = defineProps({
     user: {
         type: Array,
         default: () => [],
     },
-    posts: {
+    trades: {
         type: Array,
         default: () => [],
     },
@@ -28,10 +28,10 @@ function formatDate(dateString) {
 
 const searchTerm = ref('');
 
-const searchedPosts = computed(() => {
-    if (!searchTerm.value) return props.posts;
-    return props.posts.filter(post =>
-        post.post_title.toLowerCase().includes(searchTerm.value.toLowerCase())
+const searchedTrades = computed(() => {
+    if (!searchTerm.value) return props.trades;
+    return props.trades.filter(trade =>
+        trade.trade_title.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 });
 
@@ -39,8 +39,7 @@ const searchedPosts = computed(() => {
 
 <template>
 
-    <Head title="List of posts" />
-
+    <Head title="List of trades" />
     <AdminLayout>
         <template #route>
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -66,7 +65,7 @@ const searchedPosts = computed(() => {
                         </svg>
                         <a href="#"
                             class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                            Posts
+                            Trades
                         </a>
                     </div>
                 </li>
@@ -83,20 +82,20 @@ const searchedPosts = computed(() => {
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                    Posts
+                                    Trades
                                 </h2>
                                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                                    Add posts, edit and more.
+                                    Add trade, edit and more.
                                 </p>
                             </div>
 
                             <div>
                                 <div class="inline-flex items-center gap-x-2">
                                     <form class="inline-flex mb-4 sm:pr-3 sm:mb-0">
-                                        <label for="post-search" class="sr-only">Search</label>
+                                        <label for="trade-search" class="sr-only">Search</label>
                                         <div class="relative mt-1 sm:w-64 xl:w-96">
-                                            <input type="text" id="post-search" v-model="searchTerm"
-                                                placeholder="Search for post"
+                                            <input type="text" id="trade-search" v-model="searchTerm"
+                                                placeholder="Search for trade"
                                                 class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-900/50 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50" />
                                         </div>
                                     </form>
@@ -113,7 +112,7 @@ const searchedPosts = computed(() => {
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                Posts title
+                                                Trade title
                                             </span>
                                         </div>
                                     </th>
@@ -159,29 +158,29 @@ const searchedPosts = computed(() => {
                             </thead>
 
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <template v-if="searchedPosts.length > 0">
-                                    <tr v-for="post in searchedPosts" :key="post.id">
+                                <template v-if="searchedTrades.length > 0">
+                                    <tr v-for="trade in searchedTrades" :key="trade.id">
                                         <td class="size-px whitespace-nowrap">
                                             <div class="ps-6 lg:ps-3 xl:ps-4 pe-6 py-3">
                                                 <div class="flex items-center gap-x-3">
                                                     <div
                                                         class="flex-shrink-0 relative inline-flex items-center justify-center rounded-md overflow-hidden w-20 h-20">
-                                                        <img v-if="post.post_picture"
-                                                            :src="post.post_picture" alt="posts image"
+                                                        <img v-if="trade.trade_picture"
+                                                            :src="trade.trade_picture" alt="trades image"
                                                             class="object-cover w-full h-full" />
 
                                                         <span v-else
                                                             class="p-2 font-medium text-lg text-gray-300 dark:text-gray-100">
-                                                            {{ post.post_title.charAt(0).toUpperCase() || '?' }}
+                                                            {{ trade.trade_title.charAt(0).toUpperCase() || '?' }}
                                                         </span>
                                                     </div>
                                                     <div class="grow">
-                                                        <Link :href="route('posts.show', post.id)"
+                                                        <Link :href="route('trades.show', trade.id)"
                                                             class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
-                                                        {{ post.post_title }}
+                                                        {{ trade.trade_title }}
                                                         </Link>
                                                         <span class="block text-sm text-green-700 dark:text-green-500">
-                                                            {{ post.post_fee }}
+                                                            {{ trade.trade_fee }}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -189,43 +188,43 @@ const searchedPosts = computed(() => {
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
-                                                <Link :href="route('users.show', post.user.id)"
+                                                <Link :href="route('users.show', trade.user.id)"
                                                     class="block text-sm font-semibold text-gray-800 dark:text-gray-200 hover:underline">
-                                                {{ post.user.name }}
+                                                {{ trade.user.name }}
                                                 </Link>
                                                 <span class="block text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ post.user.department }}
+                                                    {{ trade.user.department }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ post.post_status }}
+                                                    {{ trade.trade_status }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="block text-sm text-gray-800 dark:text-gray-200">
-                                                    {{ post.post_category }}
+                                                    {{ trade.trade_category }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="px-6 py-3">
                                                 <span class="text-sm text-gray-500 dark:text-gray-500">
-                                                    {{ formatDate(post.created_at) }}
+                                                    {{ formatDate(trade.created_at) }}
                                                 </span>
                                             </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                             <div class="flex gap-x-5 px-6 py-1.5">
-                                                <Link :href="route('posts.show', post.id)"
+                                                <Link :href="route('trades.show', trade.id)"
                                                     class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
                                                 View
                                                 </Link>
-                                                <DeletePost :postId="post.id" />
+                                                <DeleteTrade :tradeId="trade.id" />
                                             </div>
                                         </td>
                                     </tr>
@@ -235,7 +234,7 @@ const searchedPosts = computed(() => {
                                         <td colspan="100%">
                                             <div class="flex justify-center items-center h-full py-5">
                                                 <span class="text-gray-700 dark:text-gray-400 italic">
-                                                    No posts found.
+                                                    No trades found.
                                                 </span>
                                             </div>
                                         </td>

@@ -48,29 +48,11 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <div class="flex items-center">
-                <button type="button"
-                    class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                    <span class="sr-only">Search</span>
-                </button>
-
-                <div class="inline-flex justify-center me-3">
-                    <ToggleTheme />
-                </div>
-
-                <div class="relative hidden md:block">
-                    <Search />
-                </div>
-
                 <Dropdown align="center" width="56">
                     <template #trigger>
                         <span class="inline-flex rounded-md">
                             <button type="button"
-                                class="ml-3 inline-flex items-center rounded-md border border-transparent bg-gray-100 px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-950 dark:text-gray-400 dark:hover:text-gray-300">
+                                class="ml-3 inline-flex items-center rounded-md border border-transparent bg-gray-100 px-3 py-2 text-md font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-950 dark:text-gray-400 dark:hover:text-gray-300">
                                 Get started
                                 <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -91,6 +73,10 @@ const showingNavigationDropdown = ref(false);
                         </DropdownLink>
                     </template>
                 </Dropdown>
+
+                <div class="inline-flex justify-center me-3">
+                    <ToggleTheme />
+                </div>
 
                 <!-- Hamburger -->
                 <div class="flex xl:hidden">
@@ -158,8 +144,7 @@ const showingNavigationDropdown = ref(false);
         </div>
     </nav>
 
-    <!-- Page Content -->
-    <main class="container mx-auto px-24">
+    <main class="container mx-auto">
         <slot />
     </main>
 </template>

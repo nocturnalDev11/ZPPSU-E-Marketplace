@@ -11,6 +11,8 @@ use App\Http\Controllers\User\Lists\TradeController;
 use App\Http\Controllers\User\Lists\SearchController;
 use App\Http\Controllers\User\Lists\ProductController;
 use App\Http\Controllers\User\Lists\ServiceController;
+use App\Http\Controllers\Admin\Lists\UserPostsController;
+use App\Http\Controllers\Admin\Lists\UserTradesController;
 use App\Http\Controllers\Admin\Lists\UserProductsController;
 use App\Http\Controllers\Admin\Lists\UserServicesController;
 use App\Http\Controllers\Admin\Users\UserManagementController;
@@ -136,6 +138,16 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::prefix('user-services')->group(function () {
         Route::get('/', [UserServicesController::class, 'index'])->name('user-service.index');
         Route::delete('/{id}', [UserServicesController::class, 'destroy'])->name('user-service.destroy');
+    });
+
+    Route::prefix('user-posts')->group(function () {
+        Route::get('/', [UserPostsController::class, 'index'])->name('user-post.index');
+        Route::delete('/{id}', [UserPostsController::class, 'destroy'])->name('user-post.destroy');
+    });
+
+    Route::prefix('user-trades')->group(function () {
+        Route::get('/', [UserTradesController::class, 'index'])->name('user-trade.index');
+        Route::delete('/{id}', [UserTradesController::class, 'destroy'])->name('user-trade.destroy');
     });
 });
 
