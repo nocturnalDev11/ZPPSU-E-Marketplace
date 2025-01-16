@@ -54,7 +54,7 @@ class UserManagementController extends Controller
                 'description' => $post->post_content,
                 'created_at' => $post->created_at,
                 'route' => route('posts.show', $post->id),
-                'type' => 'Post'
+                'type' => 'Post',
             ];
         });
 
@@ -92,14 +92,14 @@ class UserManagementController extends Controller
 
         $activities = collect()
             ->merge($posts)
-            // ->merge($products)
+            ->merge($products)
             // ->merge($services)
             // ->merge($trades)
             ->sortByDesc('created_at')
             ->values()
             ->toArray();
 
-        return Inertia::render('User/Profile/View', [
+        return Inertia::render('Admin/Users/ViewUser', [
             'auth' => [
                 'user' => $authUser,
             ],
@@ -110,7 +110,7 @@ class UserManagementController extends Controller
             // 'services' => $services,
             // 'trades' => $trades,
             'postCount' => $posts->count(),
-            // 'productCount' => $products->count(),
+            'productCount' => $products->count(),
             // 'serviceCount' => $services->count(),
             // 'tradeCount' => $trades->count(),
         ]);
