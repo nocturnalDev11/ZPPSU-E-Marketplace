@@ -74,7 +74,7 @@ const showingNavigationDropdown = ref(false);
                     </template>
                 </Dropdown>
 
-                <div class="inline-flex justify-center me-3">
+                <div class="inline-flex justify-center ml-3">
                     <ToggleTheme />
                 </div>
 

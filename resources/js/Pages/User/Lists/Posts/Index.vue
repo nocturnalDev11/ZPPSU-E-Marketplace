@@ -4,11 +4,8 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 import Create from './Partials/Create.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import AdminLayout from '@/Layouts/AdminLayout.vue';
 
-const { props } = usePage();
-
-defineProps({
+const props = defineProps({
     user: {
         type: Object,
         required: true,
@@ -28,19 +25,13 @@ const filteredPosts = computed(() => {
     );
 });
 
-const isAdmin = computed(() => props.auth?.admin || false);
-const currentLayout = computed(() => {
-    if (isAdmin.value) return AdminLayout;
-    return props.auth?.user ? AppLayout : GuestLayout;
-});
-
 </script>
 
 <template>
 
     <Head title="Posts" />
 
-    <component :is="currentLayout">
+    <component :is="($page.props.auth.user ? AppLayout : GuestLayout)">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Posts
