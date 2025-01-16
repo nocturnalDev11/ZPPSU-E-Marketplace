@@ -27,37 +27,6 @@ class ProfileController extends Controller
     /**
      * Display the user's profile.
      */
-    // public function show($id = null)
-    // {
-    //     $profileUser = $this->getUser($id);
-    //     $profileUser->profile_picture = $profileUser->profile_picture ? Storage::url($profileUser->profile_picture) : null;
-
-    //     $authUser = Auth::user();
-
-    //     $posts = $profileUser->posts ?? collect();
-
-    //     $activities = $posts->map(function ($post) {
-    //         return [
-    //             'title' => $post->post_title,
-    //             'image' => $post->post_picture,
-    //             'description' => $post->post_content,
-    //             'created_at' => $post->created_at,
-    //             'route' => route('posts.show', $post->id),
-    //             'type' => 'Post',
-    //         ];
-    //     })->sortByDesc('created_at')->values();
-
-    //     return Inertia::render('User/Profile/View', [
-    //         'auth' => [
-    //             'user' => $authUser,
-    //         ],
-    //         'profileUser' => $profileUser,
-    //         'activities' => $activities,
-    //         'posts' => $posts,
-    //         'postCount' => $posts->count(),
-    //     ]);
-    // }
-
     public function show($id = null)
     {
         $profileUser = $this->getUser($id);
@@ -89,31 +58,31 @@ class ProfileController extends Controller
             'type' => 'Product',
         ]);
 
-        // $services = $profileUser->services->map(fn($service) => [
-        //     'title' => $service->services_title,
-        //     'status' => $service->services_status,
-        //     'category' => $service->services_category,
-        //     'image' => $service->services_picture ? Storage::url($service->services_picture) : null,
-        //     'description' => $service->services_description,
-        //     'fee' => $service->services_fee,
-        //     'created_at' => $service->created_at,
-        //     'route' => route('services.show', $service->id),
-        //     'type' => 'Service'
-        // ]);
+        $services = $profileUser->services->map(fn($service) => [
+            'title' => $service->services_title,
+            'status' => $service->services_status,
+            'category' => $service->services_category,
+            'image' => $service->services_picture ? Storage::url($service->services_picture) : null,
+            'description' => $service->services_description,
+            'fee' => $service->services_fee,
+            'created_at' => $service->created_at,
+            'route' => route('services.show', $service->id),
+            'type' => 'Service'
+        ]);
 
-        // $trades = $profileUser->trades->map(fn($trade) => [
-        //     'title' => $trade->trade_title,
-        //     'image' => $trade->trade_picture,
-        //     'description' => $trade->trade_description,
-        //     'created_at' => $trade->created_at,
-        //     'type' => 'Trade'
-        // ]);
+        $trades = $profileUser->trades->map(fn($trade) => [
+            'title' => $trade->trade_title,
+            'image' => $trade->trade_picture,
+            'description' => $trade->trade_description,
+            'created_at' => $trade->created_at,
+            'type' => 'Trade'
+        ]);
 
         $activities = collect()
             ->merge($posts)
             ->merge($products)
-            // ->merge($services)
-            // ->merge($trades)
+            ->merge($services)
+            ->merge($trades)
             ->sortByDesc('created_at')
             ->values()
             ->toArray();
@@ -126,12 +95,12 @@ class ProfileController extends Controller
             'activities' => $activities,
             'posts' => $posts,
             'products' => $products,
-            // 'services' => $services,
-            // 'trades' => $trades,
+            'services' => $services,
+            'trades' => $trades,
             'postCount' => $posts->count(),
             'productCount' => $products->count(),
-            // 'serviceCount' => $services->count(),
-            // 'tradeCount' => $trades->count(),
+            'serviceCount' => $services->count(),
+            'tradeCount' => $trades->count(),
         ]);
     }
 

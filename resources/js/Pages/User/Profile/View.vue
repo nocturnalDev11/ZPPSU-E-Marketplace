@@ -2,8 +2,6 @@
 import { computed } from 'vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import AdminLayout from '@/Layouts/AdminLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import UpdateProfilePicture from '../Profile/Partials/UpdateProfilePicture.vue';
 
@@ -29,19 +27,13 @@ const activities = computed(() => props.activities || []);
 const user = computed(() => props.profileUser || {});
 const loggedInUserId = computed(() => props.auth.user?.id || null);
 
-const isAdmin = computed(() => props.auth?.admin || false);
-const currentLayout = computed(() => {
-    if (isAdmin.value) return AdminLayout;
-    return props.auth?.user ? AppLayout : GuestLayout;
-});
-
 </script>
 
 <template>
 
     <Head title="Profile" />
 
-    <component :is="currentLayout">
+    <AppLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                 Profile
@@ -210,7 +202,7 @@ const currentLayout = computed(() => {
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
                                                             activity.title }}</a>
                                                     </span>
-                                                    <!--<span v-else-if="activity.type === 'Service'">
+                                                    <span v-else-if="activity.type === 'Service'">
                                                         Service offered: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
                                                                 activity.title }}</a>
@@ -221,7 +213,7 @@ const currentLayout = computed(() => {
                                                                 activity.title }}</a>
                                                     </span>
                                                     <span class="text-gray-400"> - {{ formatDate(activity.created_at)
-                                                        }}</span> -->
+                                                        }}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -276,7 +268,7 @@ const currentLayout = computed(() => {
                             </div>
                         </div>
 
-                        <!-- <div v-for="service in services" :key="service.id"
+                        <div v-for="service in services" :key="service.id"
                             class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
                             <img class="object-cover w-full lg:w-48 lg:h-48 rounded-lg" :src="service.image"
                                 :alt="service.title">
@@ -317,7 +309,7 @@ const currentLayout = computed(() => {
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div v-for="post in posts" :key="post.id"
                             class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
@@ -348,5 +340,5 @@ const currentLayout = computed(() => {
                 </div>
             </div>
         </div>
-    </component>
+    </AppLayout>
 </template>
