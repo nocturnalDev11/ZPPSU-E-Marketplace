@@ -59,7 +59,9 @@ const closeModal = () => {
     <div>
         <SecondaryButton @click="showCreateModal = true">
             <svg class="mr-2 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                <path fill-rule="evenodd"
+                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                    clip-rule="evenodd"></path>
             </svg>
             Add posts
         </SecondaryButton>
@@ -124,6 +126,21 @@ const closeModal = () => {
                             <option value="University merchandise">University Merchandise</option>
                             <option value="Musical instruments">Musical instruments</option>
                             <option value="Books">Books</option>
+                            <option value="Tutoring services">Tutoring services</option>
+                            <option value="Video editing">Video editing</option>
+                            <option value="Photo editing">Photo editing</option>
+                            <option value="Videography">Videography</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Writing">Writing</option>
+                            <option value="Coding services">Coding services</option>
+                            <option value="Drawing">Drawing</option>
+                            <option value="Painting">Painting</option>
+                            <option value="Catering">Catering</option>
+                            <option value="Troubleshooting">Troubleshooting</option>
+                            <option value="Project assistance">Project assistance</option>
+                            <option value="Repair services">Repair services</option>
+                            <option value="House cleaning services">House cleaning services</option>
+                            <option value="Others">Others</option>
                         </select>
                         <InputError :message="form.errors.post_category" class="mt-2" />
                     </div>
@@ -133,9 +150,9 @@ const closeModal = () => {
                         <select id="post_status" v-model="form.post_status"
                             class="mt-1 block w-full text-gray-400 text-sm border border-gray-300 px-4 py-3 rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:focus:border-gray-500 dark:focus:ring-2 dark:focus:ring-gray-500 dark:focus:ring-offset-0 dark:focus:ring-opacity-50">
                             <option value="" selected>Select status</option>
-                            <option value="Searching for products">Searching for products</option>
-                            <option value="Searching for services">Searching for services</option>
-                            <option value="Searching for trades">Searching for trades</option>
+                            <option value="Searching for products">Urgent</option>
+                            <option value="Searching for services">Needed Soon</option>
+                            <option value="Searching for trades">Flexible</option>
                             <option value="Discontinued">Discontinued</option>
                             <option value="Closed">Closed</option>
                         </select>

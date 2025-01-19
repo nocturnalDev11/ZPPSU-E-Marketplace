@@ -20,9 +20,9 @@ function formatDate(dateString) {
 }
 
 const posts = computed(() => props.posts || []);
-// const trades = computed(() => props.trades || []);
+const trades = computed(() => props.trades || []);
 const products = computed(() => props.products || []);
-// const services = computed(() => props.services || []);
+const services = computed(() => props.services || []);
 const activities = computed(() => props.activities || []);
 const user = computed(() => props.profileUser || {});
 const loggedInUserId = computed(() => props.auth.user?.id || null);
@@ -205,12 +205,12 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                                     <span v-else-if="activity.type === 'Service'">
                                                         Service offered: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span v-else-if="activity.type === 'Trade'">
                                                         Trade request: <a href="#"
                                                             class="text-green-400 dark:text-green-300 font-bold">{{
-                                                                activity.title }}</a>
+                                                            activity.title }}</a>
                                                     </span>
                                                     <span class="text-gray-400"> - {{ formatDate(activity.created_at)
                                                         }}</span>
@@ -293,7 +293,7 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                     Posted on: {{ formatDate(service.created_at) }}
                                 </p>
 
-                                <div class="flex items-center justify-between pb-3">
+                                <div class="flex items-center justify-between">
                                     <div>
                                         <div class="text-lg">
                                             <span class="font-medium text-green-600 dark:text-green-300">₱{{
@@ -326,7 +326,7 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                     Posted on: {{ formatDate(post.created_at) }}
                                 </p>
 
-                                <div class="flex items-center justify-end pb-3">
+                                <div class="flex items-center justify-end">
                                     <div>
                                         <Link :href="post.route"
                                             class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
@@ -336,6 +336,33 @@ const loggedInUserId = computed(() => props.auth.user?.id || null);
                                 </div>
                             </div>
                         </div>
+
+                        <div v-for="trade in trades" :key="trade.id"
+                            class="flex flex-col lg:flex-row items-center bg-white shadow-lg shadow-gray-200 dark:shadow-gray-700/50 dark:bg-gray-800 rounded-2xl p-4 mb-6">
+                            <img class="object-cover w-full lg:w-48 lg:h-48 rounded-lg" :src="trade.image"
+                                :alt="trade.title">
+                            <div class="flex flex-col w-full justify-between p-4 leading-normal">
+                                <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{ trade.title }}
+                                </h5>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    {{ trade.description }}
+                                </p>
+                                <p class="font-normal text-xs text-gray-500 dark:text-gray-400">
+                                    Posted on: {{ formatDate(trade.created_at) }}
+                                </p>
+
+                                <div class="flex items-center justify-end">
+                                    <div>
+                                        <Link :href="trade.route"
+                                            class="btn-link flex items-center text-xs text-indigo-600 dark:text-indigo-300 hover:underline">
+                                        View Trade &rarr;
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

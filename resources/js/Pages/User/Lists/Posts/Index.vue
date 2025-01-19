@@ -70,7 +70,7 @@ const filteredPosts = computed(() => {
 
         <div class="container w-full mx-auto pt-4">
             <div
-                class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-gray-100 dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
+                class="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white dark:bg-gray-950/50 rounded-2xl shadow-xl shadow-gray-200 dark:shadow-gray-800 lg:p-5 sm:flex">
                 <div class="mb-1 w-full">
                     <div class="mb-4">
                         <nav class="flex mb-5">

@@ -60,7 +60,9 @@ const closeModal = () => {
 
 <template>
     <div>
-        <SecondaryButton @click="showCreateModal = true">Add New Trade</SecondaryButton>
+        <SecondaryButton @click="showCreateModal = true">
+            <slot />
+        </SecondaryButton>
 
         <Modal :show="showCreateModal" @close="closeModal">
             <div class="p-6">
@@ -117,7 +119,7 @@ const closeModal = () => {
                     <div>
                         <InputLabel for="trade_description" value="Description" />
                         <TextArea id="trade_description" v-model="form.trade_description" class="mt-1 block w-full"
-                            rows="3" placeholder="Description"></textarea>
+                            rows="2" placeholder="Description"></textarea>
                         <InputError :message="form.errors.trade_description" class="mt-2" />
                     </div>
 
@@ -163,7 +165,7 @@ const closeModal = () => {
                     <div>
                         <InputLabel for="trade_conditions" value="Conditions" />
                         <TextArea id="trade_conditions" v-model="form.trade_conditions" class="mt-1 block w-full"
-                            rows="3" placeholder="Conditions"></textarea>
+                            rows="2" placeholder="Conditions"></textarea>
                         <InputError :message="form.errors.trade_conditions" class="mt-2" />
                     </div>
 

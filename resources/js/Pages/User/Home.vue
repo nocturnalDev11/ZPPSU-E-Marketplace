@@ -82,9 +82,9 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </div>
         </div>
 
-        <div class="px-4 md:px-10 mx-auto w-full">
+        <div class="md:px-10 mx-auto w-full">
             <!--Products -->
-            <div class="container px-4 w-full mx-auto md:h-auto pb-24">
+            <div class="w-full mx-auto md:h-auto py-10">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Products</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -153,7 +153,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </div>
 
             <!-- Services -->
-            <div class="container px-4 w-full mx-auto md:h-auto py-24">
+            <div class="w-full mx-auto md:h-auto py-10">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Services</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -221,7 +221,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </div>
 
             <!-- Trades -->
-            <div class="container px-4 w-full mx-auto md:h-auto py-24">
+            <div class="w-full mx-auto md:h-auto py-10">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Trades</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">
@@ -285,7 +285,7 @@ const userName = computed(() => props.auth.user?.name || 'Guest');
             </div>
 
             <!-- Posts -->
-            <div class="container px-4 w-full mx-auto md:h-auto py-24">
+            <div class="w-full mx-auto md:h-auto py-10">
                 <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Posts</h2>
                     <p class="mt-1 text-gray-600 dark:text-neutral-400">

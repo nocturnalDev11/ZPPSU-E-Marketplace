@@ -139,9 +139,9 @@ const currentLayout = computed(() => {
                             <div class="space-y-3">
                                 <h3 class="text-2xl font-semibold dark:text-white">Service description</h3>
 
-                                <p class="text-lg text-gray-800 dark:text-neutral-200 whitespace-pre-line">{{
-                                    service.services_description
-                                    }}</p>
+                                <p class="text-lg text-gray-800 dark:text-neutral-200 whitespace-pre-line">
+                                    {{ service.services_description }}
+                                </p>
                             </div>
                         </div>
                         <Rating v-if="service && $page.props.auth.user" :service="service" :ratings="service.ratings"

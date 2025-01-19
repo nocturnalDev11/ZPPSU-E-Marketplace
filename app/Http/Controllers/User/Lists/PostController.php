@@ -88,13 +88,13 @@ class PostController extends Controller
             ->get();
 
         $relatedPosts = Post::where('post_list_type', $post->post_list_type)
-            ->where('id', '!=', $id)
-            ->take(5)
-            ->get()
-            ->map(function ($relatedPost) {
-                $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
-                return $relatedPost;
-            });
+                        ->where('id', '!=', $id)
+                        ->take(5)
+                        ->get()
+                        ->map(function ($relatedPost) {
+                            $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
+                            return $relatedPost;
+                        });
 
         return Inertia::render('User/Lists/Posts/Show', [
             'user' => Auth::user(),

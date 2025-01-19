@@ -17,11 +17,6 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 const { props } = usePage();
 
 defineProps({
-    // admin: {
-    //     type: Object,
-    //     required: true,
-    //     default: null,
-    // },
     user: {
         type: Object,
         required: true,
@@ -204,10 +199,6 @@ const currentLayout = computed(() => {
                                 <Delete :productId="product.id" />
                             </div>
                         </div>
-
-                        <!-- <div class="flex flex-wrap gap-4 mt-8" v-if="props.admin === props.admin.id">
-                            <Delete :productId="product.id" />
-                        </div> -->
                     </div>
 
                     <div class="mt-8">
@@ -230,7 +221,8 @@ const currentLayout = computed(() => {
                         <div v-show="activeTab === 'description'" class="py-6 text-gray-600 dark:text-gray-300">
                             <div class="space-y-4">
                                 <div class="text-lg font-medium">Product Description</div>
-                                <div class="text-sm text-justify whitespace-pre-wrap">{{ product.prod_description }}
+                                <div class="text-sm text-justify whitespace-pre-wrap">
+                                    {{ product.prod_description }}
                                 </div>
                             </div>
                         </div>

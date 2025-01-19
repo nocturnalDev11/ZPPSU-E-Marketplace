@@ -72,7 +72,7 @@ class ProfileController extends Controller
 
         $trades = $profileUser->trades->map(fn($trade) => [
             'title' => $trade->trade_title,
-            'image' => $trade->trade_picture,
+            'image' => $trade->trade_picture ? Storage::url($trade->trade_picture) : null,
             'description' => $trade->trade_description,
             'created_at' => $trade->created_at,
             'type' => 'Trade'

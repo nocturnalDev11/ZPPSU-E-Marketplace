@@ -110,7 +110,6 @@ class ProductController extends Controller
                 ->get();
 
         return Inertia::render('User/Lists/Products/Show', [
-            // 'admin' => Auth::guard('admin'),
             'user' => Auth::user(),
             'user_id' => Auth::id(),
             'product' => $product,

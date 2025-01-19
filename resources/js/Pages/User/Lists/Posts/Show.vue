@@ -72,7 +72,7 @@ const currentLayout = computed(() => {
             <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
                 <!-- Content -->
                 <div class="lg:col-span-2">
-                    <div class="py-8 lg:pe-8">
+                    <div class="lg:pe-8">
                         <div class="space-y-5 lg:space-y-8">
                             <Link
                                 class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500"
@@ -106,7 +106,8 @@ const currentLayout = computed(() => {
                             </figure>
 
                             <div class="space-y-3">
-                                <p class="text-lg text-gray-800 dark:text-neutral-200">
+                                <h3 class="text-2xl font-semibold dark:text-white">Post description</h3>
+                                <p class="text-lg text-gray-800 dark:text-neutral-200 whitespace-pre-line">
                                     {{ post.post_content }}
                                 </p>
                             </div>
@@ -202,6 +203,29 @@ const currentLayout = computed(() => {
                                     <Delete :postId="post.id" />
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-semibold dark:text-white">Related Posts</h3>
+                            <Link :href="route('posts.show', relatedPost.id)" v-for="relatedPost in relatedPosts"
+                                :key="relatedPost.id" class="group flex items-center gap-x-6 focus:outline-none">
+                            <div class="shrink-0 relative rounded-lg overflow-hidden size-20">
+                                <img class="size-full absolute top-0 start-0 object-cover rounded-lg"
+                                    :src="relatedPost.post_picture" alt="Post Image" />
+                            </div>
+
+                            <div class="grow">
+                                <span
+                                    class="text-sm font-bold text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
+                                    {{ relatedPost.post_title }}
+                                </span>
+                                <br />
+                                <span
+                                    class="text-xs font-medium italic text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
+                                    {{ relatedPost.post_category }}
+                                </span>
+                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

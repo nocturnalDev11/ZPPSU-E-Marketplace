@@ -89,7 +89,7 @@ const currentLayout = computed(() => {
             <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
                 <!-- Content -->
                 <div class="lg:col-span-2">
-                    <div class="py-8 lg:pe-8">
+                    <div class="lg:pe-8">
                         <div class="space-y-5 lg:space-y-8">
                             <Link
                                 class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500"
@@ -127,8 +127,16 @@ const currentLayout = computed(() => {
                             </figure>
 
                             <div class="space-y-3">
+                                <h3 class="text-2xl font-semibold dark:text-white">Trade description</h3>
                                 <p class="text-lg text-gray-800 dark:text-gray-200">
                                     {{ trade.trade_description }}
+                                </p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <h3 class="text-2xl font-semibold dark:text-white">Conditions</h3>
+                                <p class="text-lg text-gray-800 dark:text-gray-200">
+                                    {{ trade.trade_conditions }}
                                 </p>
                             </div>
                         </div>

@@ -85,7 +85,7 @@ function toggleReplyForm(ratingId) {
                     </template>
                 </div>
 
-                <TextArea v-model="form.rating_text" rows="6" class="my-3" placeholder="Write a comment..."
+                <TextArea v-model="form.rating_text" rows="4" class="my-3" placeholder="Write a comment..."
                     required></TextArea>
                 <SecondaryButton type="submit">
                     Rate
@@ -97,7 +97,7 @@ function toggleReplyForm(ratingId) {
             <div class="space-y-4">
                 <p class="font-semibold mb-2">Customer Reviews</p>
                 <div v-for="rating in ratings.filter(c => c.parent_id === null)" :key="rating.id">
-                    <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
+                    <article class="p-6 text-base">
                         <footer class="flex justify-between items-center mb-2">
                             <div class="flex items-center">
                                 <div
