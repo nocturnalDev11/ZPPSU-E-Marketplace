@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 
 const props = defineProps(['tradeId']);
@@ -41,8 +42,8 @@ const closeModal = () => {
         </svg>
     </DangerButton>
 
-    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-sm">
+    <Modal :show="showModal" @close="closeModal">
+        <div class="p-6">
             <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Are you sure?</h2>
             <p class="mt-2 text-gray-600 dark:text-gray-200">This action cannot be undone. Do you really want to delete
                 this trade?
@@ -54,5 +55,5 @@ const closeModal = () => {
                 <button @click="deleteTrade" class="px-4 py-2 bg-red-600 text-white rounded">Confirm</button>
             </div>
         </div>
-    </div>
+    </Modal>
 </template>

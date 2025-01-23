@@ -175,7 +175,7 @@ const searchedUsers = computed(() => {
                                             <div class="ps-6 lg:ps-3 xl:ps-4 pe-6 py-3">
                                                 <div class="flex items-center gap-x-3">
                                                     <div
-                                                        class="flex-shrink-0 relative inline-flex items-center justify-center rounded-full shadow-lg shadow-indigo-300 dark:shadow-indigo-800/70 overflow-hidden bg-indigo-400 dark:bg-indigo-600 w-10 h-10">
+                                                        class="flex-shrink-0 bg-indigo-500 relative inline-flex items-center justify-center rounded-full overflow-hidden w-10 h-10">
                                                         <img v-if="user.profile_picture" :src="user.profile_picture"
                                                             alt="Profile Picture" class="object-cover w-full h-full" />
 

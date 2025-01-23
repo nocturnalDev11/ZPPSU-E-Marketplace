@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
-import Modal from '@/Components/Modal.vue'
+import Modal from '@/Components/Modal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 
 const props = defineProps(['tradeId']);
