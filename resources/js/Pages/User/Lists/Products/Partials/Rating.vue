@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/vue3';
 import Reply from '../Partials/Reply.vue';
 import TextArea from '@/Components/TextArea.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import DeleteRating from '../Partials/DeleteRating.vue';
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -64,7 +65,7 @@ function toggleReplyForm(ratingId) {
 <template>
     <div class="max-w-4xl p-4">
         <!-- User Rating Section -->
-        <div class="mb-6">
+        <div class="mb-6" v-if="!$page.props.auth.admin">
             <form @submit.prevent="submitRating">
                 <p class="font-semibold mb-2">
                     Rate this product: <span class="text-red-500">*</span>
@@ -135,6 +136,11 @@ function toggleReplyForm(ratingId) {
                                 </div>
                             </div>
                         </div>
+                        <!-- Delete button -->
+                        <DeleteRating v-if="rating && $page.props.auth.user?.id &&
+                            ($page.props.auth.user.id === rating.user_id || $page.props.auth.user.id === rating.product?.user_id)"
+                            :ratingId="rating.id" />
+
                     </footer>
                     <p class="text-gray-500 dark:text-gray-400">
                         {{ rating.rating_text }}

@@ -42,7 +42,23 @@ class UserProductsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::with(['user', 'ratings.user'])
+        ->findOrFail($id);
+
+        $product->prod_picture = $product->prod_picture ? Storage::url($product->prod_picture) : null;
+
+        $ratings = $product->ratings()
+            ->whereNull('parent_id')
+            ->with('replies.user')
+            ->latest()
+            ->get();
+
+        return Inertia::render('Admin/Lists/Products/ViewProduct', [
+            'user' => Auth::user(),
+            'user_id' => Auth::id(),
+            'product' => $product,
+            'ratings' => $ratings
+        ]);
     }
 
     /**

@@ -41,7 +41,33 @@ class UserPostsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::with(['user', 'comments.user'])
+        ->findOrFail($id);
+
+        $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
+
+        $comments = $post->comments()
+                    ->whereNull('parent_id')
+                    ->with('replies.user')
+                    ->latest()
+                    ->get();
+
+        $relatedPosts = Post::where('post_list_type', $post->post_list_type)
+                        ->where('id', '!=', $id)
+                        ->take(5)
+                        ->get()
+                        ->map(function ($relatedPost) {
+                            $relatedPost->post_picture = $relatedPost->post_picture ? Storage::url($relatedPost->post_picture) : null;
+                            return $relatedPost;
+                        });
+
+        return Inertia::render('User/Lists/Posts/Show', [
+            'user' => Auth::user(),
+            'post' => $post,
+            'relatedPosts' => $relatedPosts,
+            'comments' => $comments,
+            'user_id' => Auth::id(),
+        ]);
     }
 
     /**

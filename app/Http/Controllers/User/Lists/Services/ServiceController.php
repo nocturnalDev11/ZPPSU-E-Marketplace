@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User\Lists;
+namespace App\Http\Controllers\User\Lists\Services;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Service\Service;
 use App\Http\Controllers\Controller;
-use App\Models\Service\ServiceRating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,44 +60,6 @@ class ServiceController extends Controller
         return redirect()->route('services.index')->with('success', 'Service created successfully!');
     }
 
-    public function rate(Request $request)
-    {
-        $request->validate([
-            'rating_value' => 'required|numeric|min:1|max:5',
-            'rating_text' => 'nullable|string',
-            'services_id' => 'required|exists:services,id',
-            'parent_id' => 'nullable|exists:ratings,id',
-        ]);
-
-        ServiceRating::create([
-            'user_id' => Auth::id(),
-            'services_id' => $request->services_id,
-            'parent_id' => $request->parent_id,
-            'rating_value' => $request->rating_value,
-            'rating_text' => $request->rating_text,
-        ]);
-
-        return back()->with('success', 'Rating added successfully.');
-    }
-
-    public function reply(Request $request)
-    {
-        $request->validate([
-            'rating_text' => 'nullable|string',
-            'services_id' => 'required|exists:services,id',
-            'parent_id' => 'nullable|exists:ratings,id',
-        ]);
-
-        ServiceRating::create([
-            'user_id' => Auth::id(),
-            'services_id' => $request->services_id,
-            'parent_id' => $request->parent_id,
-            'rating_text' => $request->rating_text,
-        ]);
-
-        return back()->with('success', 'Reply added successfully.');
-    }
-
     /**
      * Display the specified service.
      */
@@ -109,19 +70,19 @@ class ServiceController extends Controller
         $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
 
         $ratings = $service->ratings()
-                    ->whereNull('parent_id')
-                    ->with('replies.user')
-                    ->latest()
-                    ->get();
+            ->whereNull('parent_id')
+            ->with('replies.user')
+            ->latest()
+            ->get();
 
         $relatedServices = Service::where('services_category', $service->services_category)
-                            ->where('id', '!=', $id)
-                            ->take(5)
-                            ->get()
-                            ->map(function ($relatedService) {
-                                $relatedService->services_picture = $relatedService->services_picture ? Storage::url($relatedService->services_picture) : null;
-                                return $relatedService;
-                            });
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get()
+            ->map(function ($relatedService) {
+                $relatedService->services_picture = $relatedService->services_picture ? Storage::url($relatedService->services_picture) : null;
+                return $relatedService;
+            });
 
         return Inertia::render('User/Lists/Services/Show', [
             'user' => Auth::user(),

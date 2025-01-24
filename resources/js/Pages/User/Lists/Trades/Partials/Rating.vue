@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import Reply from '../Partials/Reply.vue';
+import DeleteRating from './DeleteRating.vue';
 import TextArea from '@/Components/TextArea.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
@@ -65,7 +66,7 @@ function toggleReplyForm(ratingId) {
 <template>
     <div class="max-w-4xl p-4">
         <!-- User Rating Section -->
-        <div class="mb-6">
+        <div class="mb-6" v-if="!$page.props.auth.admin">
             <form @submit.prevent="submitRating">
                 <p class="font-semibold mb-2">
                     Rate this trade: <span class="text-red-500">*</span>
@@ -137,12 +138,18 @@ function toggleReplyForm(ratingId) {
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Delete button -->
+                            <DeleteRating
+                                v-if="rating && $page.props.auth.user?.id &&
+                                    ($page.props.auth.user.id === rating.user_id || $page.props.auth.user.id === rating.trade?.user_id)"
+                                :ratingId="rating.id" />
                         </footer>
                         <p class="text-gray-500 dark:text-gray-400">
                             {{ rating.rating_text }}
                         </p>
                         <div class="flex items-center mt-4 space-x-4">
-                            <button type="button" @click="toggleReplyForm(rating.id)"
+                            <!-- <button type="button" @click="toggleReplyForm(rating.id)"
                                 class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
                                 <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 18">
@@ -151,14 +158,14 @@ function toggleReplyForm(ratingId) {
                                         d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
                                 </svg>
                                 Reply
-                            </button>
+                            </button> -->
                         </div>
                     </article>
 
-                    <div v-if="replyFormsVisibility[rating.id]">
+                    <!-- <div v-if="replyFormsVisibility[rating.id]">
                         <Reply :parentId="rating.id" :tradeId="trade.id" :userId="user_id"
                             :replies="ratings.filter(reply => reply.parent_id === rating.id)" />
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -41,7 +41,32 @@ class UserTradesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $trade = Trade::with(['user', 'ratings.user'])->findOrFail($id);
+
+        $trade->trade_picture = $trade->trade_picture ? Storage::url($trade->trade_picture) : null;
+
+        $ratings = $trade->ratings()
+                    ->whereNull('parent_id')
+                    ->with('replies.user')
+                    ->latest()
+                    ->get();
+
+        $relatedTrades = Trade::where('trade_category', $trade->trade_category)
+                            ->where('id', '!=', $id)
+                            ->take(5)
+                            ->get()
+                            ->map(function ($relatedTrade) {
+                                $relatedTrade->trade_picture = $relatedTrade->trade_picture ? Storage::url($relatedTrade->trade_picture) : null;
+                                return $relatedTrade;
+                            });
+
+        return Inertia::render('Admin/Lists/Trades/ViewTrade', [
+            'user' => Auth::user(),
+            'user_id' => Auth::id(),
+            'trade' => $trade,
+            'ratings' => $ratings,
+            'relatedTrades' => $relatedTrades,
+        ]);
     }
 
     /**

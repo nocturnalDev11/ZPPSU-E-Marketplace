@@ -6,16 +6,20 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\User\Lists\PostController;
-use App\Http\Controllers\User\Lists\TradeController;
 use App\Http\Controllers\User\Lists\SearchController;
-use App\Http\Controllers\User\Lists\ProductController;
-use App\Http\Controllers\User\Lists\ServiceController;
 use App\Http\Controllers\Admin\Lists\UserPostsController;
+use App\Http\Controllers\User\Lists\Posts\PostController;
 use App\Http\Controllers\Admin\Lists\UserTradesController;
+use App\Http\Controllers\User\Lists\Trades\TradeController;
 use App\Http\Controllers\Admin\Lists\UserProductsController;
 use App\Http\Controllers\Admin\Lists\UserServicesController;
 use App\Http\Controllers\Admin\Users\UserManagementController;
+use App\Http\Controllers\User\Lists\Products\ProductController;
+use App\Http\Controllers\User\Lists\Services\ServiceController;
+use App\Http\Controllers\User\Lists\Posts\PostCommentController;
+use App\Http\Controllers\User\Lists\Trades\TradeRatingController;
+use App\Http\Controllers\User\Lists\Products\ProductRatingController;
+use App\Http\Controllers\User\Lists\Services\ServiceRatingController;
 
 Route::get('/', [LandingPageController::class, 'index'])->name('landing.page');
 /*
@@ -56,8 +60,9 @@ Route::prefix('products')->name('products.')->group(function () {
         Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('edit');
         Route::put('/{id}', [ProductController::class, 'update'])->name('update');
         Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy');
-        Route::post('/rate', [ProductController::class, 'rate'])->name('rate');
-        Route::post('/reply', [ProductController::class, 'reply'])->name('reply');
+        Route::post('/rate', [ProductRatingController::class, 'rate'])->name('rate');
+        Route::post('/reply', [ProductRatingController::class, 'reply'])->name('reply');
+        Route::delete('/ratings/{id}', [ProductRatingController::class, 'destroy'])->name('ratings.destroy');
     });
 });
 
@@ -73,8 +78,9 @@ Route::prefix('services')->name('services.')->group(function () {
         Route::get('/{id}/edit', [ServiceController::class, 'edit'])->name('edit');
         Route::put('/{id}', [ServiceController::class, 'update'])->name('update');
         Route::delete('/{id}', [ServiceController::class, 'destroy'])->name('destroy');
-        Route::post('/rate', [ServiceController::class, 'rate'])->name('rate');
-        Route::post('/reply', [ServiceController::class, 'reply'])->name('reply');
+        Route::post('/rate', [ServiceRatingController::class, 'rate'])->name('rate');
+        Route::post('/reply', [ServiceRatingController::class, 'reply'])->name('reply');
+        Route::delete('/ratings/{id}', [ServiceRatingController::class, 'destroy'])->name('ratings.destroy');
     });
 });
 
@@ -89,8 +95,8 @@ Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
         Route::put('/{id}', [PostController::class, 'update'])->name('update');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
-        Route::post('/comment', [PostController::class, 'comment'])->name('comment');
-        Route::delete('/comments/{id}', [PostController::class, 'deleteComment'])->name('comments.delete');
+        Route::post('/comment', [PostCommentController::class, 'comment'])->name('comment');
+        Route::delete('/comments/{id}', [PostCommentController::class, 'destroy'])->name('comments.delete');
     });
 });
 
@@ -106,8 +112,9 @@ Route::prefix('trades')->name('trades.')->group(function () {
         Route::get('/{id}/edit', [TradeController::class, 'edit'])->name('edit');
         Route::put('/{id}', [TradeController::class, 'update'])->name('update');
         Route::delete('/{id}', [TradeController::class, 'destroy'])->name('destroy');
-        Route::post('/rate', [TradeController::class, 'rate'])->name('rate');
-        Route::post('/reply', [TradeController::class, 'reply'])->name('reply');
+        Route::post('/rate', [TradeRatingController::class, 'rate'])->name('rate');
+        Route::post('/reply', [TradeRatingController::class, 'reply'])->name('reply');
+        Route::delete('/ratings/{id}', [TradeRatingController::class, 'destroy'])->name('ratings.destroy');
     });
 });
 
@@ -132,11 +139,13 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::prefix('user-products')->group(function() {
         Route::get('/', [UserProductsController::class, 'index'])->name('user-product.index');
+        Route::get('/{id}', [UserProductsController::class, 'show'])->name('user-product.show');
         Route::delete('/{id}', [UserProductsController::class, 'destroy'])->name('user-product.destroy');
     });
 
     Route::prefix('user-services')->group(function () {
         Route::get('/', [UserServicesController::class, 'index'])->name('user-service.index');
+        Route::get('/{id}', [UserServicesController::class, 'show'])->name('user-service.show');
         Route::delete('/{id}', [UserServicesController::class, 'destroy'])->name('user-service.destroy');
     });
 
@@ -147,6 +156,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::prefix('user-trades')->group(function () {
         Route::get('/', [UserTradesController::class, 'index'])->name('user-trade.index');
+        Route::get('/{id}', [UserTradesController::class, 'show'])->name('user-trade.show');
         Route::delete('/{id}', [UserTradesController::class, 'destroy'])->name('user-trade.destroy');
     });
 });

@@ -20,7 +20,8 @@ const props = defineProps({
     },
     replies: {
         type: Array,
-        required: true
+        required: true,
+        default: () => []
     }
 });
 
@@ -38,9 +39,9 @@ function formatDate(dateString) {
 
 const form = useForm({
     rating_text: '',
-    services_id: computed(() => props.serviceId),
-    user_id: computed(() => props.userId),
-    parent_id: computed(() => props.parentId)
+    services_id: props.serviceId,
+    user_id: props.userId,
+    parent_id: props.parentId
 });
 
 const submitReply = () => {

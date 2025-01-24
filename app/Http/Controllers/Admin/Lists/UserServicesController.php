@@ -41,7 +41,32 @@ class UserServicesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $service = Service::with(['user', 'ratings.user'])->findOrFail($id);
+
+        $service->services_picture = $service->services_picture ? Storage::url($service->services_picture) : null;
+
+        $ratings = $service->ratings()
+            ->whereNull('parent_id')
+            ->with('replies.user')
+            ->latest()
+            ->get();
+
+        $relatedServices = Service::where('services_category', $service->services_category)
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get()
+            ->map(function ($relatedService) {
+                $relatedService->services_picture = $relatedService->services_picture ? Storage::url($relatedService->services_picture) : null;
+                return $relatedService;
+            });
+
+        return Inertia::render('Admin/Lists/Services/ViewService', [
+            'user' => Auth::user(),
+            'user_id' => Auth::id(),
+            'service' => $service,
+            'ratings' => $ratings,
+            'relatedServices' => $relatedServices,
+        ]);
     }
 
     /**

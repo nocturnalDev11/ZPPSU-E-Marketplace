@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage, useForm } from '@inertiajs/vue3';
 import Edit from './Partials/Edit.vue';
 import Delete from './Partials/Delete.vue';
 import Modal from '@/Components/Modal.vue';
@@ -35,6 +35,24 @@ defineProps({
         default: () => [],
     },
 });
+
+const form = useForm({
+    recipient_id: props.post.user.id,
+    content: 'Is this available?',
+    content_title: props.post.post_title,
+    content_link: route('posts.show', props.post.id),
+    content_link_image: props.post.post_picture,
+    content_link_description: props.post.post_content,
+});
+
+const submitMessage = () => {
+    form.post(route('message.storeListInquiry'), {
+        onSuccess: () => {
+            closeModal();
+            form.reset();
+        },
+    });
+};
 
 function formatDate(dateString) {
     const date = new Date(dateString);

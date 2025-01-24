@@ -113,7 +113,10 @@ function toggleReplyForm(commentId) {
                             Reply
                         </button>
 
-                        <!-- <DeleteComment :commentId="comment.id" /> -->
+                        <DeleteComment
+                            v-if="comment && $page.props.auth.user?.id &&
+                                ($page.props.auth.user.id === comment.user_id || $page.props.auth.user.id === comment.post?.user_id)"
+                            :commentId="comment.id" />
                     </div>
                 </article>
 

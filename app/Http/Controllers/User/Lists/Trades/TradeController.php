@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User\Lists;
+namespace App\Http\Controllers\User\Lists\Trades;
 
 use Inertia\Inertia;
 use App\Models\Trade\Trade;
 use Illuminate\Http\Request;
-use App\Models\Trade\TradeRating;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -56,44 +55,6 @@ class TradeController extends Controller
         return redirect()->route('trades.index')->with('success', 'Trade created successfully!');
     }
 
-    public function rate(Request $request)
-    {
-        $request->validate([
-            'rating_value' => 'required|numeric|min:1|max:5',
-            'rating_text' => 'nullable|string',
-            'trades_id' => 'required|exists:trades,id',
-            'parent_id' => 'nullable|exists:ratings,id',
-        ]);
-
-        TradeRating::create([
-            'user_id' => Auth::id(),
-            'trades_id' => $request->trades_id,
-            'parent_id' => $request->parent_id,
-            'rating_value' => $request->rating_value,
-            'rating_text' => $request->rating_text,
-        ]);
-
-        return back()->with('success', 'Rating added successfully.');
-    }
-
-    public function reply(Request $request)
-    {
-        $request->validate([
-            'rating_text' => 'nullable|string',
-            'trades_id' => 'required|exists:trades,id',
-            'parent_id' => 'nullable|exists:ratings,id',
-        ]);
-
-        TradeRating::create([
-            'user_id' => Auth::id(),
-            'trades_id' => $request->trades_id,
-            'parent_id' => $request->parent_id,
-            'rating_text' => $request->rating_text,
-        ]);
-
-        return back()->with('success', 'Reply added successfully.');
-    }
-
     /**
      * Display the specified trade.
      */
@@ -104,19 +65,19 @@ class TradeController extends Controller
         $trade->trade_picture = $trade->trade_picture ? Storage::url($trade->trade_picture) : null;
 
         $ratings = $trade->ratings()
-                    ->whereNull('parent_id')
-                    ->with('replies.user')
-                    ->latest()
-                    ->get();
+            ->whereNull('parent_id')
+            ->with('replies.user')
+            ->latest()
+            ->get();
 
         $relatedTrades = Trade::where('trade_category', $trade->trade_category)
-                            ->where('id', '!=', $id)
-                            ->take(5)
-                            ->get()
-                            ->map(function ($relatedTrade) {
-                                $relatedTrade->trade_picture = $relatedTrade->trade_picture ? Storage::url($relatedTrade->trade_picture) : null;
-                                return $relatedTrade;
-                            });
+            ->where('id', '!=', $id)
+            ->take(5)
+            ->get()
+            ->map(function ($relatedTrade) {
+                $relatedTrade->trade_picture = $relatedTrade->trade_picture ? Storage::url($relatedTrade->trade_picture) : null;
+                return $relatedTrade;
+            });
 
         return Inertia::render('User/Lists/Trades/Show', [
             'user' => Auth::user(),

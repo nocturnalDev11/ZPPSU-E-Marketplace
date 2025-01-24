@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User\Lists;
+namespace App\Http\Controllers\User\Lists\Posts;
 
 use Inertia\Inertia;
 use App\Models\Post\Post;
 use Illuminate\Http\Request;
-use App\Models\Post\PostComment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -53,24 +52,6 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
-    public function comment(Request $request)
-    {
-        $request->validate([
-            'comment_text' => 'required|string|max:255',
-            'post_id' => 'required|exists:posts,id',
-            'parent_id' => 'nullable|exists:comments,id',
-        ]);
-
-        PostComment::create([
-            'user_id' => Auth::id(),
-            'post_id' => $request->post_id,
-            'parent_id' => $request->parent_id,
-            'comment_text' => $request->comment_text,
-        ]);
-
-        return back()->with('success', 'Comment added successfully.');
-    }
-
     /**
      * Display the specified post.
      */
@@ -82,10 +63,10 @@ class PostController extends Controller
         $post->post_picture = $post->post_picture ? Storage::url($post->post_picture) : null;
 
         $comments = $post->comments()
-            ->whereNull('parent_id')
-            ->with('replies.user')
-            ->latest()
-            ->get();
+                    ->whereNull('parent_id')
+                    ->with('replies.user')
+                    ->latest()
+                    ->get();
 
         $relatedPosts = Post::where('post_list_type', $post->post_list_type)
                         ->where('id', '!=', $id)
